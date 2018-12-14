@@ -1,0 +1,17 @@
+vehicle-menu {
+    
+    .menu-btn {
+        min-width: 100px;
+        min-height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        // border: 2px solid red;
+        background-color: rgb(15, 187, 199) !important;
+        box-shadow: 1px 3px rgb(0, 117, 126);
+        // color: black !important;
+    }
+
+    .centered-text {
+        text-align: center;
+    }
+}

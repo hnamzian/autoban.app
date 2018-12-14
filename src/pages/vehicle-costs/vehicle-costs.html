@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-navbar> <ion-title> Costs </ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-tabs>
+        <ion-tab tabTitle="Fuel" tabIcon="gasstation" [root]="fuelCostsPage"></ion-tab>
+        <ion-tab tabTitle="Fines" tabIcon="driverfine" [root]="fineCostsPage"></ion-tab>
+        <ion-tab tabTitle="Others" tabIcon="moneyicon" [root]="othersCostsPage"></ion-tab>
+    </ion-tabs>
+</ion-content>
