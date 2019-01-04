@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> New Receipt </ion-title>
+    <ion-buttons end>
+      <button class="btn-close" ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list no-lines>
+      <ion-item> <input type="text" placeholder="Tag" /> </ion-item>
+      <ion-item> <input type="text" placeholder="Shop" /> </ion-item>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <button ion-button full large color="primary" (click)="navToAddItems()">
+    Next
+  </button>
+</ion-footer>

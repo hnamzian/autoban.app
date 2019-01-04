@@ -1,43 +1,33 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { VehicleCostsPage } from '../vehicle-costs/vehicle-costs';
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { VehicleCostsPage } from "../vehicle-costs/vehicle-costs";
+import { RepairsListPage } from "../repairs-list/repairs-list";
+import { ServicesListPage } from "../services-list/services-list";
 
 @Component({
-  selector: 'vehicle-menu',
-  templateUrl: 'vehicle-menu.html'
+  selector: "vehicle-menu",
+  templateUrl: "vehicle-menu.html"
 })
 export class VehicleMenuPage {
+  constructor(public navCtrl: NavController) {}
 
-    constructor(public navCtrl: NavController) {
+  navToVehicleProfilePage() {}
 
-    }
+  navToRepairsListPage() {
+    this.navCtrl.push(RepairsListPage);
+  }
 
-    navToVehicleProfilePage() {
+  navToNotifsPage() {}
 
-    }
+  navToServicesPage() {
+    this.navCtrl.push(ServicesListPage);
+  }
 
-    navToRepairsListPage() {
+  navToCostsPage() {
+    this.navCtrl.push(VehicleCostsPage);
+  }
 
-    }
+  navToSettingsPage() {}
 
-    navToNotifsPage() {
-
-    }
-
-    navToPeriodicServicesPage() {
-
-    }
-
-    navToCostsPage() {
-        this.navCtrl.push(VehicleCostsPage);
-    }
-
-    navToSettingsPage() {
-
-    }
-
-    navToReoprtsPage() {
-
-    }
-
+  navToReoprtsPage() {}
 }

@@ -1,68 +1,79 @@
 <ion-header>
   <ion-navbar> <ion-title> Autoban </ion-title> </ion-navbar>
 </ion-header>
-
 <ion-content padding>
-  <div class="row">
-    <div class="col col-50 fab-container">
-      <button class="menu-btn" ion-fab full (click)="navToVehicleProfilePage()">
-        <img src="../../assets/imgs/user.svg" alt="" width="60%" />
-      </button>
-      <p class="centered-text">Profile</p>
-    </div>
-    <div class="col col-50 fab-container">
-      <button class="menu-btn" ion-fab full (click)="navToRepairsListPage()">
-        <img src="../../assets/imgs/man.svg" alt="" width="60%" />
-      </button>
-      <p class="centered-text">Repairs</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col col-50 fab-container">
-      <div class="col col-50">
-        <button class="menu-btn" ion-fab full (click)="navToNotifsPage()">
-          <img src="../../assets/imgs/milk.svg" alt="" width="60%" />
-        </button>
-        <p class="centered-text">Notifications</p>
-      </div>
-    </div>
-    <div class="col col-50 fab-container">
-      <button class="menu-btn" ion-fab full (click)="navToPeriodicServicesPage()">
-        <img src="../../assets/imgs/goat.svg" alt="" width="60%" />
-      </button>
-      <p class="centered-text">Periodic Services</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col col-50 fab-container">
-      <div class="col col-50">
-        <button class="menu-btn" ion-fab full (click)="navToCostsPage()">
-          <img src="../../assets/imgs/milk.svg" alt="" width="60%" />
-        </button>
-        <p class="centered-text">Costs</p>
-      </div>
-    </div>
-    <div class="col col-50 fab-container">
-      <button class="menu-btn" ion-fab full (click)="navToSettingsPage()">
-        <img src="../../assets/imgs/goat.svg" alt="" width="60%" />
-      </button>
-      <p class="centered-text">Settings</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col col-50 fab-container">
-      <div class="col col-50">
-        <button class="menu-btn" ion-fab full (click)="navToReoprtsPage()">
-          <img src="../../assets/imgs/milk.svg" alt="" width="60%" />
-        </button>
-        <p class="centered-text">Reports</p>
-      </div>
-    </div>
-    <div class="col col-50 fab-container">
-    </div>
-  </div>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <div class="btn-container" (click)="navToVehicleProfilePage()">
+          <div class="text-container">
+            <ion-icon name="car"></ion-icon>
+            <br />
+            <p>Profile</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToRepairsListPage()">
+          <div class="text-container">
+            <ion-icon name="construct"></ion-icon>
+            <br />
+            <p>Repairs</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToServicesPage()">
+          <div class="text-container">
+            <ion-icon name="eye"></ion-icon>
+            <br />
+            <p>Services</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToCostsPage()">
+          <div class="text-container">
+            <ion-icon name="calculator"></ion-icon>
+            <br />
+            <p>Costs</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToNotifsPage()">
+          <div class="text-container">
+            <ion-icon name="notifications"></ion-icon>
+            <br />
+            <p>Notifications</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToSettingsPage()">
+          <div class="text-container">
+            <ion-icon name="settings"></ion-icon>
+            <br />
+            <p>Settings</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToReoprtsPage()">
+          <div class="text-container">
+            <ion-icon name="stats"></ion-icon>
+            <br />
+            <p>Reports</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

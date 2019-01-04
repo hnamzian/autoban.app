@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> New Fuel Cost </ion-title>
+    <ion-buttons start>
+      <button class="btn-close" ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines>
+    <ion-item> <input type="text" placeholder="Litres" /> </ion-item>
+    <ion-item> <input type="text" placeholder="Cost" /> </ion-item>
+    <ion-item> <input type="text" placeholder="Station" /> </ion-item>
+    <ion-item> <input type="text" placeholder="KM" /> </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" round (click)="addFuelCost()">ADD</button>
+</ion-content>

@@ -1,0 +1,35 @@
+<!-- <ion-header>
+  <ion-navbar>
+    <button class="btn-back" ion-button start (click)="navToMenu()">
+      <ion-icon class="navbar-btn-icon" name="arrow-back"></ion-icon>
+    </button>
+    <ion-title> Costs </ion-title>
+    <ion-buttons right>
+      <button class="btn-add" ion-button end (click)="addNewCost()">
+        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header> -->
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let payment of finePayments">
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ payment.location }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2 class="right-end">{{ payment.date }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-33">
+          <h3>cost: {{ payment.cost }}</h3>
+        </div>
+        <div class="col col-33">
+          <h3 class="right-end">{{ payment.costType }}</h3>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

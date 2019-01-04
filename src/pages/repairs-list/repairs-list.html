@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> Repairs List </ion-title>
+    <ion-buttons right>
+      <button class="btn-add" ion-button end (click)="addNewRepair()">
+        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let repair of repairs" (click)="openRepairData()">
+      <ion-avatar item-start>
+        <ion-icon class="navbar-btn-icon" name="repair-service"></ion-icon>
+      </ion-avatar>
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ repair.title }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2 class="right-end">{{ repair.date }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ repair.repairMan }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2 class="right-end">{{ repair.cost }}</h2>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

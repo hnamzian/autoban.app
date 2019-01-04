@@ -1,17 +1,37 @@
 vehicle-menu {
-    
-    .menu-btn {
-        min-width: 100px;
-        min-height: 100px;
-        margin-left: auto;
-        margin-right: auto;
-        // border: 2px solid red;
-        background-color: rgb(15, 187, 199) !important;
-        box-shadow: 1px 3px rgb(0, 117, 126);
-        // color: black !important;
-    }
+  .menu-btn {
+    min-width: 100px;
+    min-height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0%;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    // background-color: rgb(15, 187, 199) !important;
+    // box-shadow: 1px 3px rgb(0, 117, 126);
+    // color: black !important;
+  }
 
-    .centered-text {
-        text-align: center;
-    }
+  .btn-container {
+    height: 100px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .text-container {
+      ion-icon {
+          margin-top: 30px;
+          font-size: 26px;
+      }
+      p {
+          margin-top: 0px;
+      }
+  }
+
+  .centered-text {
+    text-align: center;
+  }
 }

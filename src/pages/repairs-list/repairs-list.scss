@@ -1,0 +1,28 @@
+repairs-list {
+  .btn-add {
+    margin-right: 10px;
+    font-size: 30px;
+  }
+
+  .right-end {
+    float: right;
+  }
+
+  .ion-ios-repairtool,
+  .ion-md-repairtool {
+    content: url(../../assets/icon/repair-tool.svg);
+    width: 36px;
+    height: 48px;
+    padding: 6px 4px 2px;
+    opacity: 0.9;
+  }
+
+  .ion-ios-repair-service,
+  .ion-md-repair-service {
+    content: url(../../assets/icon/repair-service.svg);
+    width: 48px;
+    height: 80px;
+    padding: 6px 4px 2px;
+    opacity: 0.9;
+  }
+}

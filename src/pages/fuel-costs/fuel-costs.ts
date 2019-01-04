@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, ModalController } from "ionic-angular";
+import { NewFuelCostPage } from "../new-fuel-cost/new-fuel-cost";
+import { VehicleMenuPage} from "../vehicle-menu/vehicle-menu";
 
 @Component({
   selector: "fuel-costs",
@@ -51,5 +53,17 @@ export class FuelCostsPage {
     }
   ];
 
-  constructor(public navCtrl: NavController) {}
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController
+  ) {}
+
+  addNewFuelCost() {
+    const modal = this.modalCtrl.create(NewFuelCostPage);
+    modal.present();
+  }
+
+  navToMenu() {
+    this.navCtrl.push(VehicleMenuPage);
+  }
 }

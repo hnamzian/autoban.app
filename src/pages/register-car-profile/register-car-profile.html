@@ -1,0 +1,41 @@
+<ion-content>
+  <img src="../../assets/imgs/car_repair.jpg" alt="" />
+
+  <div class="comment-container"><p>Enter your Personal Information.</p></div>
+
+  <ion-list>
+    <ion-item> <input type="text" placeholder="Nick Name" /> </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>Brand</ion-label>
+      <ion-select [(ngModel)]="branding" interface="popover">
+        <ion-option *ngFor="let brand of brands">{{ brand }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>Trim</ion-label>
+      <ion-select [(ngModel)]="gaming" interface="popover">
+        <ion-option *ngFor="let trim of trims">{{ trim }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item> <input type="text" placeholder="Model*" /> </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item> <input type="text" placeholder="Built Year*" /> </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item> <input type="text" placeholder="Odometer" /> </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item> <input type="text" placeholder="Plate" /> </ion-item>
+  </ion-list>
+
+  <button ion-button color="primary" round (click)="registerCar()">
+    Save
+  </button>
+</ion-content>

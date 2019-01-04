@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar> <ion-title> Receipts </ion-title> </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let receipt of receipts" (click)="openReceiptDetail()">
+      <ion-avatar item-start> <img [src]= "receipt.imageUrl" /> </ion-avatar>
+      <h2>{{ receipt.tag }}</h2>
+      <p>date: {{ receipt.date }}</p>
+      <p>shop: {{ receipt.seller }}</p>
+      <p>cost: {{ receipt.cost }}</p>
+    </ion-item>
+  </ion-list>
+  <ion-footer>
+      <button ion-button full large (click)="addNewReceipt()">ADD</button>
+  </ion-footer>
+</ion-content>

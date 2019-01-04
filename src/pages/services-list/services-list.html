@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> Checkups </ion-title>
+    <ion-buttons right>
+      <button class="btn-add" ion-button end (click)="addNewService()">
+        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let service of services" (click)="openServiceData()">
+      <ion-avatar item-start>
+        <ion-icon class="navbar-btn-icon" name="checked-car"></ion-icon>
+      </ion-avatar>
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ service.title }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2 class="right-end">{{ service.date }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ service.repairMan }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2 class="right-end">{{ service.cost }}</h2>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> Checkup Data </ion-title>
+    <ion-buttons right>
+      <button class="btn-add" ion-button end (click)="addNewService()">
+        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of serviceItems">
+      <div class="row">
+        <div class="col col-50">
+          <h2>{{ item.name }}</h2>
+        </div>
+        <div class="col col-50">
+          <h2
+            class="right-end"
+            style="font-size: 22px"
+            [style.color]="
+              item.service == 'Changed'
+                ? 'blue'
+                : item.service == 'OK'
+                ? 'green'
+                : 'red'
+            "
+          >
+            <div [ngSwitch]="item.service">
+              <div *ngSwitchCase="'Changed'">
+                <ion-icon class="navbar-btn-icon" name="swap"></ion-icon>
+              </div>
+              <div *ngSwitchCase="'OK'">
+                <ion-icon class="navbar-btn-icon" name="thumbs-up"></ion-icon>
+              </div>
+              <div *ngSwitchCase="'Failed'">
+                <ion-icon class="navbar-btn-icon" name="thumbs-down"></ion-icon>
+              </div>
+            </div>
+          </h2>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

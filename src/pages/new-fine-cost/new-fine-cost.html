@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> New Fine Cost </ion-title>
+    <ion-buttons end>
+      <button class="btn-close" ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines>
+    <ion-item> <input type="text" placeholder="Fine Type" /> </ion-item>
+    <ion-item> <input type="text" placeholder="Fine Cost" /> </ion-item>
+    <ion-item> <input type="text" placeholder="Location" /> </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" round (click)="addFineCost()">ADD</button>
+  <!-- <button ion-button color="warning" round (click)="dismiss()">Cancel</button> -->
+</ion-content>
