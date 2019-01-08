@@ -1,21 +1,13 @@
 <ion-content>
-  <img src="../../assets/imgs/car_repair.jpg" alt="" />
-
-  <div class="comment-container">
-    <p>Enter your Personal Information.</p>
+  <div class="header-container row">
+    <div class="header-text">اطلاعات شخصی</div>
+    <img src="../../assets/imgs/person.png" alt="" />
   </div>
 
-  <ion-list>
-    <ion-item> <input type="text" placeholder="First Name" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Last Number" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Email" /> </ion-item>
-  </ion-list>
-
-  <button ion-button color="primary" round (click)="saveAndNavToCarProfile()">
-    Save
-  </button>
+  <div class="form-container">
+    <input type="text" placeholder="نام" />
+    <input type="text" placeholder="نام خانوادگی" />
+    <input type="text" placeholder="پست الکترونیکی" />
+    <button (click)="saveAndNavToCarProfile()">ذخیره</button>
+  </div>
 </ion-content>

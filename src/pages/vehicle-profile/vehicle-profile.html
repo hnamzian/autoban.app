@@ -1,0 +1,28 @@
+<ion-content>
+  <div class="header-container row">
+    <div class="header-text">اطلاعات خودرو</div>
+    <img [src]="car.imageUrl" alt="" />
+    <img class="path-img" src="../../assets//imgs/Path 33.png" alt="" />
+  </div>
+
+  <div class="form-container">
+    <input type="text" [value]="car.tag" />
+    <div class="select-container">
+      <select type="text">
+        <option>برند</option>
+        <option *ngFor="let brand of brands">{{ brand }}</option>
+      </select>
+    </div>
+    <div class="select-container">
+      <select type="text">
+        <option>تریم</option>
+        <option *ngFor="let trim of trims">{{ trim }}</option>
+      </select>
+    </div>
+    <input type="text" [value]="car.model" />
+    <input type="text" [value]="car.builtYear" />
+    <input type="text" [value]="car.odometer" />
+    <input type="text" [value]="car.body" />
+    <button (click)="saveAndNavToCarProfile()">ذخیره</button>
+  </div>
+</ion-content>

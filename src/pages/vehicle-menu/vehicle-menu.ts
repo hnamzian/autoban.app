@@ -3,7 +3,8 @@ import { NavController } from "ionic-angular";
 import { VehicleCostsPage } from "../vehicle-costs/vehicle-costs";
 import { RepairsListPage } from "../repairs-list/repairs-list";
 import { ServicesListPage } from "../services-list/services-list";
-
+import { UserProfilePage } from "../user-profile/user-profile";
+import { VehicleProfilePage } from "../vehicle-profile/vehicle-profile";
 @Component({
   selector: "vehicle-menu",
   templateUrl: "vehicle-menu.html"
@@ -11,7 +12,13 @@ import { ServicesListPage } from "../services-list/services-list";
 export class VehicleMenuPage {
   constructor(public navCtrl: NavController) {}
 
-  navToVehicleProfilePage() {}
+  navToUserProfilePage() {
+    this.navCtrl.push(UserProfilePage)
+  }
+
+  navToVehicleProfilePage() {
+      this.navCtrl.push(VehicleProfilePage)
+  }
 
   navToRepairsListPage() {
     this.navCtrl.push(RepairsListPage);

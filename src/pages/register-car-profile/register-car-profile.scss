@@ -1,37 +1,129 @@
 register-car-profile {
+  .header-container {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    .header-text {
+      position: absolute;
+      top: 80px;
+      right: 60px;
+      color: rgb(112, 112, 112);
+      font-size: 18px;
+    }
+
     img {
-      width: 100%;
-      height: 200px;
-      padding: 10px;
-    }
-  
-    .comment-container {
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-    }
-  
-    button.button-round-md {
       width: 80%;
-      height: 40px;
+      height: 70px;
       margin-left: 10%;
-      display: block;
     }
-  
+  }
+
+  .form-container {
+    width: 80%;
+    margin: auto;
+
+    .text-container {
+      width: 100%;
+      text-align: right;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding-right: 5px;
+      float: right;
+      color: rgb(112, 112, 112);
+      font-size: 14px;
+    }
+
+    span {
+      margin-left: 10px;
+      color: rgb(87, 180, 239);
+    }
+
+    .span-left {
+      float: left;
+    }
+
     input {
       width: 100%;
-      height: 40px;
-      padding: 20px;
-      border: 1px solid rgb(192, 11, 132) !important;
-      border-radius: 5px !important;
+      height: 45px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-color: rgb(246, 246, 246);
+      outline: none;
       font-size: 16px;
-      padding-left: 5px !important;
-      color: black !important;
+      text-align: right;
+      padding: 10px;
+      color: rgb(172, 172, 172);
+      padding-left: 10px;
+      border: 0px;
+      border-radius: 5px;
+      box-shadow: 3px 3px 3px;
     }
-  
-    .list-md {
-      margin-bottom: 0px !important;
+
+    .select-container {
+        direction: rtl;
     }
-    
+
+    select {
+      width: 100%;
+      height: 45px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-color: rgb(246, 246, 246);
+      outline: none;
+      font-size: 16px;
+      text-align: right;
+      padding: 10px;
+      text-align: right;
+      color: rgb(172, 172, 172);
+      padding-left: 10px;
+      border: 0px;
+      border-radius: 5px;
+      box-shadow: 3px 3px 3px;
+    }
+
+    button {
+      width: 100%;
+      height: 45px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: rgb(87, 180, 239);
+      color: white;
+      font-size: 16px;
+      box-shadow: 2px 2px 2px rgb(172, 172, 172);
+      border-radius: 5px;
+    }
   }
-  
+
+  //   img {
+  //     width: 100%;
+  //     height: 200px;
+  //     padding: 10px;
+  //   }
+
+  //   .comment-container {
+  //     text-align: center;
+  //     font-weight: bold;
+  //     font-size: 16px;
+  //   }
+
+  //   button.button-round-md {
+  //     width: 80%;
+  //     height: 40px;
+  //     margin-left: 10%;
+  //     display: block;
+  //   }
+
+  //   input {
+  //     width: 100%;
+  //     height: 40px;
+  //     padding: 20px;
+  //     border: 1px solid rgb(192, 11, 132) !important;
+  //     border-radius: 5px !important;
+  //     font-size: 16px;
+  //     padding-left: 5px !important;
+  //     color: black !important;
+  //   }
+
+  //   .list-md {
+  //     margin-bottom: 0px !important;
+  //   }
+}

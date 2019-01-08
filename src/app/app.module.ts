@@ -6,7 +6,8 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { Camera } from "@ionic-native/camera";
 
 import { MyApp } from "./app.component";
-import { ProfilePage } from '../pages/profile/profile';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { VehicleProfilePage } from "../pages/vehicle-profile/vehicle-profile";
 import { VehiclesListPage } from "../pages/vehicles-list/vehicles-list";
 import { VehicleDetailsPage } from "../pages/vehicle-details/vehicles-details";
 import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
@@ -27,7 +28,6 @@ import { RepairCardPage } from '../pages/repair-card/repair-card';
 import { RepairDataPage } from '../pages/repair-data/repair-data';
 import { RepairReceiptsPage } from '../pages/repair-receipts/repair-receipts';
 import { RepairNewReceiptsPage } from '../pages/repair-new-receipt/repair-new-receipt';
-
 import { RepairReceiptDetailPage } from '../pages/repair-receipt-detail/repair-receipt-detail';
 import { NewRepairPage } from '../pages/new-repair/new-repair';
 import { ServicesListPage } from '../pages/services-list/services-list';
@@ -38,7 +38,8 @@ import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
 @NgModule({
   declarations: [
     MyApp,
-    ProfilePage,
+    UserProfilePage,
+    VehicleProfilePage,
     VehiclesListPage,
     VehicleDetailsPage,
     VehicleMenuPage,
@@ -70,7 +71,8 @@ import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ProfilePage,
+    UserProfilePage,
+    VehicleProfilePage,
     VehiclesListPage,
     VehicleDetailsPage,
     VehicleMenuPage,

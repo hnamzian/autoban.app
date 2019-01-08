@@ -41,7 +41,7 @@ export class VehicleCostsPage {
 
     addNewCost() {
         if (this.activatedTab == "Fuel") {
-            const modal = this.modalCtrl.create(NewFuelCostPage);
+            const modal = this.modalCtrl.create(NewFuelCostPage, "", {cssClass: "modal-container"});
             modal.present();
         }
         else if (this.activatedTab == "Fine") {

@@ -1,13 +1,20 @@
 vehicle-menu {
   .toolbar-title {
-    color: white;
+    height: 60px;
+    text-align: center;
+    color: rgb(112, 112, 112);
+    // border-bottom: 1px solid rgb(255, 176, 0);
+    p {
+      margin-top: 10px;
+    }
   }
 
   .toolbar-background {
-    background-color: #676767 !important;
+    background-color: white !important;
   }
+
   ion-content {
-    background-color: #d0cfcf !important;
+    background-color: white !important;
   }
 
   .menu-btn {
@@ -18,29 +25,29 @@ vehicle-menu {
     border-radius: 0%;
     font-weight: bold;
     font-size: 16px;
-    // background-color: rgb(15, 187, 199) !important;
-    // box-shadow: 1px 3px rgb(0, 117, 126);
-    // color: black !important;
   }
 
   .btn-container {
-    background-color: #eb531f;
-    height: 100px;
-    border: 1px solid #d64413;
-    box-shadow: 5px 3px 4px #7a1f00;
+    background-color: rgb(246, 246, 246);
+    height: 110px;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px rgb(207, 207, 207);
     text-align: center;
     font-size: 18px;
-    font-weight: bold;
   }
 
   .text-container {
-    color: white;
+    color: rgb(112, 112, 112);
+    font-size: 14px;
+
     ion-icon {
+      color: rgb(82, 136, 209);
       margin-top: 30px;
-      font-size: 26px;
+      font-size: 28px;
     }
     p {
-      margin-top: 0px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
   }
 

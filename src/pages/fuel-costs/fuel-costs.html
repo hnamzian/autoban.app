@@ -14,27 +14,34 @@
   </ion-navbar>
 </ion-header> -->
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let payment of fuelPayments">
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ payment.fuelStationName }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ payment.date }}</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-33">
-          <h3>cost: {{ payment.cost }}</h3>
-        </div>
-        <div class="col col-33">
-          <h3>Litres: {{ payment.litres }}</h3>
-        </div>
-        <div class="col col-33">
-          <h3 class="right-end">KM: {{ payment.km }}</h3>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
+  <div class="item-container" *ngFor="let payment of fuelPayments">
+    <ion-grid style="direction: rtl">
+      <ion-row>
+        <ion-col col-5 class="station-text">
+          <p>{{ payment.fuelStationName }}</p>
+        </ion-col>
+        <ion-col col-4>
+          <p>{{ payment.date }}</p>
+        </ion-col>
+        <ion-col col-3>
+          <p class="cost-text">
+            هزینه <span class="text-left"> {{ payment.cost }} </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <p>
+            کیلومتر <span> {{ payment.km }} </span>
+          </p>
+        </ion-col>
+        <ion-col col-4 class="text-center"></ion-col>
+        <ion-col col-3>
+          <p class="liter-text">
+            لیتر <span class="text-left"> {{ payment.litres }} </span>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

@@ -10,46 +10,46 @@ import { VehicleMenuPage} from "../vehicle-menu/vehicle-menu";
 export class FuelCostsPage {
   fuelPayments = [
     {
-      date: "1/1/1397",
+      date: "1397/1/1",
       litres: 30,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Azadi Station"
+      fuelStationName: "جایگاه آزادی"
     },
     {
-      date: "1/2/1397",
+      date: "1397/1/1",
       litres: 20,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Tehranpars Station"
+      fuelStationName: "جایگاه تهرانپارس"
     },
     {
-      date: "1/3/1397",
+      date: "1397/1/1",
       litres: 25,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Tarasht Station"
+      fuelStationName: "جایگاه طرشت"
     },
     {
-      date: "1/4/1397",
+      date: "1397/1/1",
       litres: 35,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Azadi Station"
+      fuelStationName: "جایگاه آزادی"
     },
     {
-      date: "1/5/1397",
+      date: "1397/1/1",
       litres: 30,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Jayhoon Station"
+      fuelStationName: "جایگاه جیحون"
     },
     {
-      date: "1/6/1397",
+      date: "1397/1/1",
       litres: 20,
       cost: 30000,
       km: 3000,
-      fuelStationName: "Azadi Station"
+      fuelStationName: "جایگاه شهرک غرب"
     }
   ];
 

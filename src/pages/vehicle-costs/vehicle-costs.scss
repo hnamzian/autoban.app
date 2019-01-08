@@ -3,7 +3,7 @@ vehicle-costs {
   .ion-md-gasstation {
     content: url(../../assets/icon/fuel-station-pump.svg);
     width: 36px;
-    height: 48px;
+    height: 36px;
     padding: 6px 4px 2px;
     opacity: 0.9;
   }
@@ -12,18 +12,68 @@ vehicle-costs {
   .ion-md-driverfine {
     content: url(../../assets/icon/driver-fine.svg);
     width: 48px;
-    height: 48px;
+    height: 36px;
     padding: 6px 4px 2px;
     opacity: 0.9;
+    fill: red;
   }
 
   .ion-ios-moneyicon,
   .ion-md-moneyicon {
     content: url(../../assets/icon/money.svg);
     width: 48px;
-    height: 48px;
+    height: 36px;
     padding: 6px 4px 2px;
     opacity: 0.9;
+  }
+
+  .tabbar {
+    background-color: rgb(92, 101, 113) !important;
+
+    a.tab-button[aria-selected="true"]:nth-of-type(1) {
+      color: rgb(255, 176, 0);
+      .tab-button-icon {
+        color: rgb(255, 176, 0);
+      }
+    }
+    a.tab-button[aria-selected="false"]:nth-of-type(1) {
+      color: white;
+      .tab-button-icon {
+        color: white;
+      }
+    }
+
+    a.tab-button[aria-selected="true"]:nth-of-type(2) {
+      color: rgb(255, 176, 0);
+      .tab-button-icon {
+        color: rgb(255, 176, 0);
+      }
+    }
+    a.tab-button[aria-selected="false"]:nth-of-type(2) {
+      color: white;
+      .tab-button-icon {
+        color: white;
+      }
+    }
+    a.tab-button[aria-selected="true"]:nth-of-type(3) {
+      color: rgb(255, 176, 0);
+      .tab-button-icon {
+        color: rgb(255, 176, 0);
+      }
+    }
+    a.tab-button[aria-selected="false"]:nth-of-type(3) {
+      color: white;
+      .tab-button-icon {
+        color: white;
+      }
+    }
+  }
+
+  .fab {
+    margin-right: 10px;
+    margin-bottom: 75px;
+    background-color: rgb(82, 136, 209);
+    color: white;
   }
 
   .btn-add {
@@ -35,4 +85,15 @@ vehicle-costs {
     margin-right: 10px;
     font-size: 20px;
   }
+}
+
+.modal-container {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  opacity: 0.5;
+  z-index: 100;
+  overflow: hidden;
 }

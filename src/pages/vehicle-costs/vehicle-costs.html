@@ -1,37 +1,37 @@
 <ion-header>
   <ion-navbar>
-    <!-- <ion-buttons left>
-      <button class="btn-back" ion-button start (click)="navToMenu()">
-        <ion-icon class="navbar-btn-icon" name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons> -->
-    <ion-title> Costs </ion-title>
-    <ion-buttons right>
+    <ion-title> هزینه ها </ion-title>
+    <!-- <ion-buttons right>
       <button class="btn-add" ion-button end (click)="addNewCost()">
         <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-tabs>
     <ion-tab
-      tabTitle="Fuel"
-      tabIcon="gasstation"
+      tabTitle="سوخت"
+      tabIcon="notifications"
       [root]="fuelCostsPage"
       (ionSelect)="activateFuelTab()"
     ></ion-tab>
     <ion-tab
-      tabTitle="Fines"
+      tabTitle="جریمه ها"
       tabIcon="driverfine"
       [root]="fineCostsPage"
       (ionSelect)="activateFineTab()"
     ></ion-tab>
     <ion-tab
-      tabTitle="Others"
+      tabTitle="موارد دیگر"
       tabIcon="moneyicon"
       [root]="othersCostsPage"
       (ionSelect)="activateOthersTab()"
     ></ion-tab>
   </ion-tabs>
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addNewCost()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

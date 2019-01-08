@@ -1,0 +1,14 @@
+<ion-content>
+  <div class="header-container row">
+    <div class="header-text">اطلاعات شخصی</div>
+    <img [src]="user.imageUrl" alt="" />
+    <img class="path-img" src="../../assets//imgs/Path 33.png" alt="">
+  </div>
+
+  <div class="form-container">
+    <input type="text" [placeholder]="user.firstName" />
+    <input type="text" [placeholder]="user.lastName" />
+    <input type="text" [placeholder]="user.email" />
+    <button (click)="saveAndNavToCarProfile()">ذخیره</button>
+  </div>
+</ion-content>

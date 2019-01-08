@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title> New Fuel Cost </ion-title>
     <ion-buttons start>
@@ -7,10 +7,18 @@
       </button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-  <ion-list no-lines>
+  <div class="form-container">
+    <input type="text" placeholder="تاریخ" />
+    <input type="text" placeholder="لیتر" />
+    <input type="text" placeholder="قیمت" />
+    <input type="text" placeholder="جایگاه" />
+    <input type="text" placeholder="کیلومتر" />
+    <button (click)="addFuelCost()">ذخیره</button>
+  </div>
+  <!-- <ion-list no-lines>
     <ion-item> <input type="text" placeholder="Litres" /> </ion-item>
     <ion-item> <input type="text" placeholder="Cost" /> </ion-item>
     <ion-item> <input type="text" placeholder="Station" /> </ion-item>
@@ -20,5 +28,5 @@
       <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
     </ion-item>
   </ion-list>
-  <button ion-button color="primary" round (click)="addFuelCost()">ADD</button>
+  <button ion-button color="primary" round (click)="addFuelCost()">ADD</button> -->
 </ion-content>

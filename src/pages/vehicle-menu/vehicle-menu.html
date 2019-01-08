@@ -1,15 +1,24 @@
 <ion-header>
-  <ion-navbar> <ion-title> Autoban </ion-title> </ion-navbar>
+  <ion-title> <p>اتوبان</p> </ion-title>
 </ion-header>
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-12>
+      <ion-col col-6>
+        <div class="btn-container" (click)="navToUserProfilePage()">
+          <div class="text-container">
+            <ion-icon name="contact"></ion-icon>
+            <br />
+            <p>حساب کاربری</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
         <div class="btn-container" (click)="navToVehicleProfilePage()">
           <div class="text-container">
             <ion-icon name="car"></ion-icon>
             <br />
-            <p>Profile</p>
+            <p>مشخصات خودرو</p>
           </div>
         </div>
       </ion-col>
@@ -20,7 +29,7 @@
           <div class="text-container">
             <ion-icon name="construct"></ion-icon>
             <br />
-            <p>Repairs</p>
+            <p>تعمیرات</p>
           </div>
         </div>
       </ion-col>
@@ -29,7 +38,7 @@
           <div class="text-container">
             <ion-icon name="eye"></ion-icon>
             <br />
-            <p>Services</p>
+            <p>سرویس های دوره ای</p>
           </div>
         </div>
       </ion-col>
@@ -40,7 +49,7 @@
           <div class="text-container">
             <ion-icon name="calculator"></ion-icon>
             <br />
-            <p>Costs</p>
+            <p>هزینه ها</p>
           </div>
         </div>
       </ion-col>
@@ -49,7 +58,7 @@
           <div class="text-container">
             <ion-icon name="notifications"></ion-icon>
             <br />
-            <p>Notifications</p>
+            <p>یادآورها</p>
           </div>
         </div>
       </ion-col>
@@ -60,7 +69,7 @@
           <div class="text-container">
             <ion-icon name="settings"></ion-icon>
             <br />
-            <p>Settings</p>
+            <p>تنظیمات</p>
           </div>
         </div>
       </ion-col>
@@ -69,7 +78,7 @@
           <div class="text-container">
             <ion-icon name="stats"></ion-icon>
             <br />
-            <p>Reports</p>
+            <p>گزارش ها</p>
           </div>
         </div>
       </ion-col>

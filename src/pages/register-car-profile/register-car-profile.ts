@@ -7,9 +7,9 @@ import { VehiclesListPage } from "../vehicles-list/vehicles-list";
 })
 export class RegisterCarProfilePage {
 
-  brands = ["Pride", "Paykan", "Peugeot", "Nissan"];
+  brands = ["پراید", "پیکان", "پژو", "نیسان", "رنو"];
 
-  trims = ["blue", "red", "green", "white", "black"];
+  trims = ["آبی", "قرمز", "سبز", "سفید", "مشکی"];
 
   constructor(public navCtrl: NavController) {}
 

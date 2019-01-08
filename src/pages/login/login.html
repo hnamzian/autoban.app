@@ -1,11 +1,23 @@
 <ion-content>
-  <img src="../../assets/imgs/car_repair.jpg" alt="" />
-
-  <div class="comment-container">
-    <p>Enter your phone number to receive verification code.</p>
+  <div class="header-container row">
+    <div class="header-text">حساب کاربری</div>
+    <img src="../../assets/imgs/car.png" alt="" />
   </div>
 
-  <ion-list>
+  <div class="form-container">
+    <input type="text" value="+98" />
+    <input type="text" placeholder="********" />
+    <div class="text-container">
+      <span (click)="navToForgetPasswordPage()"> رمز عبور خود را فراموش کرده اید؟ </span>
+    </div>
+    <button (click)="registerUser()">ارسال کد</button>
+    <div class="text-container">
+      حساب کاربری ندارید؟
+      <span class="span-left" (click)="navToRegisterPage()"> ثبت نام نمایید </span>
+    </div>
+  </div>
+
+  <!-- <ion-list>
     <ion-item> <input type="text" placeholder="Phone Number" /> </ion-item>
   </ion-list>
   <ion-list>
@@ -13,17 +25,17 @@
   </ion-list>
 
   <a class="forget-pass-link" (click)="navToForgetPasswordPage()">
-    <u class="dotted">Forgot your password?</u>  
+    <u class="dotted">Forgot your password?</u>
   </a>
 
   <div class="btn-container">
-      <button ion-button color="primary" round (click)="registerUser()">
-        Login
-      </button>
+    <button ion-button color="primary" round (click)="registerUser()">
+      Login
+    </button>
   </div>
   <div class="comment-container">
     <p>
       New User? <span> <a (click)="navToRegisterPage()">Register</a> </span>
     </p>
-  </div>
+  </div> -->
 </ion-content>

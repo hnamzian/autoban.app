@@ -1,5 +1,20 @@
 <ion-content>
-  <img src="../../assets/imgs/car_repair.jpg" alt="" />
+  <div class="header-container row">
+    <div class="header-text">ثبت نام</div>
+    <img src="../../assets/imgs/car-login.png" alt="" />
+  </div>
+
+  <div class="form-container">
+    <div class="text-container">شماره تلفن همراه خود را وارد نمایید</div>
+    <input type="text" value="+98" />
+    <button (click)="registerUser()">ارسال کد</button>
+    <div class="text-container">
+      در حال حاضر حساب کاربری دارم
+      <span (click)="navToLoginPage()"> ورود </span>
+    </div>
+  </div>
+
+  <!-- <img src="../../assets/imgs/car_repair.jpg" alt="" />
 
   <div class="comment-container">
     <p>Enter your phone number to receive verification code.</p>
@@ -16,5 +31,5 @@
     <p>
       You have account? <span> <a (click)="navToLoginPage()">Login</a> </span>
     </p>
-  </div>
+  </div> -->
 </ion-content>
