@@ -34,6 +34,7 @@ import { ServicesListPage } from '../pages/services-list/services-list';
 import { ServiceDataPage } from '../pages/service-data/service-data';
 import { NewServicePage } from '../pages/new-service/new-service';
 import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
+import { CheckVerificationCodePage } from "../pages/check-verification-code/check-verification-code";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
     NewOthersCostPage,
     RegisterPage,
     LoginPage,
+    CheckVerificationCodePage,
     ForgetPasswordPage,
     RegisterProfilePage,
     RegisterCarProfilePage,
@@ -85,6 +87,7 @@ import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
     NewOthersCostPage,
     RegisterPage,
     LoginPage,
+    CheckVerificationCodePage,
     ForgetPasswordPage,
     RegisterProfilePage,
     RegisterCarProfilePage,

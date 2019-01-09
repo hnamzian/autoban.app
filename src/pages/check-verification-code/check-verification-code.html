@@ -1,0 +1,58 @@
+<ion-content>
+  <!-- <form
+    [formGroup]="codeForm"
+    #formCtrl="ngForm"
+    (keydown.enter)="$event.preventDefault()"
+  > -->
+
+  <!-- </form> -->
+
+  <div class="header-container row">
+    <div class="header-text">بررسی کد</div>
+    <img src="../../assets/imgs/car-login.png" alt="" />
+  </div>
+  <div class="timer-container">0:{{ timer }}</div>
+  <div class="digit-container">
+    <input
+      (keyup)="updateList(digit2)"
+      type="tel"
+      maxlength="1"
+      #digit1
+      required
+    />
+    <input
+      (keyup)="updateList(digit3)"
+      type="tel"
+      maxlength="1"
+      #digit2
+      required
+    />
+    <input
+      (keyup)="updateList(digit4)"
+      type="tel"
+      maxlength="1"
+      #digit3
+      required
+    />
+    <input
+      (keyup)="updateList(digit5)"
+      type="tel"
+      maxlength="1"
+      #digit4
+      required
+    />
+    <input
+      (keyup)="updateList(digit1)"
+      type="tel"
+      maxlength="1"
+      #digit5
+      required
+    />
+  </div>
+  <div class="form-container">
+    <button (click)="sendCode()">ارسال مجدد</button>
+    <div class="text-container" (click)="navToLoginPage()">
+      شماره تلفن خود را اشتباه وارد کردید؟
+    </div>
+  </div>
+</ion-content>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegisterProfilePage } from '../register-profile/register-profile';
+import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code"
 
 @Component({
   selector: 'register-page',
@@ -19,6 +20,10 @@ export class RegisterPage {
 
   navToLoginPage() {
     this.navCtrl.push(LoginPage)
+  }
+
+  sendCode() {
+    this.navCtrl.push(CheckVerificationCodePage);
   }
 
 }
