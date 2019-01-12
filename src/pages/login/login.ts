@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { RegisterPage } from "../register/register";
 import { ForgetPasswordPage } from "../forget-password/forget-password";
-import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code";
+// import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code";
 
 @Component({
   selector: "login-page",

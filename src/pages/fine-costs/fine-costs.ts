@@ -11,39 +11,39 @@ export class FineCostsPage {
   finePayments = [
     {
       date: "1/1/1397",
-      fineType: "Double Parking",
+      fineType: "پارک دوبل",
       cost: 30000,
-      location: "Mirdamad"
+      location: "میرداماد"
     },
     {
       date: "1/2/1397",
-      fineType: "Double Parking",
+      fineType: "پار ک دوبل",
       cost: 30000,
-      location: "Azadi Street"
+      location: "خیابان آزادی"
     },
     {
       date: "1/3/1397",
-      fineType: "Double Parking",
+      fineType: "ورود ممنوع",
       cost: 30000,
-      location: "Enghelab"
+      location: "انقلاب"
     },
     {
       date: "1/4/1397",
-      fineType: "Double Parking",
+      fineType: "سرعت غیر مجاز",
       cost: 30000,
-      location: "Tajris"
+      location: "تجریش"
     },
     {
       date: "1/5/1397",
-      fineType: "Double Parking",
+      fineType: "پارک دوبل",
       cost: 30000,
-      location: "Vanak Square"
+      location: "میدان ونک"
     },
     {
       date: "1/6/1397",
-      fineType: "Double Parking",
+      fineType: "ورود ممنوع",
       cost: 30000,
-      location: "Azadi Station"
+      location: "خیابان شنگرف"
     }
   ];
 

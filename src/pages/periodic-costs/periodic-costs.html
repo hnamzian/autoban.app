@@ -3,7 +3,7 @@
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="location-text">
-          <p>{{ payment.title }}</p>
+          <p>{{ payment.type }}</p>
         </ion-col>
         <ion-col col-4>
           <p>{{ payment.date }}</p>
@@ -13,6 +13,12 @@
             هزینه <span class="text-left"> {{ payment.cost }} </span>
           </p>
         </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <p>{{ payment.period }}</p>
+        </ion-col>
+        <ion-col col-4 class="text-center"></ion-col>
       </ion-row>
     </ion-grid>
   </div>

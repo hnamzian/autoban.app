@@ -1,35 +1,25 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <button class="btn-back" ion-button start (click)="navToMenu()">
-      <ion-icon class="navbar-btn-icon" name="arrow-back"></ion-icon>
-    </button>
-    <ion-title> Costs </ion-title>
-    <ion-buttons right>
-      <button class="btn-add" ion-button end (click)="addNewFineCost()">
-        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header> -->
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let payment of finePayments">
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ payment.location }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ payment.date }}</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-33">
-          <h3>cost: {{ payment.cost }}</h3>
-        </div>
-        <div class="col col-33">
-          <h3 class="right-end">{{ payment.fineType }}</h3>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
+  <div class="item-container" *ngFor="let payment of finePayments">
+    <ion-grid style="direction: rtl">
+      <ion-row>
+        <ion-col col-5 class="location-text">
+          <p>{{ payment.location }}</p>
+        </ion-col>
+        <ion-col col-4>
+          <p>{{ payment.date }}</p>
+        </ion-col>
+        <ion-col col-3>
+          <p class="cost-text">
+            هزینه <span class="text-left"> {{ payment.cost }} </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <p>{{ payment.fineType }}</p>
+        </ion-col>
+        <!-- <ion-col col-4 class="text-center"></ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

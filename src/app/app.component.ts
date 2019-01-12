@@ -5,14 +5,14 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 
 // import { HomePage } from "../pages/home/home";
 // import { VehiclesListPage } from "../pages/vehicles-list/vehicles-list";
-import { RegisterPage } from "../pages/register/register";
-// import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
+// import { RegisterPage } from "../pages/register/register";
+import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
 
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = RegisterPage;
+  rootPage: any = VehicleMenuPage;
 
   constructor(
     platform: Platform,

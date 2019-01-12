@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 import { RegisterPage } from "../register/register";
 import { NavController } from "ionic-angular";
 @Component({

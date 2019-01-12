@@ -12,26 +12,30 @@
   <ion-tabs>
     <ion-tab
       tabTitle="سوخت"
-      tabIcon="notifications"
       [root]="fuelCostsPage"
       (ionSelect)="activateFuelTab()"
     ></ion-tab>
     <ion-tab
       tabTitle="جریمه ها"
-      tabIcon="driverfine"
       [root]="fineCostsPage"
       (ionSelect)="activateFineTab()"
     ></ion-tab>
     <ion-tab
+      tabTitle="دوره ای"
+      [root]="periodicCostsPage"
+      (ionSelect)="activatePeriodicTab()"
+    ></ion-tab>
+    <ion-tab
       tabTitle="موارد دیگر"
-      tabIcon="moneyicon"
       [root]="othersCostsPage"
       (ionSelect)="activateOthersTab()"
     ></ion-tab>
   </ion-tabs>
-  <ion-fab right bottom>
+  <ion-fab right bottom class="floating-action">
+    <!-- <div class="add-btn-container"> -->
     <button ion-fab color="light" (click)="addNewCost()">
       <ion-icon name="add"></ion-icon>
     </button>
+    <!-- </div> -->
   </ion-fab>
 </ion-content>
