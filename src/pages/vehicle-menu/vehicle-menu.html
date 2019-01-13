@@ -1,15 +1,5 @@
 <ion-header>
-  <ion-row class="profile-header">
-    <img src="../../assets/imgs/hossein.jpg" alt="" />
-    <div class="profile-name-container"><span>حسین</span></div>
-  </ion-row>
-  <ion-row class="vehicle-header">
-    <div class="vehicle-header-container">
-      <img src="../../assets/imgs/jimmicar.jpg" alt="" />
-      <div class="vehicle-name-container"><span>BOXi</span></div>
-      <ion-icon name="arrow-dropdown"></ion-icon>
-    </div>
-  </ion-row>
+  <menu-header [userName]="user.name" [profileImage]="user.image" [vehicleImage]="vehicle.image"></menu-header>
 </ion-header>
 <ion-content padding>
   <ion-grid>

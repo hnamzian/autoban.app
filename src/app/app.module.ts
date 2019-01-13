@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { ErrorHandler, NgModule } from "@angular/core";
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -39,6 +39,8 @@ import { CheckVerificationCodePage } from "../pages/check-verification-code/chec
 
 // import { LoginService } from "../services/login";
 
+import { SharedModule } from "../pages/shared/shared.module"
+
 @NgModule({
   declarations: [
     MyApp,
@@ -73,7 +75,7 @@ import { CheckVerificationCodePage } from "../pages/check-verification-code/chec
     ServiceDataPage,
     NewServicePage
   ],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, SharedModule],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -114,6 +116,7 @@ import { CheckVerificationCodePage } from "../pages/check-verification-code/chec
     Camera,
     // LoginService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
