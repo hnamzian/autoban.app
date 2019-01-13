@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from "./app.component";
 import { UserProfilePage } from "../pages/user-profile/user-profile";
 import { VehicleProfilePage } from "../pages/vehicle-profile/vehicle-profile";
-import { VehiclesListPage } from "../pages/vehicles-list/vehicles-list";
 import { VehicleDetailsPage } from "../pages/vehicle-details/vehicles-details";
 import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
 import { VehicleCostsPage } from "../pages/vehicle-costs/vehicle-costs";
@@ -45,7 +44,6 @@ import { CheckVerificationCodePage } from "../pages/check-verification-code/chec
     MyApp,
     UserProfilePage,
     VehicleProfilePage,
-    VehiclesListPage,
     VehicleDetailsPage,
     VehicleMenuPage,
     VehicleCostsPage,
@@ -81,7 +79,6 @@ import { CheckVerificationCodePage } from "../pages/check-verification-code/chec
     MyApp,
     UserProfilePage,
     VehicleProfilePage,
-    VehiclesListPage,
     VehicleDetailsPage,
     VehicleMenuPage,
     VehicleCostsPage,

@@ -1,35 +1,34 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title> Repairs List </ion-title>
-    <ion-buttons right>
-      <button class="btn-add" ion-button end (click)="addNewRepair()">
-        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+  <ion-navbar> <ion-title> تعمیرات </ion-title> </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let repair of repairs" (click)="openRepairData()">
-      <ion-avatar item-start>
-        <ion-icon class="navbar-btn-icon" name="repair-service"></ion-icon>
-      </ion-avatar>
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ repair.title }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ repair.date }}</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ repair.repairMan }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ repair.cost }}</h2>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
+  <div class="item-container" *ngFor="let repair of repairs">
+    <ion-grid style="direction: rtl">
+      <ion-row>
+        <ion-col col-5 class="station-text">
+          <p>{{ repair.garage }}</p>
+        </ion-col>
+        <ion-col col-3>
+          <p>{{ repair.date }}</p>
+        </ion-col>
+        <ion-col col-4>
+          <p class="cost-text">
+            هزینه <span class="text-left"> {{ repair.cost }} </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <p>{{ repair.title }}</p>
+        </ion-col>
+        <ion-col col-3 class="text-center"></ion-col>
+        <ion-col class="detail-btn" col-4> <p>مشاهده جزئیات</p> </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-fab right bottom class="floating-action">
+    <button ion-fab color="light" (click)="addNewRepair()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
