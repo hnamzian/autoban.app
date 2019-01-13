@@ -16,4 +16,4 @@ import { MenuHeaderComponent } from "./components/menu-header/menu-header";
     MenuHeaderComponent,
   ]
 })
-export class SharedModule {}
+export class CoreModule {}

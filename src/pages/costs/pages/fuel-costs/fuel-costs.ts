@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, ModalController } from "ionic-angular";
 import { NewFuelCostPage } from "../new-fuel-cost/new-fuel-cost";
-import { VehicleMenuPage} from "../vehicle-menu/vehicle-menu";
+import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 
 @Component({
   selector: "fuel-costs",

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, ModalController } from "ionic-angular";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
-import { VehicleMenuPage } from "../vehicle-menu/vehicle-menu";
+import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 
 @Component({
   selector: "fine-costs",

@@ -10,20 +10,6 @@ import { UserProfilePage } from "../pages/user-profile/user-profile";
 import { VehicleProfilePage } from "../pages/vehicle-profile/vehicle-profile";
 import { VehicleDetailsPage } from "../pages/vehicle-details/vehicles-details";
 import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
-import { VehicleCostsPage } from "../pages/vehicle-costs/vehicle-costs";
-import { FuelCostsPage } from "../pages/fuel-costs/fuel-costs";
-import { FineCostsPage } from "../pages/fine-costs/fine-costs";
-import { OthersCostsPage } from "../pages/others-costs/others-costs";
-import { PeriodicCostsPage } from "../pages/periodic-costs/periodic-costs";
-import { NewFuelCostPage } from "../pages/new-fuel-cost/new-fuel-cost";
-import { NewFineCostPage } from "../pages/new-fine-cost/new-fine-cost";
-import { NewOthersCostPage } from "../pages/new-others-cost/new-others-cost";
-import { NewPeriodicCostPage } from "../pages/new-periodic-cost/new-periodic-cost";
-import { RegisterPage } from "../pages/register/register";
-import { LoginPage } from "../pages/login/login";
-import { ForgetPasswordPage } from "../pages/forget-password/forget-password";
-import { RegisterProfilePage } from "../pages/register-profile/register-profile";
-import { RegisterCarProfilePage } from "../pages/register-car-profile/register-car-profile";
 import { RepairsListPage } from "../pages/repairs-list/repairs-list";
 import { RepairCardPage } from "../pages/repair-card/repair-card";
 import { RepairDataPage } from "../pages/repair-data/repair-data";
@@ -35,11 +21,12 @@ import { ServicesListPage } from "../pages/services-list/services-list";
 import { ServiceDataPage } from "../pages/service-data/service-data";
 import { NewServicePage } from "../pages/new-service/new-service";
 import { NewReceiptItems } from "../pages/new-receipt-items/new-receipt-items";
-import { CheckVerificationCodePage } from "../pages/check-verification-code/check-verification-code";
 
 // import { LoginService } from "../services/login";
 
-import { SharedModule } from "../pages/shared/shared.module"
+import { CoreModule } from "../pages/core/core.module"
+import { CostsModule } from "../pages/costs/costs.module"
+import { AuthModule } from "../pages/auth/auth.module"
 
 @NgModule({
   declarations: [
@@ -48,21 +35,6 @@ import { SharedModule } from "../pages/shared/shared.module"
     VehicleProfilePage,
     VehicleDetailsPage,
     VehicleMenuPage,
-    VehicleCostsPage,
-    FuelCostsPage,
-    FineCostsPage,
-    OthersCostsPage,
-    PeriodicCostsPage,
-    NewFuelCostPage,
-    NewFineCostPage,
-    NewOthersCostPage,
-    NewPeriodicCostPage,
-    RegisterPage,
-    LoginPage,
-    CheckVerificationCodePage,
-    ForgetPasswordPage,
-    RegisterProfilePage,
-    RegisterCarProfilePage,
     RepairsListPage,
     RepairCardPage,
     RepairDataPage,
@@ -75,7 +47,13 @@ import { SharedModule } from "../pages/shared/shared.module"
     ServiceDataPage,
     NewServicePage
   ],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), HttpClientModule, SharedModule],
+  imports: [BrowserModule, 
+    IonicModule.forRoot(MyApp), 
+    HttpClientModule, 
+    CoreModule,
+    CostsModule,
+    AuthModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -83,21 +61,6 @@ import { SharedModule } from "../pages/shared/shared.module"
     VehicleProfilePage,
     VehicleDetailsPage,
     VehicleMenuPage,
-    VehicleCostsPage,
-    FuelCostsPage,
-    FineCostsPage,
-    OthersCostsPage,
-    PeriodicCostsPage,
-    NewFuelCostPage,
-    NewFineCostPage,
-    NewOthersCostPage,
-    NewPeriodicCostPage,
-    RegisterPage,
-    LoginPage,
-    CheckVerificationCodePage,
-    ForgetPasswordPage,
-    RegisterProfilePage,
-    RegisterCarProfilePage,
     RepairsListPage,
     RepairCardPage,
     RepairDataPage,
