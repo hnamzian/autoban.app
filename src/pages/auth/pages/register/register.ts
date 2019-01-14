@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { RegisterProfilePage } from '../register-profile/register-profile';
+import { RegisterProfilePage } from '../../../user/pages/register-profile/register-profile';
 import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code"
 
 @Component({

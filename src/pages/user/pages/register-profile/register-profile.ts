@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RegisterCarProfilePage } from '../register-car-profile/register-car-profile'
+import { RegisterCarProfilePage } from '../../../car/pages/register-car-profile/register-car-profile'
+
 @Component({
   selector: 'register-profile',
   templateUrl: 'register-profile.html'

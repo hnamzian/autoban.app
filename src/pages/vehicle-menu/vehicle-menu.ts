@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { VehicleCostsPage } from "../costs/pages/vehicle-costs/vehicle-costs";
-import { RepairsListPage } from "../repairs-list/repairs-list";
-import { ServicesListPage } from "../services-list/services-list";
-import { UserProfilePage } from "../user-profile/user-profile";
-import { VehicleProfilePage } from "../vehicle-profile/vehicle-profile";
+import { RepairsListPage } from "../repairs/pages/repairs-list/repairs-list";
+import { ServicesListPage } from "../services/pages/services-list/services-list";
+import { UserProfilePage } from "../user/pages/user-profile/user-profile";
+import { VehicleProfilePage } from "../car/pages/vehicle-profile/vehicle-profile";
 // import { LoginService } from "../../services/login";
 import { HttpClient } from '@angular/common/http';
 
