@@ -1,0 +1,20 @@
+user-menu-popover {
+    width: contents;
+    color: rgb(112, 112, 112);
+    
+    p {
+        display: flex;
+        direction: rtl;
+        padding-right: 10px;
+    }
+
+    span {
+        padding-right: 10px;
+    }
+
+    ion-icon {
+        text-align: center;
+        font-size: 18px;
+    }
+
+}

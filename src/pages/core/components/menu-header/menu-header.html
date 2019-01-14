@@ -1,5 +1,5 @@
 <div class="menu-header-container">
-    <ion-row class="profile-header">
+    <ion-row class="profile-header" (click)="openUserMenu()">
         <img [src]="profileImage" alt="" />
         <div class="profile-name-container"><span>{{ userName }}</span></div>
     </ion-row>

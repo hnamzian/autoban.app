@@ -65,3 +65,10 @@ menu-header {
         }
       }
 }
+
+.userMenuPopover .popover-content {
+    width: 110px;
+    left: auto !important;
+    right: 24px;
+    top: 46px !important;
+}

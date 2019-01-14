@@ -1,5 +1,10 @@
 <ion-header>
-  <menu-header [userName]="user.name" [profileImage]="user.image" [vehicleImage]="vehicle.image"></menu-header>
+  <menu-header
+    [userName]="user.name"
+    [profileImage]="user.image"
+    [vehicleImage]="vehicle.image"
+    (userProfileClicked)="navToUserProfilePage()"
+  ></menu-header>
 </ion-header>
 <ion-content padding>
   <ion-grid>
