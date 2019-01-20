@@ -1,10 +1,21 @@
 <ion-content>
   <div class="form-container">
-    <input type="text" placeholder="تاریخ" />
+    <ion-item>
+      <ion-datetime
+        [max]="startMax"
+        [min]="startMin"
+        displayFormat="D MMMM YYYY"
+        pickerFormat="DD MMMM YYYY"
+        monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
+        doneText="انتخاب"
+        cancelText="بازگشت"
+        placeholder="تاریخ"
+      ></ion-datetime>
+    </ion-item>
     <input type="text" placeholder="لیتر" />
     <input type="text" placeholder="قیمت" />
     <input type="text" placeholder="جایگاه" />
     <input type="text" placeholder="کیلومتر" />
-    <button (click)="addFuelCost()">ذخیره</button>
+    <button class="save-btn" (click)="addFuelCost()">ذخیره</button>
   </div>
 </ion-content>

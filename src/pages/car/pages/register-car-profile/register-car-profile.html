@@ -5,23 +5,34 @@
   </div>
 
   <div class="form-container">
-    <input type="text" placeholder="نام مستعار" />
+    <input type="text" placeholder="نام مستعار" [(ngModel)]="carProfile.name" />
     <div class="select-container">
-        <select type="text">
-            <option>برند</option>
-          <option *ngFor="let brand of brands">{{ brand }}</option>
-        </select>
+      <select type="text" (change)="loadCarModels($event.target.value)">
+        <option>برند</option>
+        <option *ngFor="let brand of (brands$ | async)" [value]="brand.id">
+          {{ brand.persianName }}
+        </option>
+      </select>
+    </div>
+    <div class="select-container" *ngIf="(models$ | async)?.length > 0">
+      <select type="text" [(ngModel)]="carProfile.modelId">
+        <option value="">مدل</option>
+        <option *ngFor="let model of (models$ | async)" [value]="model.id">
+          {{ model.persianName }}
+        </option>
+      </select>
     </div>
     <div class="select-container">
-        <select type="text">
-            <option>تریم</option>
-          <option *ngFor="let trim of trims">{{ trim }}</option>
-        </select>
+      <select type="text" [(ngModel)]="carProfile.colorId">
+        <option value="" selected>تریم</option>
+        <option *ngFor="let trim of (trims$ | async)" [ngValue]="trim.id">
+          {{ trim.persianName }}
+        </option>
+      </select>
     </div>
-    <input type="text" placeholder="مدل" />
-    <input type="text" placeholder="سال ساخت" />
-    <input type="text" placeholder="کیلومتر" />
-    <input type="text" placeholder="شاسی" />
+    <input type="text" placeholder="سال ساخت" [(ngModel)]="carProfile.builtyear" />
+    <input type="text" placeholder="کیلومتر" [(ngModel)]="carProfile.odometer" />
+    <input type="text" placeholder="پلاک" [(ngModel)]="carProfile.plate" />
     <button (click)="registerCar()">ذخیره</button>
   </div>
 

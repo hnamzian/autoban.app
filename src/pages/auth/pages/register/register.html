@@ -1,35 +1,16 @@
 <ion-content>
-  <div class="header-container row">
-    <div class="header-text">ثبت نام</div>
-    <img src="../../assets/imgs/car-login.png" alt="" />
-  </div>
-
+  <auth-header
+    [headerTitle]="headerTitle"
+    [headerImage]="headerImageUrl"
+    [leftTitle]="true"
+  ></auth-header>
   <div class="form-container">
     <div class="text-container">شماره تلفن همراه خود را وارد نمایید</div>
-    <input type="text" value="+98" />
-    <button (click)="sendCode()">ارسال کد</button>
+    <input type="text" value="+98" #mobileNumber/>
+    <button (click)="getSMSToken(mobileNumber.value)">ارسال کد</button>
     <div class="text-container">
       در حال حاضر حساب کاربری دارم
       <span (click)="navToLoginPage()"> ورود </span>
     </div>
   </div>
-
-  <!-- <img src="../../assets/imgs/car_repair.jpg" alt="" />
-
-  <div class="comment-container">
-    <p>Enter your phone number to receive verification code.</p>
-  </div>
-
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Phone Number" /> </ion-item>
-  </ion-list>
-
-  <button ion-button color="primary" round (click)="registerUser()">
-    Send Verification Code
-  </button>
-  <div class="comment-container">
-    <p>
-      You have account? <span> <a (click)="navToLoginPage()">Login</a> </span>
-    </p>
-  </div> -->
 </ion-content>

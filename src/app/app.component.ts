@@ -2,25 +2,40 @@ import { Component } from "@angular/core";
 import { Platform } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
-
-// import { HomePage } from "../pages/home/home";
-// import { RegisterPage } from "../pages/register/register";
+import { RegisterPage } from "../pages/auth/pages/register/register";
+import { RegisterCarProfilePage } from "../pages/car/pages/register-car-profile/register-car-profile";
 import { VehicleMenuPage } from "../pages/vehicle-menu/vehicle-menu";
+import { LoginPage } from "../pages/auth/pages/login/login";
+import { AuthProvider } from "../providers/auth/auth";
+import { UserProvider } from "../providers/user/user";
 
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = VehicleMenuPage;
+  rootPage: any; // = RegisterPage;
 
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    authProvider: AuthProvider,
+    userProvider: UserProvider
   ) {
-    platform.ready().then(() => {
+    platform.ready().then(async () => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      let user$ = await userProvider.getUser();
+      user$.subscribe(user => {
+        if (user.success) {
+          this.rootPage = VehicleMenuPage;
+        } else {
+          console.log("Not Registered");
+          this.rootPage = RegisterPage;
+        }
+      });
+
       statusBar.styleDefault();
       splashScreen.hide();
     });

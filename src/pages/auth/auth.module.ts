@@ -7,6 +7,8 @@ import { RegisterPage } from "./pages/register/register"
 import { ForgetPasswordPage } from "./pages/forget-password/forget-password"
 import { CheckVerificationCodePage } from "./pages/check-verification-code/check-verification-code"
 
+import { AuthHeaderComponent } from "./components/auth-header/auth-header"
+
 @NgModule({
   imports: [
     CommonModule, 
@@ -16,13 +18,19 @@ import { CheckVerificationCodePage } from "./pages/check-verification-code/check
     LoginPage,
     RegisterPage,
     ForgetPasswordPage,
-    CheckVerificationCodePage
+    CheckVerificationCodePage,
+
+    AuthHeaderComponent
   ],
   entryComponents: [
     LoginPage,
     RegisterPage,
     ForgetPasswordPage,
-    CheckVerificationCodePage
+    CheckVerificationCodePage,
+    AuthHeaderComponent
+  ],
+  exports: [
+    AuthHeaderComponent
   ]
 })
 export class AuthModule {}

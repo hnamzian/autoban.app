@@ -1,49 +1,61 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { VehicleCostsPage } from "../costs/pages/vehicle-costs/vehicle-costs";
 import { RepairsListPage } from "../repairs/pages/repairs-list/repairs-list";
 import { ServicesListPage } from "../services/pages/services-list/services-list";
 import { UserProfilePage } from "../user/pages/user-profile/user-profile";
 import { VehicleProfilePage } from "../car/pages/vehicle-profile/vehicle-profile";
-// import { LoginService } from "../../services/login";
-import { HttpClient } from '@angular/common/http';
+import { UserProvider } from "../../providers/user/user";
+import { CarProvider } from "../../providers/car/car";
+import { UserAPI, User } from "../../models/user";
+import { CarAPI, Car } from "../../models/car";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "vehicle-menu",
   templateUrl: "vehicle-menu.html"
 })
-export class VehicleMenuPage {
+export class VehicleMenuPage implements OnInit {
 
-  url = "66.70.130.226:3333"
+  userAltImage = "../../../../assets/imgs/user.png";
+  carAltImage = "../../../../assets/imgs/car.svg"
 
-  user = {
-    name: "حسین",
-    image: "../../assets/imgs/hossein.jpg"
-  }
-  
-  vehicle = {
-    image: "../../assets/imgs/jimmicar.jpg"
-  }
+  user$: Observable<UserAPI>;
+  user: User;
+  car$: Observable<CarAPI>;
+  cars: Car[];
 
-  constructor(public navCtrl: NavController, public http: HttpClient) {
-    console.log("entered");
-    let url = "https://jsonplaceholder.typicode.com/todos/1";
-    this.http.get(url).subscribe(d => console.log(d))
+  constructor(
+    public navCtrl: NavController,
+    public userProvider: UserProvider,
+    public carProvider: CarProvider
+  ) {}
+
+  async ngOnInit() {
+    this.user$ = await this.userProvider.getUser();
+    this.user$.subscribe(result => {
+      this.user = result.user;
+      console.log(this.user);
+    });
+
+    this.car$ = await this.carProvider.getCrs();
+    this.car$.subscribe(result => {
+      this.cars = result.cars;
+      console.log(this.cars);
+    });
   }
 
   navToUserProfilePage() {
-    this.navCtrl.push(UserProfilePage)
+    this.navCtrl.push(UserProfilePage, { user: this.user });
   }
 
   navToVehicleProfilePage() {
-      this.navCtrl.push(VehicleProfilePage)
+    this.navCtrl.push(VehicleProfilePage, { cars: this.cars });
   }
 
   navToRepairsListPage() {
     this.navCtrl.push(RepairsListPage);
   }
-
-  navToNotifsPage() {}
 
   navToServicesPage() {
     this.navCtrl.push(ServicesListPage);
@@ -52,6 +64,8 @@ export class VehicleMenuPage {
   navToCostsPage() {
     this.navCtrl.push(VehicleCostsPage);
   }
+
+  navToNotifsPage() {}
 
   navToSettingsPage() {}
 

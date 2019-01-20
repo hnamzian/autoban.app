@@ -1,56 +1,70 @@
 <ion-content>
-  <!-- <form
-    [formGroup]="codeForm"
-    #formCtrl="ngForm"
-    (keydown.enter)="$event.preventDefault()"
-  > -->
+  <auth-header
+    [headerTitle]="headerTitle"
+    [headerImage]="headerImageUrl"
+  ></auth-header>
 
-  <!-- </form> -->
-
-  <div class="header-container row">
-    <div class="header-text">بررسی کد</div>
-    <img src="../../assets/imgs/car-login.png" alt="" />
-  </div>
-  <div class="timer-container">0:{{ timer }}</div>
-  <div class="digit-container">
-    <input
-      (keyup)="updateList(digit2)"
-      type="tel"
-      maxlength="1"
-      #digit1
-      required
-    />
-    <input
-      (keyup)="updateList(digit3)"
-      type="tel"
-      maxlength="1"
-      #digit2
-      required
-    />
-    <input
-      (keyup)="updateList(digit4)"
-      type="tel"
-      maxlength="1"
-      #digit3
-      required
-    />
-    <input
-      (keyup)="updateList(digit5)"
-      type="tel"
-      maxlength="1"
-      #digit4
-      required
-    />
-    <input
-      (keyup)="updateList(digit1)"
-      type="tel"
-      maxlength="1"
-      #digit5
-      required
-    />
-  </div>
   <div class="form-container">
-    <button (click)="sendCode()">ارسال مجدد</button>
+    <div class="timer-container">0:{{ timer }}</div>
+    <div class="digit-container">
+      <input
+        (keyup)="isNumber($event.target.value)
+        ? updateList(digit1)
+        : ($event.target.value = '')"
+        type="number"
+        #digit0
+        [(ngModel)]="codeInput0"
+        required
+      />
+      <input
+        (keyup)="isNumber($event.target.value)
+        ? updateList(digit2)
+        : ($event.target.value = '')"
+        type="number"
+        #digit1
+        [(ngModel)]="codeInput1"
+        required
+      />
+      <input
+        (keyup)="
+          isNumber($event.target.value)
+            ? updateList(digit3)
+            : ($event.target.value = '')
+        "
+        type="number"
+        #digit2
+        [(ngModel)]="codeInput2"
+        required
+      />
+      <input
+        (keyup)="isNumber($event.target.value)
+        ? updateList(digit4)
+        : ($event.target.value = '')"
+        type="number"
+        #digit3
+        [(ngModel)]="codeInput3"
+        required
+      />
+      <input
+        type="number"
+        (keyup)="isNumber($event.target.value)
+        ? updateList(digit5)
+        : ($event.target.value = '')"
+        #digit4
+        [(ngModel)]="codeInput4"
+        required
+      />
+      <input
+        type="number"
+        (keyup)="isNumber($event.target.value)
+        ? checkCode()
+        : ($event.target.value = '')"
+        #digit5
+        [(ngModel)]="codeInput5"
+        required
+      />
+    </div>
+    <button (click)="resendCode()">ارسال مجدد</button>
     <div class="text-container" (click)="navToLoginPage()">
       شماره تلفن خود را اشتباه وارد کردید؟
     </div>

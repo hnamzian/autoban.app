@@ -24,16 +24,15 @@ export class MenuHeaderComponent {
   ) {}
 
   openUserMenu() {
-      this.userProfileClicked.emit()
-    // let popover = this.popoverCtrl.create(
-    //   UserMenu,
-    //   {},
-    //   { cssClass: "userMenuPopover" }
-    // );
-    // popover.present();
-    // popover.onDidDismiss(d => {
-    //   d.profileClicked ? this.userProfileClicked.emit() : null
-    // });
+    let popover = this.popoverCtrl.create(
+      UserMenu,
+      {},
+      { cssClass: "userMenuPopover" }
+    );
+    popover.present();
+    popover.onDidDismiss(d => {
+      d.profileClicked ? this.userProfileClicked.emit() : null
+    });
   }
 }
 
@@ -58,7 +57,7 @@ export class UserMenu {
 
   onProfileClicked() {
     this.profileClicked = true;
-    this.viewCtrl.dismiss({ profileClicked: this.profileClicked });
+    this.viewCtrl.dismiss({ profileClicked: this.profileClicked }, "", { animate: false });
   }
 
   onExitClicked() {

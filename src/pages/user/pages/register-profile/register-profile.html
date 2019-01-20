@@ -5,9 +5,10 @@
   </div>
 
   <div class="form-container">
-    <input type="text" placeholder="نام" />
-    <input type="text" placeholder="نام خانوادگی" />
-    <input type="text" placeholder="پست الکترونیکی" />
-    <button (click)="saveAndNavToCarProfile()">ذخیره</button>
+    <input type="text" placeholder="نام" [(ngModel)]="user.firstName" />
+    <input type="text" placeholder="نام خانوادگی" [(ngModel)]="user.lastName" />
+    <input type="text" placeholder="پست الکترونیکی" [(ngModel)]="user.email" />
+    <input type="password" placeholder="رمز عبور" [(ngModel)]="password" />
+    <button (click)="registerUser()">ذخیره</button>
   </div>
 </ion-content>

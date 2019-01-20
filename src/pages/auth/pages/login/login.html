@@ -1,19 +1,28 @@
 <ion-content>
-  <div class="header-container row">
+  <!-- <div class="header-container row">
     <div class="header-text">حساب کاربری</div>
     <img src="../../assets/imgs/car.png" alt="" />
-  </div>
+  </div> -->
+
+  <auth-header
+    [headerTitle]="headerTitle"
+    [headerImage]="headerImageUrl"
+  ></auth-header>
 
   <div class="form-container">
-    <input type="text" value="+98" />
-    <input type="text" placeholder="********" />
+    <input type="text" placeholder="+98" [(ngModel)]="mobileNumber" />
+    <input type="password" placeholder="********" [(ngModel)]="password" />
     <div class="text-container">
-      <span (click)="navToForgetPasswordPage()"> رمز عبور خود را فراموش کرده اید؟ </span>
+      <span (click)="navToForgetPasswordPage()">
+        رمز عبور خود را فراموش کرده اید؟
+      </span>
     </div>
-    <button (click)="registerUser()">وارد شوید</button>
+    <button (click)="loginUser()">وارد شوید</button>
     <div class="text-container">
       حساب کاربری ندارید؟
-      <span class="span-left" (click)="navToRegisterPage()"> ثبت نام نمایید </span>
+      <span class="span-left" (click)="navToRegisterPage()">
+        ثبت نام نمایید
+      </span>
     </div>
   </div>
 </ion-content>

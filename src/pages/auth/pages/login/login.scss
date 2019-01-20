@@ -1,25 +1,12 @@
 login-page {
-  .header-container {
-    margin-top: 150px;
-    margin-bottom: 100px;
-    .header-text {
-      position: absolute;
-      top: 160px;
-      right: 60px;
-      color: rgb(112, 112, 112);
-      font-size: 18px;
-    }
-
-    img {
-      width: 80%;
-      height: 55px;
-      margin-left: 10%;
-    }
+  ion-content {
+    background-color: rgb(246, 246, 246) !important;
   }
 
   .form-container {
     width: 80%;
     margin: auto;
+    padding-top: 80px;
 
     .text-container {
       width: 100%;
@@ -38,7 +25,7 @@ login-page {
     }
 
     .span-left {
-        float: left;
+      float: left;
     }
 
     input {
@@ -46,7 +33,7 @@ login-page {
       height: 45px;
       margin-top: 5px;
       margin-bottom: 5px;
-      background-color: rgb(246, 246, 246);
+      background-color: white;
       outline: none;
       font-size: 16px;
       color: rgb(172, 172, 172);
