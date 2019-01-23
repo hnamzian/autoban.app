@@ -1,0 +1,13 @@
+<ion-grid class="prep-input-wrapper">
+  <ion-row class="prep-input-container">
+    <ion-col class="input-container" col-8>
+      <input
+        type="text"
+        [(ngModel)]="inputModel"
+        (ngModelChange)="inputModelChange.emit(inputModel)"
+        (keyup)="onChange()"
+      />
+    </ion-col>
+    <ion-col class="label-container" col-4> <input [value]="label" disabled /> </ion-col>
+  </ion-row>
+</ion-grid>

@@ -10,9 +10,6 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
   },
-  "config": {
-    "ionic_rollup": "./src/config/rollup.config.js"
-  },
   "dependencies": {
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",
@@ -30,6 +27,7 @@
     "@ionic-native/splash-screen": "~4.17.0",
     "@ionic-native/status-bar": "~4.17.0",
     "@ionic/storage": "2.2.0",
+    "bootstrap": "^4.0.0",
     "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-plugin-advanced-http": "2.0.2",
@@ -55,6 +53,7 @@
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
+
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

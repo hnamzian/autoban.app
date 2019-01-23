@@ -4,21 +4,6 @@ login-page {
   }
 
   .form-container {
-    width: 80%;
-    margin: auto;
-    padding-top: 80px;
-
-    .text-container {
-      width: 100%;
-      text-align: right;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      padding-right: 5px;
-      float: right;
-      color: rgb(112, 112, 112);
-      font-size: 14px;
-    }
-
     span {
       margin-left: 10px;
       color: rgb(87, 180, 239);
@@ -28,31 +13,5 @@ login-page {
       float: left;
     }
 
-    input {
-      width: 100%;
-      height: 45px;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      background-color: white;
-      outline: none;
-      font-size: 16px;
-      color: rgb(172, 172, 172);
-      padding-left: 10px;
-      border: 0px;
-      border-radius: 5px;
-      box-shadow: 3px 3px 3px;
-    }
-
-    button {
-      width: 100%;
-      height: 45px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: rgb(87, 180, 239);
-      color: white;
-      font-size: 16px;
-      box-shadow: 2px 2px 2px rgb(172, 172, 172);
-      border-radius: 5px;
-    }
   }
 }

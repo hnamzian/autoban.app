@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Rx"
 import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
 import { TokenStorage } from "../../providers/token/token";
-import { UserAPI } from "../../models/user";
+import { UserAPI, User } from "../../models/user";
 
 @Injectable()
 export class UserProvider {
@@ -12,11 +12,11 @@ export class UserProvider {
 
   constructor(public http: HttpClient, public tokenStorage: TokenStorage) {}
 
-  async registerUser(account: Account, password: string): Promise<false | Observable<UserAPI>> {
+  async registerUser(user: User, password: string): Promise<Observable<UserAPI>> {
     let url = `${this.baseUrl}/register`;
 
     const token = (await this.tokenStorage.getSMSToken()) || false;
-    if (!token) return false;
+    if (!token) return Observable.of({} as UserAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -25,7 +25,7 @@ export class UserProvider {
     };
 
     return this.http
-      .post(url, { ...account, password }, httpOptions)
+      .post(url, { ...user, password }, httpOptions)
       .pipe(map((result: UserAPI) => result));
   }
 

@@ -2,13 +2,14 @@
   <div class="header-container row">
     <div class="header-text">اطلاعات شخصی</div>
     <img src="../../assets/imgs/person.png" alt="" />
+    <img class="path-img" src="../../assets//imgs/Path 33.png" alt="" />
   </div>
 
   <div class="form-container">
-    <input type="text" placeholder="نام" [(ngModel)]="user.firstName" />
-    <input type="text" placeholder="نام خانوادگی" [(ngModel)]="user.lastName" />
-    <input type="text" placeholder="پست الکترونیکی" [(ngModel)]="user.email" />
-    <input type="password" placeholder="رمز عبور" [(ngModel)]="password" />
+    <prep-input type="text" label="نام" [(inputModel)]="user.firstName"></prep-input>
+    <prep-input type="text" label="نام خانوادگی" [(inputModel)]="user.lastName"></prep-input>
+    <prep-input type="text" label="پست الکترونیکی" [(inputModel)]="user.email"></prep-input>
+    <prep-input type="password" label="رمز عبور" [(inputModel)]="password"></prep-input>
     <button (click)="registerUser()">ذخیره</button>
   </div>
 </ion-content>

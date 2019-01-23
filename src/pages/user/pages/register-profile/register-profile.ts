@@ -1,20 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
+import { map, catchError } from "rxjs/operators";
 import { RegisterCarProfilePage } from "../../../car/pages/register-car-profile/register-car-profile";
 import { RegisterPage } from "../../../auth/pages/register/register";
 import { LoginPage } from "../../../auth/pages/login/login";
-
 import { UserProvider } from "../../../../providers/user/user";
 import { AuthProvider } from "../../../../providers/auth/auth";
-
-import { UserAPI } from "../../../../models/user";
+import { User } from "../../../../models/user";
 
 @Component({
   selector: "register-profile",
   templateUrl: "register-profile.html"
 })
 export class RegisterProfilePage implements OnInit {
-  user = {} as Account;
+  headerImageUrl = "../../assets/imgs/person.png";
+  headerTitle = "اطلاعات شخصی";
+
+  user = {} as User;
   password: string;
 
   constructor(
@@ -32,24 +34,16 @@ export class RegisterProfilePage implements OnInit {
   }
 
   async registerUser() {
-    let subscription = await this.userProvider.registerUser(
-      this.user,
-      this.password
-    );
-
-    if (!subscription) {
-      // ToDo: rare condition, show alert for not having SMS token
-      this.navCtrl.push(RegisterPage);
-    } else {
-      subscription.subscribe(result => {
-        console.log(result);
-        if (result.success) {
-          this.navCtrl.push(RegisterCarProfilePage);
-        } else {
-          // ToDo: alert user for error message (ex: have registered before)
-          this.navCtrl.push(LoginPage);
-        }
-      });
-    }
+    let userapi$ = await this.userProvider.registerUser(this.user, this.password);
+    userapi$.subscribe(userapi => {
+      if (!userapi) {
+        this.navCtrl.push(RegisterPage);
+      } else if (!userapi.success) {
+        this.navCtrl.push(LoginPage);
+      } else {
+        this.authProvider.tokenStorage.setAuthToken(userapi.token);
+        this.navCtrl.push(RegisterCarProfilePage);
+      }
+    });
   }
 }

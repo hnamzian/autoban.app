@@ -46,7 +46,6 @@ import { TokenStorage } from "../providers/token/token";
     StatusBar,
     SplashScreen,
     Camera,
-    // LoginService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     UserProvider,

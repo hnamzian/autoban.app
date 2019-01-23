@@ -11,41 +11,39 @@ export interface Car {
   name: string;
   plate: string;
   odometer: string;
-  bulityear: string;
+  builtyear: string;
 }
 
-export interface BrandItem {
+
+export interface CarBrandsAPI extends API {
+    carBrands: CarBrand[];
+}
+
+export interface CarBrand {
   id: string;
   englishName: string;
   persianName: string;
   logo: string;
 }
 
-export interface CarBrands {
-  success: boolean;
-  carBrands: BrandItem[];
+export interface CarColorsAPI extends API {
+    colors: CarColor[];
 }
 
-export interface ColorItem {
+export interface CarColor {
   id: string;
   englishName: string;
   persianName: string;
   code: string;
 }
 
-export interface CarColors {
-  success: boolean;
-  colors: ColorItem[];
+export interface CarModelsAPI extends API {
+    carModels: CarModel[];
 }
 
-export interface ModelItem {
+export interface CarModel {
   id: string;
   englishName: string;
   persianName: string;
   carBrandId: string;
-}
-
-export interface CarModels {
-  success: boolean;
-  carModels: ModelItem[];
 }

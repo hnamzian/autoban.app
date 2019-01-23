@@ -1,19 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
-import { map, catchError } from "rxjs/operators";
-
-import { CarProvider } from "../../../../providers/car/car";
-
-import {
-  Car,
-  CarBrands,
-  BrandItem,
-  CarColors,
-  ColorItem,
-  CarModels,
-  ModelItem
-} from "../../../../models/car";
 import { Observable } from "rxjs/Observable";
+import { map, catchError } from "rxjs/operators";
+import { CarProvider } from "../../../../providers/car/car";
+import { Car, CarBrand, CarColor, CarModel } from "../../../../models/car";
+import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { RegisterPage } from "../../../auth/pages/register/register";
 
 @Component({
   selector: "register-car-profile",
@@ -22,56 +14,41 @@ import { Observable } from "rxjs/Observable";
 export class RegisterCarProfilePage implements OnInit {
   carProfile = {} as Car;
 
-  brands$: Observable<BrandItem[]>;
-  trims$: Observable<ColorItem[]>;
-  models$: Observable<ModelItem[]>;
+  brands$: Observable<CarBrand[]>;
+  trims$: Observable<CarColor[]>;
+  models$: Observable<CarModel[]>;
 
-  constructor(public navCtrl: NavController, public carProvider: CarProvider) {
-    this.carProfile.colorId = "1";
-  }
+  constructor(public navCtrl: NavController, public carProvider: CarProvider) {}
 
   async ngOnInit() {
     await this.loadCarBrands();
     await this.loadCarColors();
-
-    // this.carProvider.getCarModels().subscribe(console.log);
   }
 
   async loadCarBrands() {
-    let subscription: false | Observable<CarBrands>;
-    subscription = await this.carProvider.getCarBrands();
-    if (subscription) {
-      this.brands$ = subscription.pipe(
-        map((result: CarBrands) => result.carBrands)
-      );
-    }
+    this.brands$ = (await this.carProvider.getCarBrands()).pipe(map(result => result.carBrands));
   }
 
   async loadCarColors() {
-    let subscription: false | Observable<CarColors>;
-    subscription = await this.carProvider.getCarColors();
-    if (subscription) {
-      this.trims$ = subscription.pipe(
-        map((result: CarColors) => result.colors)
-      );
-    }
+    this.trims$ = (await this.carProvider.getCarColors()).pipe(map(result => result.colors));
   }
 
   async loadCarModels(brandId) {
-    let subscription: false | Observable<CarModels>;
-    subscription = await this.carProvider.getCarModels(brandId);
-    if (subscription) {
-      this.models$ = subscription.pipe(
-        map((result: CarModels) => result.carModels)
-      );
-    }
+    this.models$ = (await this.carProvider.getCarModels(brandId)).pipe(
+      map(result => result.carModels)
+    );
   }
 
   async registerCar() {
-    console.log(this.carProfile);
-    let subscription = await this.carProvider.registerCar(this.carProfile);
-    if (subscription) {
-      subscription.pipe().subscribe(console.log);
-    }
+    let carapi$ = await this.carProvider.registerCar(this.carProfile);
+    carapi$.subscribe(carapi => {
+      if (!carapi) {
+        this.navCtrl.push(RegisterPage)
+      } else if (!carapi.success) {
+          // ToDo: toast error and stay this page
+      } else {
+        this.navCtrl.push(VehicleMenuPage);
+      }
+    });
   }
 }

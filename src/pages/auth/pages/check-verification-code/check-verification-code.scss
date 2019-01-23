@@ -2,9 +2,26 @@ check-verification-code {
   ion-content {
     background-color: rgb(246, 246, 246) !important;
   }
-  
+
   ion-item.digit-container {
     padding: 4px !important;
+  }
+
+  .input-box {
+    position: relative;
+  }
+
+  input {
+    display: block;
+    padding: 10px 10px 10px 20px;
+  }
+
+  .unit {
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 10px;
+    z-index: 9;
   }
 
   .form-container {
@@ -28,13 +45,9 @@ check-verification-code {
 
       input {
         width: 13%;
-        height: 45px;
         margin: 5px;
         text-align: center;
-        font-size: 14px;
-        background-color: white;
-        outline: none;
-        border: 1px solid #eee;
+        padding: 0px;
       }
     }
 

@@ -5,8 +5,8 @@
   </div>
 
   <div class="form-container">
-    <input type="text" placeholder="نام مستعار" [(ngModel)]="carProfile.name" />
-    <div class="select-container">
+    <prep-input type="text" label="نام مستعار" [(inputModel)]="carProfile.name"></prep-input>
+    <!-- <div class="select-container">
       <select type="text" (change)="loadCarModels($event.target.value)">
         <option>برند</option>
         <option *ngFor="let brand of (brands$ | async)" [value]="brand.id">
@@ -29,50 +29,13 @@
           {{ trim.persianName }}
         </option>
       </select>
-    </div>
-    <input type="text" placeholder="سال ساخت" [(ngModel)]="carProfile.builtyear" />
-    <input type="text" placeholder="کیلومتر" [(ngModel)]="carProfile.odometer" />
-    <input type="text" placeholder="پلاک" [(ngModel)]="carProfile.plate" />
+    </div> -->
+    <prep-input type="text" label="برند" [(inputModel)]="carProfile.brand"></prep-input>
+    <prep-input type="text" label="مدل" [(inputModel)]="carProfile.model"></prep-input>
+    <prep-input type="text" label="رنگ" [(inputModel)]="carProfile.trim"></prep-input>
+    <prep-input type="text" label="سال ساخت" [(inputModel)]="carProfile.builtyear"></prep-input>
+    <prep-input type="text" label="کیلومتر" [(inputModel)]="carProfile.odometer"></prep-input>
+    <prep-input type="text" label="پلاک" [(inputModel)]="carProfile.plate"></prep-input>
     <button (click)="registerCar()">ذخیره</button>
   </div>
-
-  <!-- <img src="../../assets/imgs/car_repair.jpg" alt="" />
-
-  <div class="comment-container"><p>Enter your Personal Information.</p></div>
-
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Nick Name" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item>
-      <ion-label>Brand</ion-label>
-      <ion-select [(ngModel)]="branding" interface="popover">
-        <ion-option *ngFor="let brand of brands">{{ brand }}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item>
-      <ion-label>Trim</ion-label>
-      <ion-select [(ngModel)]="gaming" interface="popover">
-        <ion-option *ngFor="let trim of trims">{{ trim }}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Model*" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Built Year*" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Odometer" /> </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item> <input type="text" placeholder="Plate" /> </ion-item>
-  </ion-list>
-
-  <button ion-button color="primary" round (click)="registerCar()">
-    Save
-  </button> -->
 </ion-content>

@@ -26,6 +26,7 @@ export class RegisterPage {
   }
 
   getSMSToken(mobileNumber) {
+
     let token;
 
     if (!this.validateMobileNumber(mobileNumber)) {

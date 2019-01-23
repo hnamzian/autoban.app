@@ -40,34 +40,34 @@ export class CheckVerificationCodePage {
 
     // just for dev mode
     const token = this.navParams.get("token");
-    this.showLoader();
+    // this.showLoader();
     this.stopCountdown();
 
     let smsjwt$ = this.authProvider.verifySMSToken(this.mobileNumber, token);
 
-    smsjwt$.subscribe(async smsjwt => {
-      if (smsjwt) {
-        console.log("SMS Token(CodeVerification): ", smsjwt);
-        await this.tokenStorage.setSMSToken(smsjwt.token);
-        let user$ = await this.authProvider.authenticateByToken();
-        user$.subscribe(async user => {
-          if (user.success) {
-            await this.tokenStorage.setAuthToken(user["token"]);
-            this.navCtrl.push(VehicleMenuPage);
-            this.dismissLoader();
-          } else {
-            this.navCtrl.push(RegisterProfilePage);
-            console.log(user);
-            this.dismissLoader();
-          }
-        });
-      } else {
-        // ToDo: show error message and back to register page
-        console.log("Error(CodeVerification): ", smsjwt.msg);
-        this.navCtrl.push(RegisterPage);
-        this.dismissLoader();
-      }
-    });
+        // smsjwt$.subscribe(async smsjwt => {
+        //   if (smsjwt) {
+        //     console.log("SMS Token(CodeVerification): ", smsjwt);
+        //     await this.tokenStorage.setSMSToken(smsjwt.token);
+        //     let user$ = await this.authProvider.authenticateByToken();
+        //     user$.subscribe(async user => {
+        //       if (user.success) {
+        //         await this.tokenStorage.setAuthToken(user["token"]);
+        //         this.navCtrl.push(VehicleMenuPage);
+        //         this.dismissLoader();
+        //       } else {
+        //         this.navCtrl.push(RegisterProfilePage);
+        //         console.log(user);
+        //         this.dismissLoader();
+        //       }
+        //     });
+        //   } else {
+        //     // ToDo: show error message and back to register page
+        //     console.log("Error(CodeVerification): ", smsjwt.msg);
+        //     this.navCtrl.push(RegisterPage);
+        //     this.dismissLoader();
+        //   }
+        // });
 
   }
 

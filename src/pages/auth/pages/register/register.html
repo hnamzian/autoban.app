@@ -4,13 +4,19 @@
     [headerImage]="headerImageUrl"
     [leftTitle]="true"
   ></auth-header>
+
   <div class="form-container">
     <div class="text-container">شماره تلفن همراه خود را وارد نمایید</div>
-    <input type="text" value="+98" #mobileNumber/>
+    <ion-list style="margin: 0px">
+      <ion-item style="height: 45px; padding: 0px">
+        <span item-left style="padding-left: 10px">+98</span>
+        <input type="tel" #mobileNumber style="width: 100%; border: none" />
+        <ion-icon item-right name="phone-portrait"></ion-icon>
+      </ion-item>
+    </ion-list>
     <button (click)="getSMSToken(mobileNumber.value)">ارسال کد</button>
     <div class="text-container">
-      در حال حاضر حساب کاربری دارم
-      <span (click)="navToLoginPage()"> ورود </span>
+      در حال حاضر حساب کاربری دارم <span (click)="navToLoginPage()"> ورود </span>
     </div>
   </div>
 </ion-content>
