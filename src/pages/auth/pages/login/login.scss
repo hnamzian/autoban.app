@@ -4,13 +4,15 @@ login-page {
   }
 
   .form-container {
-    span {
-      margin-left: 10px;
-      color: rgb(87, 180, 239);
-    }
-
-    .span-left {
-      float: left;
+    .text-container {
+      span {
+        margin-left: 10px;
+        color: rgb(87, 180, 239);
+      }
+  
+      .span-left {
+        float: left;
+      }
     }
 
   }

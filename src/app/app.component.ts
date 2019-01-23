@@ -15,7 +15,7 @@ import { UserProvider } from "../providers/user/user";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = RegisterPage;
+  rootPage: any = RegisterProfilePage;
 
   constructor(
     platform: Platform,

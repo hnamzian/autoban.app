@@ -44,7 +44,7 @@ export class RegisterPage {
   }
 
   validateMobileNumber(mobileNumber) {
-    let phone = mobileNumber.toString().split("+98")[1];
+    let phone = mobileNumber.toString();
     if (phone.length !== 10) return false;
     return true;
   }
