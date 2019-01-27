@@ -1,9 +1,11 @@
 <ion-header>
   <menu-header
-    [userName]="(user)?.firstName"
-    [profileImage]="(user)?.profileImage || userAltImage"
-    [vehicleImage]="carAltImage"
+    [title]="title"
+    [userName]="user?.firstName"
+    [cars]="cars"
+    [selectedCar]="selectedCar"
     (userProfileClicked)="navToUserProfilePage()"
+    (onCarSelected)="updateSelectedCar($event)"
   ></menu-header>
 </ion-header>
 <ion-content padding>
@@ -11,7 +13,7 @@
     <ion-row>
       <ion-col col-6>
         <div class="btn-container" (click)="navToVehicleProfilePage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="car"></ion-icon>
             <br />
             <p>مشخصات خودرو</p>
@@ -20,7 +22,7 @@
       </ion-col>
       <ion-col col-6>
         <div class="btn-container" (click)="navToRepairsListPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="construct"></ion-icon>
             <br />
             <p>تعمیرات</p>
@@ -31,7 +33,7 @@
     <ion-row>
       <ion-col col-6>
         <div class="btn-container" (click)="navToServicesPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="eye"></ion-icon>
             <br />
             <p>سرویس های دوره ای</p>
@@ -40,7 +42,7 @@
       </ion-col>
       <ion-col col-6>
         <div class="btn-container" (click)="navToCostsPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="calculator"></ion-icon>
             <br />
             <p>هزینه ها</p>
@@ -51,7 +53,7 @@
     <ion-row>
       <ion-col col-6>
         <div class="btn-container" (click)="navToNotifsPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="notifications"></ion-icon>
             <br />
             <p>یادآورها</p>
@@ -60,7 +62,7 @@
       </ion-col>
       <ion-col col-6>
         <div class="btn-container" (click)="navToSettingsPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="settings"></ion-icon>
             <br />
             <p>تنظیمات</p>
@@ -71,7 +73,7 @@
     <ion-row>
       <ion-col col-6>
         <div class="btn-container" (click)="navToReoprtsPage()">
-          <div class="text-container">
+          <div class="menu-text-container">
             <ion-icon name="stats"></ion-icon>
             <br />
             <p>گزارش ها</p>

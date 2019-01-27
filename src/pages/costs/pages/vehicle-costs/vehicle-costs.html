@@ -1,25 +1,14 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title> هزینه ها </ion-title>
-    <!-- <ion-buttons right>
-      <button class="btn-add" ion-button end (click)="addNewCost()">
-        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
-      </button>
-    </ion-buttons> -->
-  </ion-navbar>
+  <menu-header
+    [title]="title"
+    (userProfileClicked)="navToUserProfilePage()"
+    (onCarSelected)="updateSelectedCar($event)"
+  ></menu-header>
 </ion-header>
 <ion-content>
   <ion-tabs>
-    <ion-tab
-      tabTitle="سوخت"
-      [root]="fuelCostsPage"
-      (ionSelect)="activateFuelTab()"
-    ></ion-tab>
-    <ion-tab
-      tabTitle="جریمه ها"
-      [root]="fineCostsPage"
-      (ionSelect)="activateFineTab()"
-    ></ion-tab>
+    <ion-tab tabTitle="سوخت" [root]="fuelCostsPage" (ionSelect)="activateFuelTab()"></ion-tab>
+    <ion-tab tabTitle="جریمه ها" [root]="fineCostsPage" (ionSelect)="activateFineTab()"></ion-tab>
     <ion-tab
       tabTitle="دوره ای"
       [root]="periodicCostsPage"
@@ -33,7 +22,7 @@
   </ion-tabs>
   <ion-fab right bottom class="floating-action">
     <!-- <div class="add-btn-container"> -->
-    <button ion-fab color="light" (click)="addNewCost()">
+    <button class="ab-btn" ion-fab color="light" (click)="addNewCost()">
       <ion-icon name="add"></ion-icon>
     </button>
     <!-- </div> -->

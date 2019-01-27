@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { environment as env } from "../../config/environment.prod";
 
-import { TokenStorage } from "../../providers/token/token"
+import { TokenStorage } from "../../storage/token/token"
 
 
 @Injectable()

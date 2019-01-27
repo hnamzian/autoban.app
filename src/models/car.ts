@@ -1,12 +1,17 @@
 import { API } from "./api";
 
 export interface CarAPI extends API {
-    cars: Car[]
+  cars: Car[];
 }
 
 export interface Car {
+  id: number;
   modelId: string;
   colorId: string;
+  brandId: string;
+  car_model: CarModel;
+  car_brand: CarBrand;
+  color: CarColor;
   image;
   name: string;
   plate: string;
@@ -14,9 +19,8 @@ export interface Car {
   builtyear: string;
 }
 
-
 export interface CarBrandsAPI extends API {
-    carBrands: CarBrand[];
+  carBrands: CarBrand[];
 }
 
 export interface CarBrand {
@@ -27,7 +31,7 @@ export interface CarBrand {
 }
 
 export interface CarColorsAPI extends API {
-    colors: CarColor[];
+  colors: CarColor[];
 }
 
 export interface CarColor {
@@ -38,7 +42,7 @@ export interface CarColor {
 }
 
 export interface CarModelsAPI extends API {
-    carModels: CarModel[];
+  carModels: CarModel[];
 }
 
 export interface CarModel {

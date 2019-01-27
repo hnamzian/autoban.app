@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
-import { NewOthersCostPage } from "../new-others-cost/new-others-cost";
+import { NavController } from "ionic-angular";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 
 @Component({
@@ -44,14 +43,7 @@ export class PeriodicCostsPage {
     }
   ];
 
-  constructor(
-    public navCtrl: NavController,
-    public modalCtrl: ModalController
-  ) {}
-
-  addNewCost() {
-    const modal = this.modalCtrl.create(NewOthersCostPage);
-    modal.present();
+  constructor(public navCtrl: NavController) {
   }
 
   navToMenu() {

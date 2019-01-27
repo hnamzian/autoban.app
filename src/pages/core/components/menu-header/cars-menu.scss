@@ -1,0 +1,21 @@
+cars-menu-popover {
+  width: contents;
+  color: rgb(112, 112, 112);
+
+  p {
+    display: flex;
+    direction: rtl;
+    padding-right: 10px;
+  }
+
+  span {
+    margin-right: auto;
+    margin-left: 10px;
+    color: #5288d1;
+  }
+
+  ion-icon {
+    text-align: center;
+    font-size: 18px;
+  }
+}

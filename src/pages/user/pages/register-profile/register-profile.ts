@@ -36,6 +36,8 @@ export class RegisterProfilePage implements OnInit {
   async registerUser() {
     let userapi$ = await this.userProvider.registerUser(this.user, this.password);
     userapi$.subscribe(userapi => {
+      console.log(userapi);
+
       if (!userapi) {
         this.navCtrl.push(RegisterPage);
       } else if (!userapi.success) {

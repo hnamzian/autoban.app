@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Label } from "ionic-angular";
 
 @Component({
   selector: "prep-input",

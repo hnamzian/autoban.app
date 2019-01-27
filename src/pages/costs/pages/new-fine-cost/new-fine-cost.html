@@ -1,32 +1,31 @@
 <ion-content>
   <div class="form-container">
-    <input type="text" placeholder="تاریخ" />
-    <input type="text" placeholder="عنوان" />
-    <input type="text" placeholder="میزان" />
-    <input type="text" placeholder="محل" />
-    <button (click)="addFuelCost()">ذخیره</button>
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>تاریخ</span>
+        <ion-datetime
+          [max]="startMax"
+          [min]="startMin"
+          displayFormat="D MMMM YYYY"
+          pickerFormat="DD MMMM YYYY"
+          monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
+          doneText="انتخاب"
+          cancelText="بازگشت"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>جریمه</span>
+        <input class="prep-input" type="text" [(ngModel)]="fine.fineCategoryCode" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>هزینه</span>
+        <input class="prep-input" type="text" [(ngModel)]="fine.value" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>توضیح</span>
+        <input class="prep-input" type="text" [(ngModel)]="fine.comment" />
+      </ion-item>
+    </ion-list>
+    <button class="ab-btn" (click)="addFineCost()">ذخیره</button>
   </div>
 </ion-content>
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title> New Fine Cost </ion-title>
-    <ion-buttons end>
-      <button class="btn-close" ion-button (click)="dismiss()">
-        <ion-icon name="md-close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-list no-lines>
-    <ion-item> <input type="text" placeholder="Fine Type" /> </ion-item>
-    <ion-item> <input type="text" placeholder="Fine Cost" /> </ion-item>
-    <ion-item> <input type="text" placeholder="Location" /> </ion-item>
-    <ion-item>
-      <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
-    </ion-item>
-  </ion-list>
-  <button ion-button color="primary" round (click)="addFineCost()">ADD</button>
-</ion-content> -->

@@ -1,37 +1,25 @@
 <ion-content>
-  <!-- <div class="header-container row">
-    <div class="header-text">حساب کاربری</div>
-    <img src="../../assets/imgs/car.png" alt="" />
-  </div> -->
-
-  <auth-header
-    [headerTitle]="headerTitle"
-    [headerImage]="headerImageUrl"
-  ></auth-header>
+  <auth-header [headerTitle]="headerTitle" [headerImage]="headerImageUrl"></auth-header>
 
   <div class="form-container">
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
-        <span class="prep-input-span" item-left>+98</span>
-        <input class="prep-input" type="tel" [(ngModel)]="mobileNumber" />
+        <span class="prep-input-span phone-prefix-label" item-left>+98</span>
+        <input class="prep-input phone-input" type="tel" [(ngModel)]="mobileNumber" />
         <ion-icon class="prep-input-icon" item-right name="phone-portrait"></ion-icon>
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
-        <input class="prep-input" type="password" placeholder="********" [(ngModel)]="password" />
+        <input class="prep-input password-input" type="password" placeholder="********" [(ngModel)]="password" />
         <ion-icon class="prep-input-icon" item-right name="key"></ion-icon>
       </ion-item>
     </ion-list>
     <div class="text-container">
-      <span (click)="navToForgetPasswordPage()">
-        رمز عبور خود را فراموش کرده اید؟
-      </span>
+      <span (click)="navToForgetPasswordPage()"> رمز عبور خود را فراموش کرده اید؟ </span>
     </div>
-    <button (click)="loginUser()">وارد شوید</button>
+    <button class="ab-btn" (click)="loginUser()">وارد شوید</button>
     <div class="text-container">
       حساب کاربری ندارید؟
-      <span class="span-left" (click)="navToRegisterPage()">
-        ثبت نام نمایید
-      </span>
+      <span class="span-left" (click)="navToRegisterPage()"> ثبت نام نمایید </span>
     </div>
   </div>
 </ion-content>

@@ -1,9 +1,16 @@
 import { Component } from "@angular/core";
 import { RegisterPage } from "../register/register";
-import { NavController, NavParams, LoadingController, Loading } from "ionic-angular";
+import {
+  NavController,
+  NavParams,
+  LoadingController,
+  Loading,
+  ToastController,
+  Toast
+} from "ionic-angular";
 import { RegisterProfilePage } from "../../../user/pages/register-profile/register-profile";
 import { AuthProvider } from "../../../../providers/auth/auth";
-import { TokenStorage } from "../../../../providers/token/token";
+import { TokenStorage } from "../../../../storage/token/token";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 
 @Component({
@@ -24,6 +31,7 @@ export class CheckVerificationCodePage {
   mobileNumber;
 
   loading: Loading;
+  toast: Toast;
 
   timer = 59;
   interval;
@@ -32,6 +40,7 @@ export class CheckVerificationCodePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     public authProvider: AuthProvider,
     public tokenStorage: TokenStorage
   ) {
@@ -40,34 +49,7 @@ export class CheckVerificationCodePage {
 
     // just for dev mode
     const token = this.navParams.get("token");
-    // this.showLoader();
-    this.stopCountdown();
-
-    let smsjwt$ = this.authProvider.verifySMSToken(this.mobileNumber, token);
-
-        // smsjwt$.subscribe(async smsjwt => {
-        //   if (smsjwt) {
-        //     console.log("SMS Token(CodeVerification): ", smsjwt);
-        //     await this.tokenStorage.setSMSToken(smsjwt.token);
-        //     let user$ = await this.authProvider.authenticateByToken();
-        //     user$.subscribe(async user => {
-        //       if (user.success) {
-        //         await this.tokenStorage.setAuthToken(user["token"]);
-        //         this.navCtrl.push(VehicleMenuPage);
-        //         this.dismissLoader();
-        //       } else {
-        //         this.navCtrl.push(RegisterProfilePage);
-        //         console.log(user);
-        //         this.dismissLoader();
-        //       }
-        //     });
-        //   } else {
-        //     // ToDo: show error message and back to register page
-        //     console.log("Error(CodeVerification): ", smsjwt.msg);
-        //     this.navCtrl.push(RegisterPage);
-        //     this.dismissLoader();
-        //   }
-        // });
+    this.showToast(`Token: ${token}`)
 
   }
 
@@ -111,6 +93,19 @@ export class CheckVerificationCodePage {
 
   dismissLoader() {
     this.loading.dismiss();
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "top",
+      duration: 20000
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 
   getCode() {

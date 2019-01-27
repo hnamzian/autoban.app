@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Rx";
 import { map, catchError } from "rxjs/operators";
 import { AuthJWTAPI } from "../../models/auth-token";
 import { environment as env } from "../../config/environment.prod";
-import { TokenStorage } from "../../providers/token/token";
+import { TokenStorage } from "../../storage/token/token";
 import { UserAPI, User } from "../../models/user";
 import { SMSJWTAPI } from "../../models/sms-token";
 

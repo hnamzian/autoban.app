@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx"
+import { Observable } from "rxjs/Rx";
 import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
-import { TokenStorage } from "../../providers/token/token";
+import { TokenStorage } from "../../storage/token/token";
 import { UserAPI, User } from "../../models/user";
+import {API} from "../../models/api"
 
 @Injectable()
 export class UserProvider {
@@ -24,16 +25,25 @@ export class UserProvider {
       })
     };
 
+    let dummy = { ...user, password }
+    console.log(dummy);
+    
+
     return this.http
       .post(url, { ...user, password }, httpOptions)
       .pipe(map((result: UserAPI) => result));
   }
 
-  async updateUser(user: Account): Promise<false | Observable<UserAPI>> {
-    let url = `${this.baseUrl}/update`;
+  async updateUser(user: User): Promise<Observable<API>> {
+    let url = `${this.baseUrl}/user`;
 
     const token = (await this.tokenStorage.getAuthToken()) || false;
-    if (!token) return false;
+    if (!token) return Observable.of({} as API);
+
+    let formData = new FormData();
+    formData.append("firstName", user.firstName);
+    formData.append("lastName", user.lastName);
+    formData.append("email", user.email);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -41,14 +51,14 @@ export class UserProvider {
       })
     };
 
-    return this.http.post(url, user, httpOptions).pipe(map((result: UserAPI) => result));
+    return this.http.put(url, formData, httpOptions).pipe(map((result: API) => result));
   }
 
-  async changeMobileNumber(mobileNumber): Promise<false | Observable<UserAPI>> {
+  async changeMobileNumber(mobileNumber): Promise<Observable<UserAPI>> {
     let url = `${this.baseUrl}/change-mobile`;
 
     const token = (await this.tokenStorage.getAuthToken()) || false;
-    if (!token) return false;
+    if (!token) return Observable.of({} as UserAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -59,7 +69,7 @@ export class UserProvider {
     return this.http.put(url, { mobileNumber }, httpOptions).pipe(map((result: UserAPI) => result));
   }
 
-  async getUser() {
+  async getUser(): Promise<Observable<UserAPI>> {
     let url = `${this.baseUrl}/profile`;
 
     const token = (await this.tokenStorage.getAuthToken()) || false;

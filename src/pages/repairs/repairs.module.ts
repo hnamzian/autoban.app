@@ -10,7 +10,6 @@ import { RepairNewReceiptsPage } from "./pages/repair-new-receipt/repair-new-rec
 import { RepairReceiptDetailPage } from "./pages/repair-receipt-detail/repair-receipt-detail"
 import { RepairReceiptsPage } from "./pages/repair-receipts/repair-receipts"
 import { RepairsListPage } from "./pages/repairs-list/repairs-list"
-// import { } from "./pages/vehicle-repairs/vehicle-repairs"
 
 
 @NgModule({

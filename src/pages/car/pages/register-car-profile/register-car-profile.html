@@ -2,40 +2,40 @@
   <div class="header-container row">
     <div class="header-text">اطلاعات خودرو</div>
     <img src="../../assets/imgs/car-front.png" alt="" />
+    <ion-badge class="add-photo-badge">+</ion-badge>
   </div>
 
   <div class="form-container">
-    <prep-input type="text" label="نام مستعار" [(inputModel)]="carProfile.name"></prep-input>
-    <!-- <div class="select-container">
-      <select type="text" (change)="loadCarModels($event.target.value)">
-        <option>برند</option>
-        <option *ngFor="let brand of (brands$ | async)" [value]="brand.id">
-          {{ brand.persianName }}
-        </option>
-      </select>
-    </div>
-    <div class="select-container" *ngIf="(models$ | async)?.length > 0">
-      <select type="text" [(ngModel)]="carProfile.modelId">
-        <option value="">مدل</option>
-        <option *ngFor="let model of (models$ | async)" [value]="model.id">
-          {{ model.persianName }}
-        </option>
-      </select>
-    </div>
-    <div class="select-container">
-      <select type="text" [(ngModel)]="carProfile.colorId">
-        <option value="" selected>تریم</option>
-        <option *ngFor="let trim of (trims$ | async)" [ngValue]="trim.id">
-          {{ trim.persianName }}
-        </option>
-      </select>
-    </div> -->
-    <prep-input type="text" label="برند" [(inputModel)]="carProfile.brand"></prep-input>
-    <prep-input type="text" label="مدل" [(inputModel)]="carProfile.model"></prep-input>
-    <prep-input type="text" label="رنگ" [(inputModel)]="carProfile.trim"></prep-input>
-    <prep-input type="text" label="سال ساخت" [(inputModel)]="carProfile.builtyear"></prep-input>
-    <prep-input type="text" label="کیلومتر" [(inputModel)]="carProfile.odometer"></prep-input>
-    <prep-input type="text" label="پلاک" [(inputModel)]="carProfile.plate"></prep-input>
-    <button (click)="registerCar()">ذخیره</button>
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right> نام خودرو </span>
+        <input class="prep-input" type="text" [(ngModel)]="carProfile.name" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines (click)="openBrandsList()">
+        <span class="prep-input-span" item-right>برند</span>
+        <input class="prep-input" disabled type="text" [(ngModel)]="brand.persianName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines *ngIf="brand.id" (click)="openModelsList()">
+        <span class="prep-input-span" item-right>مدل</span>
+        <input class="prep-input" disabled type="text" [(ngModel)]="model.persianName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines (click)="openColorsList()">
+        <span class="prep-input-span" item-right>رنگ</span>
+        <input class="prep-input" disabled type="text" [(ngModel)]="color.persianName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>سال ساخت</span>
+        <input class="prep-input" type="text" [(ngModel)]="carProfile.builtyear" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>کیلومتر</span>
+        <input class="prep-input" type="text" [(ngModel)]="carProfile.odometer" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>پلاک</span>
+        <input class="prep-input" type="text" [(ngModel)]="carProfile.plate" />
+      </ion-item>
+    </ion-list>
+    <button class="ab-btn" (click)="registerCar()">ذخیره</button>
   </div>
 </ion-content>

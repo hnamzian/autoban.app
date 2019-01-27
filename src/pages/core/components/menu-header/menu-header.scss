@@ -1,74 +1,120 @@
 menu-header {
-    ion-header {
-        .profile-header {
-          height: 46px;
-          display: flex;
-          direction: rtl;
-          border-bottom: 1px solid rgb(255, 176, 0);
-          box-shadow: none;
-          img {
-            width: 28px;
-            height: 28px;
-            margin-top: auto;
-            margin-bottom: auto;
-            margin-right: 25px;
-            margin-left: 15px;
-            border-radius: 50%;
-          }
-          div {
-            height: 14px;
-            line-height: 14px;
-            margin: auto;
-            margin-right: 0px;
-            text-align: center;
-            color: rgb(112, 112, 112);
-          }
-          span {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 14px;
-            font-size: 14px;
-          }
-        }
-    
-        .vehicle-header {
-          height: 40px;
-          .vehicle-header-container {
-            display: flex;
-            direction: rtl;
-            margin: auto;
-            img {
-              width: 28px;
-              height: 28px;
-              margin: auto;
-              border-radius: 50%;
-            }
-            div {
-              height: 14px;
-              line-height: 14px;
-              margin: auto;
-              margin-right: 30px;
-              margin-left: 30px;
-              text-align: center;
-              color: rgb(112, 112, 112);
-            }
-            span {
-              display: inline-block;
-              vertical-align: middle;
-              line-height: 14px;
-              font-size: 14px;
-            }
-            ion-icon {
-              margin: auto;
-            }
-          }
-        }
+  ion-grid {
+    padding: 0px !important;
+  }
+  ion-col {
+    padding: 0px !important;
+  }
+
+  .profile-header {
+    height: 46px;
+    display: flex;
+    direction: rtl;
+    border-bottom: 1px solid rgb(255, 176, 0);
+    box-shadow: none;
+    .header-user-wrapper {
+      display: flex;
+      flex-direction: row;
+      float: right;
+      img {
+        width: 28px;
+        height: 28px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 25px;
+        margin-left: 15px;
+        border-radius: 50%;
       }
+      div.title-text-container {
+        height: 14px;
+        line-height: 14px;
+        margin: auto;
+        margin-right: 0px;
+        text-align: center;
+        color: rgb(112, 112, 112);
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 14px;
+        font-size: 14px;
+      }
+    }
+    .header-title-wrapper {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      div {
+        height: 14px;
+        line-height: 14px;
+        margin: auto;
+        text-align: center;
+        color: rgb(112, 112, 112);
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 14px;
+        font-size: 14px;
+      }
+    }
+    .header-logo-wrapper {
+      display: flex;
+      flex-direction: row;
+      img {
+        width: 40px;
+        height: 40px;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    }
+  }
+
+  .vehicle-header {
+    height: 40px;
+    .vehicle-header-container {
+      display: flex;
+      direction: rtl;
+      margin: auto;
+      img {
+        width: 28px;
+        height: 28px;
+        margin: auto;
+        border-radius: 50%;
+      }
+      div {
+        height: 14px;
+        line-height: 14px;
+        margin: auto;
+        margin-right: 30px;
+        margin-left: 30px;
+        text-align: center;
+        color: rgb(112, 112, 112);
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 14px;
+        font-size: 14px;
+      }
+      ion-icon {
+        margin: auto;
+      }
+    }
+  }
 }
 
 .userMenuPopover .popover-content {
-    width: 110px;
-    left: auto !important;
-    right: 24px;
-    top: 46px !important;
+  width: 110px;
+  left: auto !important;
+  right: 24px;
+  top: 46px !important;
+}
+
+.carsMenuPopover .popover-content {
+  width: 180px;
+  // left: auto !important;
+  // right: auto !important;
+  top: 90px !important;
 }

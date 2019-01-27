@@ -1,20 +1,33 @@
 import { Component } from "@angular/core";
 import { NavController, ViewController } from "ionic-angular";
+import { PeriodicCost } from "../../../../models/costs";
+import moment from "moment";
 
 @Component({
   selector: "new-periodic-cost",
   templateUrl: "new-periodic-cost.html"
 })
 export class NewPeriodicCostPage {
+  periodicCost = {} as PeriodicCost;
   
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {}
+  start: any;
+  end: any;
+  startMin: any;
+  startMax: any;
+  endMin: any;
+  endMax: any;
+
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
+    this.startMax = moment()
+      .subtract(622, "year")
+      .format();
+    this.endMin = this.startMin;
+    this.endMax = this.startMax;
+  }
 
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  addFuelCost() {
-      
-  }
-
+  addCost() {}
 }

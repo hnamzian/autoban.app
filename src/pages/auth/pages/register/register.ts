@@ -3,7 +3,7 @@ import { NavController } from "ionic-angular";
 import { LoginPage } from "../login/login";
 import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code";
 import { AuthProvider } from "../../../../providers/auth/auth";
-import { TokenStorage } from "../../../../providers/token/token";
+import { TokenStorage } from "../../../../storage/token/token";
 // import { SMSJWTAPI } from "../../../../models/sms-token";
 // import { tokenKey } from "@angular/core/src/view";
 

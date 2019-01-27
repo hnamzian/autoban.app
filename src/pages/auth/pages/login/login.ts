@@ -4,7 +4,7 @@ import { RegisterPage } from "../register/register";
 import { ForgetPasswordPage } from "../forget-password/forget-password";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { AuthProvider } from "../../../../providers/auth/auth";
-import { TokenStorage } from "../../../../providers/token/token";
+import { TokenStorage } from "../../../../storage/token/token";
 import { UserAPI } from "../../../../models/user";
 
 @Component({

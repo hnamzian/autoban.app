@@ -11,11 +11,13 @@ import { NewFuelCostPage } from "./pages/new-fuel-cost/new-fuel-cost"
 import { NewFineCostPage } from "./pages/new-fine-cost/new-fine-cost"
 import { NewOthersCostPage } from "./pages/new-others-cost/new-others-cost"
 import { NewPeriodicCostPage } from "./pages/new-periodic-cost/new-periodic-cost"
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule, 
-    IonicModule
+    IonicModule,
+    CoreModule
   ],
   declarations: [
     VehicleCostsPage,

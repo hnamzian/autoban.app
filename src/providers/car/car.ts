@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Rx";
 import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
 
-import { TokenStorage } from "../../providers/token/token";
+import { TokenStorage } from "../../storage/token/token";
 
 import { CarAPI, Car, CarBrandsAPI, CarColorsAPI, CarModelsAPI } from "../../models/car";
 
@@ -39,10 +39,20 @@ export class CarProvider {
   }
 
   async updateCar(car: Car) {
-    const url = `${this.baseUrl}/update-odometer`;
+    const url = `${this.baseUrl}/update`;
 
-    const token = (await this.tokenStorage.getSMSToken()) || false;
-    if (!token) return false;
+    const token = (await this.tokenStorage.getAuthToken()) || false;
+    if (!token) return Observable.of({} as CarAPI);
+
+    let formData = new FormData();
+    formData.append("carId", car.id.toString());
+    formData.append("modelId", car.modelId);
+    formData.append("colorId", car.colorId);
+    formData.append("image", car.image);
+    formData.append("name", car.name);
+    formData.append("plate", car.plate);
+    formData.append("odometer", car.odometer);
+    formData.append("builtyear", car.builtyear);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -50,7 +60,7 @@ export class CarProvider {
       })
     };
 
-    return this.http.post(url, car, httpOptions);
+    return this.http.put(url, formData, httpOptions).pipe(map((result: CarAPI) => result));
   }
 
   async deleteCar(carId) {
@@ -86,7 +96,7 @@ export class CarProvider {
   async getCrs() {
     const url = `${this.baseUrl}/list`;
 
-    const token = (await this.tokenStorage.getSMSToken()) || false;
+    const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as CarAPI);
 
     const httpOptions = {
@@ -101,7 +111,7 @@ export class CarProvider {
   async getCarBrands() {
     const url = `${this.baseUrl}/list-car-brands`;
 
-    const token = (await this.tokenStorage.getSMSToken()) || false;
+    const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as CarBrandsAPI);
 
     const httpOptions = {
@@ -116,7 +126,7 @@ export class CarProvider {
   async getCarModels(brandId) {
     const url = `${this.baseUrl}/list-car-models`;
 
-    const token = (await this.tokenStorage.getSMSToken()) || false;
+    const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as CarModelsAPI);
 
     const httpOptions = {
@@ -133,7 +143,7 @@ export class CarProvider {
   async getCarColors() {
     const url = `${this.baseUrl}/list-colors`;
 
-    const token = (await this.tokenStorage.getSMSToken()) || false;
+    const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as CarColorsAPI);
 
     const httpOptions = {

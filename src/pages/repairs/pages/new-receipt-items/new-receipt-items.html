@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title> New Receipt </ion-title>
     <ion-buttons end>
-      <button class="btn-close" ion-button (click)="dismiss()">
+      <button class="ab-btn" class="btn-close" ion-button (click)="dismiss()">
         <ion-icon name="md-close"></ion-icon>
       </button>
     </ion-buttons>
@@ -92,13 +92,13 @@
     </ion-list>
     <ion-row>
       <ion-col>
-        <button ion-button icon-start clear small (click)="clearInvoice()">
+        <button class="ab-btn" ion-button icon-start clear small (click)="clearInvoice()">
           <ion-icon name="trash"></ion-icon>
           <div>Clear</div>
         </button>
       </ion-col>
       <ion-col>
-        <button
+        <button class="ab-btn"
           ion-button
           icon-start
           clear
@@ -112,7 +112,7 @@
     </ion-row>
   </ion-card>
   <div class="col col-50 fab-container">
-    <button
+    <button class="ab-btn"
       class="image-btn"
       ion-button
       round
@@ -124,4 +124,4 @@
     </button>
   </div>
 </ion-content>
-<ion-footer> <button ion-button large full>Save</button> </ion-footer>
+<ion-footer> <button class="ab-btn" ion-button large full>Save</button> </ion-footer>

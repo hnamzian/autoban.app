@@ -53,10 +53,7 @@ export class FuelCostsPage {
     }
   ];
 
-  constructor(
-    public navCtrl: NavController,
-    public modalCtrl: ModalController
-  ) {}
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}
 
   addNewFuelCost() {
     const modal = this.modalCtrl.create(NewFuelCostPage);

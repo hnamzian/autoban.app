@@ -1,5 +1,6 @@
-export interface UserAPI {
-  success: string;
+import { API } from "./api";
+
+export interface UserAPI extends API {
   token: string;
   user: User;
 }
@@ -15,4 +16,3 @@ export interface User {
   profileImage: string;
   type: string;
 }
-

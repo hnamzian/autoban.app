@@ -1,14 +1,28 @@
 <ion-content>
   <div class="header-container row">
     <div class="header-text">اطلاعات شخصی</div>
-    <img  [src]="user.imageUrl || userAltImage" alt="" />
-    <img class="path-img" src="../../../../assets/imgs/Path 33.png" alt="">
+    <img [src]="user.imageUrl || userAltImage" alt="" />
+    <img class="path-img" src="../../../../assets/imgs/Path 33.png" alt="" />
+    <ion-badge class="add-photo-badge">+</ion-badge>
   </div>
 
   <div class="form-container">
-    <input type="text" [placeholder]="user.firstName" />
-    <input type="text" [placeholder]="user.lastName" />
-    <input type="text" [placeholder]="user.email" />
-    <button (click)="saveAndNavToCarProfile()">ذخیره</button>
+    <ion-list class="prep-input-list">
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نام</span>
+        <input class="prep-input" type="text" [(ngModel)]="user.firstName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>نام خانوادگی</span>
+        <input class="prep-input" type="text" [(ngModel)]="user.lastName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span email-icon-wrapper" item-right>
+          <ion-icon class="prep-input-icon" item-right name="mail"></ion-icon>
+        </span>
+        <input class="prep-input email-input" type="text" [(ngModel)]="user.email" />
+      </ion-item>
+    </ion-list>
+    <button class="ab-btn" (click)="updateProfile()">ذخیره</button>
   </div>
 </ion-content>
