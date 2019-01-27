@@ -53,13 +53,19 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border: none !important;
-    box-shadow: -1px 1px 5px 0px #ddd;
+    box-shadow: 0 0 6px 2px #ddd;
+    border-radius: 5px;
+
+    .input-wrapper {
+      border-right: 1px solid #DDD;
+    }
   }
 
-  .prep-input-span {
-    width: 80px;
+  span.prep-input-span {
+    width: 90px;
     text-align: right;
-    padding-left: 10px;
+    margin-right: 0px !important;
+    // padding-left: 10px;
     font-size: 14px;
     color: rgb(112, 112, 112);
   }
@@ -94,13 +100,15 @@
   }
 
   .phone-prefix-label {
-    width: fit-content;
-    font-size: 16px;
+    width: fit-content !important;
+    direction: ltr !important;
+    text-align: left !important;
+    font-size: 16px !important;
   }
 
   .phone-input {
-    direction: ltr;
-    text-align: left;
+    direction: ltr !important;
+    text-align: left !important;
   }
 
   ion-icon.prep-input-icon {
@@ -125,6 +133,13 @@
     bottom: 0 !important;
     left: 0 !important;
     top: auto !important;
+  }
+
+  // image select popover
+  .image-resource-popover .popover-content {
+    width: 80% !important;
+    left: 10% !important;
+    top: 40% !important;
   }
 
   ion-backdrop {

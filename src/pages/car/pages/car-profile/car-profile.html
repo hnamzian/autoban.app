@@ -1,7 +1,7 @@
 <ion-content>
   <div class="header-container row">
     <div class="header-text">اطلاعات خودرو</div>
-    <img [src]="carProfile.imageUrl || altCarImage" alt="" />
+    <img [src]="carProfile.imageUrl || altCarImage" alt="" (click)="addCarPhoto()" />
     <img class="path-img" src="../../assets//imgs/Path 33.png" alt="" />
   </div>
 

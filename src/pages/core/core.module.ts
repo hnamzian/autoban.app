@@ -10,6 +10,7 @@ import { PrepInputComponent } from "./components/prep-input/prep-input";
 import { AuthHeaderComponent } from "./components/auth-header/auth-header";
 import { DatePickerCompponent } from "./components/date-picker/date-picker";
 import { SelectListComponent } from "./components/select-list/select-list";
+import { ImageResSelection } from "./components/image-res-selection/image-res-selection"
 
 @NgModule({
   imports: [CommonModule, IonicModule],
@@ -20,9 +21,10 @@ import { SelectListComponent } from "./components/select-list/select-list";
     PrepInputComponent,
     AuthHeaderComponent,
     DatePickerCompponent,
-    SelectListComponent
+    SelectListComponent,
+    ImageResSelection
   ],
-  entryComponents: [UserMenu, CarsMenuPopover, SelectListComponent],
+  entryComponents: [UserMenu, CarsMenuPopover, SelectListComponent, ImageResSelection],
   exports: [
     MenuHeaderComponent,
     PrepInputComponent,

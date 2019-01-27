@@ -1,9 +1,9 @@
 <ion-content>
   <div class="header-container row">
     <div class="header-text">اطلاعات شخصی</div>
-    <img [src]="user.imageUrl || userAltImage" alt="" />
+    <img [src]="userPhoto || user.imageUrl || userAltImage" alt="" (click)="addUserPhoto()" />
     <img class="path-img" src="../../../../assets/imgs/Path 33.png" alt="" />
-    <ion-badge class="add-photo-badge">+</ion-badge>
+    <!-- <ion-badge class="add-photo-badge">+</ion-badge> -->
   </div>
 
   <div class="form-container">

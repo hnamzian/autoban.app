@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, LoadingController } from "ionic-angular";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 import { map, catchError } from "rxjs/operators";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { SelectListComponent } from "../../../core/components/select-list/select-list";
 import { CarProvider } from "../../../../providers/car/car";
 import { CarStorage } from "../../../../storage/car/car";
 import { Car, CarBrand, CarColor, CarModel } from "../../../../models/car";
+import { ImageResSelection } from "../../../core/components/image-res-selection/image-res-selection";
 
 @Component({
   selector: "car-profile",
@@ -13,6 +15,15 @@ import { Car, CarBrand, CarColor, CarModel } from "../../../../models/car";
 })
 export class CarProfilePage implements OnInit {
   altCarImage = "../../../../assets/imgs/altcar.svg";
+
+  cameraOptions: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
+  carPhoto;
 
   carProfile = {} as Car;
   brand = {} as CarBrand;
@@ -31,7 +42,8 @@ export class CarProfilePage implements OnInit {
     public popoverCtrl: PopoverController,
     public loadingCtrl: LoadingController,
     public carProvider: CarProvider,
-    public carStorage: CarStorage
+    public carStorage: CarStorage,
+    public camera: Camera
   ) {
     this.carProfile = navParams.get("car");
     this.brand = this.carProfile.car_brand;
@@ -111,6 +123,31 @@ export class CarProfilePage implements OnInit {
         this.color = color;
       }
     });
+  }
+
+  addCarPhoto() {
+    let popover = this.popoverCtrl.create(ImageResSelection, {}, { cssClass: "image-resource-popover"})
+    popover.present()
+    popover.onDidDismiss(data => {
+      console.log(data);
+      
+      if (data && data.camera) {
+        this.cameraOptions.sourceType = this.camera.PictureSourceType.CAMERA;
+      } else if (data && data.gallery) {
+        this.cameraOptions.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
+      } else {
+        return
+      }
+
+      this.camera.getPicture(this.cameraOptions).then(
+        imageData => {
+          this.carPhoto = "data:image/jpeg;base64," + imageData;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    })
   }
 
   async updateCarProfile() {
