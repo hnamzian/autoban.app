@@ -36,6 +36,7 @@ export class AuthProvider {
   authenticateByPassword(username, password): Observable<UserAPI> {
     let url = `${this.baseUrl}/authenticate-password`;
 
+    console.log({ username, password });
     return this.http.post(url, { username, password }).pipe(map((result: UserAPI) => result));
   }
 

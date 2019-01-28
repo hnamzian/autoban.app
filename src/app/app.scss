@@ -57,7 +57,7 @@
     border-radius: 5px;
 
     .input-wrapper {
-      border-right: 1px solid #DDD;
+      border-right: 1px solid #ddd;
     }
   }
 
@@ -65,7 +65,7 @@
     width: 90px;
     text-align: right;
     margin-right: 0px !important;
-    // padding-left: 10px;
+    padding-left: 10px;
     font-size: 14px;
     color: rgb(112, 112, 112);
   }
@@ -94,9 +94,10 @@
     width: fit-content;
   }
 
-  .email-input {
-    direction: ltr;
-    text-align: left;
+  ion-item.phone-prefix-wrapper {
+    .input-wrapper {
+      border-right: none !important;
+    }
   }
 
   .phone-prefix-label {
@@ -109,6 +110,25 @@
   .phone-input {
     direction: ltr !important;
     text-align: left !important;
+  }
+
+  ion-item.password-input-item {
+    .input-wrapper {
+      border-right: none !important;
+    }
+  }
+
+  ion-item.email-input-item {
+    .input-wrapper {
+      border-right: none !important;
+    }
+    .email-icon-wrapper {
+      width: fit-content !important;
+    }
+    .email-input {
+      direction: ltr;
+      text-align: left;
+    }
   }
 
   ion-icon.prep-input-icon {
