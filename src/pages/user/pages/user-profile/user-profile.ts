@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, PopoverController } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
-import { ImageResSelection } from "../../../core/components/image-res-selection/image-res-selection"
+import { ImageResSelection } from "../../../core/components/image-res-selection/image-res-selection";
 import { UserProvider } from "../../../../providers/user/user";
 import { User } from "../../../../models/user";
 import { TokenStorage } from "../../../../storage/token/token";
@@ -16,7 +16,7 @@ export class UserProfilePage {
   firstName;
   lastName;
   email;
-  user: User// = {} as User;
+  user: User; // = {} as User;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -40,30 +40,35 @@ export class UserProfilePage {
   }
 
   async updateProfile() {
+    this.user.profileImage = this.userPhoto;
     console.log(this.user);
-    
+
     let user$ = await this.userProvider.updateUser(this.user);
     user$.subscribe(result => {
+      console.log(result);
       if (!result.success) {
         // ToDo: alert error
-        console.log(result.msg);
       }
-      this.navCtrl.push(VehicleMenuPage)
+      this.navCtrl.push(VehicleMenuPage);
     });
   }
 
   addUserPhoto() {
-    let popover = this.popoverCtrl.create(ImageResSelection, {}, { cssClass: "image-resource-popover"})
-    popover.present()
+    let popover = this.popoverCtrl.create(
+      ImageResSelection,
+      {},
+      { cssClass: "image-resource-popover" }
+    );
+    popover.present();
     popover.onDidDismiss(data => {
       console.log(data);
-      
+
       if (data && data.camera) {
         this.cameraOptions.sourceType = this.camera.PictureSourceType.CAMERA;
       } else if (data && data.gallery) {
         this.cameraOptions.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
       } else {
-        return
+        return;
       }
 
       this.camera.getPicture(this.cameraOptions).then(
@@ -74,7 +79,6 @@ export class UserProfilePage {
           console.log(err);
         }
       );
-    })
+    });
   }
-
 }

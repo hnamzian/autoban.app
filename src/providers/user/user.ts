@@ -44,6 +44,7 @@ export class UserProvider {
     formData.append("firstName", user.firstName);
     formData.append("lastName", user.lastName);
     formData.append("email", user.email);
+    formData.append("profileImage", user.profileImage)
 
     const httpOptions = {
       headers: new HttpHeaders({
