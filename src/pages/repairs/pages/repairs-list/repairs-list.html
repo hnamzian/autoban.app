@@ -1,19 +1,19 @@
 <ion-header>
-  <ion-navbar> <ion-title> تعمیرات </ion-title> </ion-navbar>
+  <menu-header [title]="title" (onPrevPage)="navToHome()"></menu-header>
 </ion-header>
 <ion-content padding>
   <div class="item-container" *ngFor="let repair of repairs">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="station-text">
-          <p>{{ repair.garage }}</p>
+          <p>{{ repair.garageName }}</p>
         </ion-col>
         <ion-col col-3>
           <p>{{ repair.date }}</p>
         </ion-col>
         <ion-col col-4>
           <p class="cost-text">
-            هزینه <span class="text-left"> {{ repair.cost }} </span>
+            هزینه <span class="text-left"> {{ repair.totalCost }} </span>
           </p>
         </ion-col>
       </ion-row>

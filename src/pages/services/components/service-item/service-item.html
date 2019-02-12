@@ -1,0 +1,28 @@
+<ion-grid>
+  <ion-row class="service-item-wrapper">
+    <ion-col class="service-name" col-9>
+      <p>{{ serviceItem?.persianName }}</p>
+    </ion-col>
+    <ion-col class="service-icon-wrapper" col-1>
+      <ion-icon
+        [style.color]="serviceItem.status === 'OK' ? 'rgb(17, 175, 23)' : 'rgb(172, 172, 172)'"
+        name="checkmark-circle"
+        (click)="emitOKEvent()"
+      ></ion-icon>
+    </ion-col>
+    <ion-col class="service-icon-wrapper" col-1>
+      <ion-icon
+        [style.color]="serviceItem.status === 'FAIL' ? 'rgb(250, 34, 34)' : 'rgb(172, 172, 172)'"
+        name="remove-circle"
+        (click)="emitFailedEvent()"        
+      ></ion-icon>
+    </ion-col>
+    <ion-col class="service-icon-wrapper" col-1>
+      <ion-icon
+        [style.color]="serviceItem.status === 'CHANGED' ? 'rgb(255, 176, 0)' : 'rgb(172, 172, 172)'"
+        name="swap"
+        (click)="emitChangedEvent()"
+      ></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-grid>

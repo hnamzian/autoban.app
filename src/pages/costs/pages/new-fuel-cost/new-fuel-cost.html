@@ -3,34 +3,36 @@
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>تاریخ</span>
-        <ion-item>
-          <!-- <date-picker></date-picker> -->
-          <ion-datetime
-            [max]="startMax"
-            [min]="startMin"
-            displayFormat="D MMMM YYYY"
-            pickerFormat="DD MMMM YYYY"
-            monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
-            doneText="انتخاب"
-            cancelText="بازگشت"
-          ></ion-datetime>
-        </ion-item>
+        <ion-datetime
+          [max]="startMax"
+          [min]="startMin"
+          displayFormat="D MMMM YYYY"
+          pickerFormat="DD MMMM YYYY"
+          monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
+          doneText="انتخاب"
+          cancelText="بازگشت"
+          [(ngModel)]="fuelCost.date"
+        ></ion-datetime>
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>لیتر</span>
-        <input class="prep-input" type="text" [(ngModel)]="fuel.litre" />
+        <input class="prep-input" type="text" [(ngModel)]="fuelCost.volume" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>هزینه</span>
-        <input class="prep-input" type="text" [(ngModel)]="fuel.cost" />
+        <input class="prep-input" type="text" [(ngModel)]="fuelCost.value" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>جایگاه</span>
-        <input class="prep-input" type="text" [(ngModel)]="fuel.sation" />
+        <input class="prep-input" type="text" [(ngModel)]="stationName" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>کیلومتر</span>
-        <input class="prep-input" type="text" [(ngModel)]="fuel.odometer" />
+        <input class="prep-input" type="text" [(ngModel)]="odometer" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>توضیح</span>
+        <input class="prep-input" type="text" [(ngModel)]="fuelCost.comment" />
       </ion-item>
     </ion-list>
     <button class="ab-btn" (click)="addFuelCost()">ذخیره</button>

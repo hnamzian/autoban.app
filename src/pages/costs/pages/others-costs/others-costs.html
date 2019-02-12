@@ -1,16 +1,14 @@
 <ion-content padding>
-  <div class="item-container" *ngFor="let payment of othersPayments">
+  <div class="item-container" *ngFor="let othersCost of othersCosts">
     <ion-grid style="direction: rtl">
       <ion-row>
-        <ion-col col-5 class="location-text">
-          <p>{{ payment.title }}</p>
-        </ion-col>
+        <ion-col col-5 class="location-text"> <!-- <p>{{ othersCosts.title }}</p> --> </ion-col>
         <ion-col col-4>
-          <p>{{ payment.date }}</p>
+          <p>{{ othersCost.date }}</p>
         </ion-col>
         <ion-col col-3>
           <p class="cost-text">
-            هزینه <span class="text-left"> {{ payment.cost }} </span>
+            هزینه <span class="text-left"> {{ othersCost.value }} </span>
           </p>
         </ion-col>
       </ion-row>

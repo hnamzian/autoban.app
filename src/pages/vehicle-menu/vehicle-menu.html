@@ -1,12 +1,5 @@
 <ion-header>
-  <menu-header
-    [title]="title"
-    [userName]="user?.firstName"
-    [cars]="cars"
-    [selectedCar]="selectedCar"
-    (userProfileClicked)="navToUserProfilePage()"
-    (onCarSelected)="updateSelectedCar($event)"
-  ></menu-header>
+  <menu-header [title]="title" [showLogo]="true"></menu-header>
 </ion-header>
 <ion-content padding>
   <ion-grid>

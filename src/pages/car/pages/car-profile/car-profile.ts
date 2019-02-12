@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, PopoverController, LoadingController } from "ionic-angular";
+import { NavController, PopoverController, LoadingController } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { map, catchError } from "rxjs/operators";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
@@ -38,20 +38,21 @@ export class CarProfilePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public popoverCtrl: PopoverController,
     public loadingCtrl: LoadingController,
     public carProvider: CarProvider,
     public carStorage: CarStorage,
     public camera: Camera
-  ) {
-    this.carProfile = navParams.get("car");
+  ) {}
+
+  async ngOnInit() {
+    this.carProfile = await this.carStorage.getSelectedCar();
+    console.log(this.carProfile);
+    
     this.brand = this.carProfile.car_brand;
     this.model = this.carProfile.car_model;
     this.color = this.carProfile.color;
-  }
 
-  async ngOnInit() {
     await this.loadCarBrands();
     await this.loadCarColors();
   }
@@ -126,17 +127,21 @@ export class CarProfilePage implements OnInit {
   }
 
   addCarPhoto() {
-    let popover = this.popoverCtrl.create(ImageResSelection, {}, { cssClass: "image-resource-popover"})
-    popover.present()
+    let popover = this.popoverCtrl.create(
+      ImageResSelection,
+      {},
+      { cssClass: "image-resource-popover" }
+    );
+    popover.present();
     popover.onDidDismiss(data => {
       console.log(data);
-      
+
       if (data && data.camera) {
         this.cameraOptions.sourceType = this.camera.PictureSourceType.CAMERA;
       } else if (data && data.gallery) {
         this.cameraOptions.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
       } else {
-        return
+        return;
       }
 
       this.camera.getPicture(this.cameraOptions).then(
@@ -147,7 +152,7 @@ export class CarProfilePage implements OnInit {
           console.log(err);
         }
       );
-    })
+    });
   }
 
   async updateCarProfile() {
@@ -161,8 +166,8 @@ export class CarProfilePage implements OnInit {
     carProfile.color = this.color;
     carProfile.odometer = this.carProfile.odometer;
     carProfile.plate = this.carProfile.plate;
-    carProfile.builtyear = this.carProfile.builtyear
-    carProfile.name = this.carProfile.name
+    carProfile.builtyear = this.carProfile.builtyear;
+    carProfile.name = this.carProfile.name;
     console.log(carProfile);
 
     (await this.carProvider.updateCar(this.carProfile)).subscribe(async result => {

@@ -6,6 +6,7 @@ export interface CarAPI extends API {
 
 export interface Car {
   id: number;
+  carId: number;
   modelId: string;
   colorId: string;
   brandId: string;

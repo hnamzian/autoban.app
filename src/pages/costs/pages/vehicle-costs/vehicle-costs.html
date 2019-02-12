@@ -1,9 +1,5 @@
 <ion-header>
-  <menu-header
-    [title]="title"
-    (userProfileClicked)="navToUserProfilePage()"
-    (onCarSelected)="updateSelectedCar($event)"
-  ></menu-header>
+  <menu-header [title]="title" (onPrevPage)="navToHome()"></menu-header>
 </ion-header>
 <ion-content>
   <ion-tabs>
@@ -21,10 +17,8 @@
     ></ion-tab>
   </ion-tabs>
   <ion-fab right bottom class="floating-action">
-    <!-- <div class="add-btn-container"> -->
     <button class="ab-btn" ion-fab color="light" (click)="addNewCost()">
       <ion-icon name="add"></ion-icon>
     </button>
-    <!-- </div> -->
   </ion-fab>
 </ion-content>

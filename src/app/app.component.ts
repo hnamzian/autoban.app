@@ -31,7 +31,7 @@ export class MyApp {
       let user$ = await userProvider.getUser();
       user$.subscribe(user => {
         if (user.success) {
-          console.log(user);
+        //   console.log(user);
 
           this.rootPage = VehicleMenuPage;
         } else {

@@ -44,23 +44,15 @@ export class CarProvider {
     const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as CarAPI);
 
-    let formData = new FormData();
-    formData.append("carId", car.id.toString());
-    formData.append("modelId", car.modelId);
-    formData.append("colorId", car.colorId);
-    formData.append("image", car.image);
-    formData.append("name", car.name);
-    formData.append("plate", car.plate);
-    formData.append("odometer", car.odometer);
-    formData.append("builtyear", car.builtyear);
-
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: token
       })
     };
 
-    return this.http.put(url, formData, httpOptions).pipe(map((result: CarAPI) => result));
+    // ToDo: should be corrected on server
+    car.carId = car.id;
+    return this.http.put(url, car, httpOptions).pipe(map((result: CarAPI) => result));
   }
 
   async deleteCar(carId) {

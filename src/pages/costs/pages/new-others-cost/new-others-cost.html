@@ -11,15 +11,16 @@
           monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
           doneText="انتخاب"
           cancelText="بازگشت"
+          [(ngModel)]="othersCost.date"
         ></ion-datetime>
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
-        <span class="prep-input-span" item-right>عنوان</span>
-        <input class="prep-input" type="text" [(ngModel)]="othersCost.title" />
+        <span class="prep-input-span" item-right>هزینه</span>
+        <input class="prep-input" type="text" [(ngModel)]="othersCost.value" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
-        <span class="prep-input-span" item-right>هزینه</span>
-        <input class="prep-input" type="text" [(ngModel)]="othersCost.cost" />
+        <span class="prep-input-span" item-right>توضیح</span>
+        <input class="prep-input" type="text" [(ngModel)]="othersCost.comment" />
       </ion-item>
     </ion-list>
     <button class="ab-btn" (click)="addCost()">ذخیره</button>

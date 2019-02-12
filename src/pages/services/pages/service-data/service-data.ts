@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
+import { ServicesListPage } from "../services-list/services-list";
 
 @Component({
   selector: "service-data",
@@ -8,50 +9,54 @@ import { NavController } from "ionic-angular";
 export class ServiceDataPage {
   serviceItems = [
     {
-      name: "Engine Oil",
-      service: "Changed"
+      name: "روغن موتور",
+      status: "changed"
     },
     {
-      name: "Oil Filter",
-      service: "OK"
+      name: "فیلتر روغن",
+      status: "ok"
     },
     {
-      name: "Air Filter",
-      service: "OK"
+      name: "فیلتر هوا",
+      status: "fail"
     },
     {
-      name: "Cabin FIlter",
-      service: "OK"
+      name: "فیلتر کابین",
+      status: "ok"
     },
     {
-      name: "Fuel Filter",
-      service: "OK"
+      name: "فیلتر سوخت",
+      status: "ok"
     },
     {
-      name: "Gearbox Oil",
-      service: "OK"
+      name: "روغن گیربکس",
+      status: "ok"
     },
     {
-      name: "Hydrolic Oil",
-      service: "OK"
+      name: "روغن هیدرولیک",
+      status: "ok"
     },
     {
-      name: "Front Brake Lining",
-      service: "OK"
+      name: "ترمز جلو",
+      status: "ok"
     },
     {
-      name: "Back Brake Lining",
-      service: "Failed"
+      name: "ترمز عقب",
+      status: "ok"
     },
     {
-      name: "Spark Plug",
-      service: "OK"
+      name: "شمع",
+      status: "fail"
     },
     {
-      name: "Spark Wire",
-      service: "OK"
+      name: "کابل شمع",
+      status: "changed"
     }
   ];
 
   constructor(public navCtrl: NavController) {}
+
+  navToPrevPage() {
+    this.navCtrl.push(ServicesListPage);
+  }
 }

@@ -1,59 +1,42 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavController, ModalController } from "ionic-angular";
 import { NewFuelCostPage } from "../new-fuel-cost/new-fuel-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { Car } from "../../../../models/car";
+import { Fuel } from "../../../../models/costs";
+import { CarStorage } from "../../../../storage/car/car";
+import { CostsProvider } from "../../../../providers/costs/costs";
+import moment from "moment";
 
 @Component({
   selector: "fuel-costs",
   templateUrl: "fuel-costs.html"
 })
-export class FuelCostsPage {
-  fuelPayments = [
-    {
-      date: "1397/1/1",
-      litres: 30,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه آزادی"
-    },
-    {
-      date: "1397/1/1",
-      litres: 20,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه تهرانپارس"
-    },
-    {
-      date: "1397/1/1",
-      litres: 25,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه طرشت"
-    },
-    {
-      date: "1397/1/1",
-      litres: 35,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه آزادی"
-    },
-    {
-      date: "1397/1/1",
-      litres: 30,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه جیحون"
-    },
-    {
-      date: "1397/1/1",
-      litres: 20,
-      cost: 30000,
-      km: 3000,
-      fuelStationName: "جایگاه شهرک غرب"
-    }
-  ];
+export class FuelCostsPage implements OnInit {
+  selectedCar: Car;
+  fuels: Fuel[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public carStorage: CarStorage,
+    public costsProvider: CostsProvider
+  ) {}
+
+  async ngOnInit() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let fine$ = await this.costsProvider.getFuels(this.selectedCar.id);
+    fine$.subscribe(result => {
+      console.log(result);
+
+      this.fuels = result.fuels;
+      this.fuels = this.fuels.map(fine => {
+        fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
+        return fine;
+      });
+    });
+  }
 
   addNewFuelCost() {
     const modal = this.modalCtrl.create(NewFuelCostPage);

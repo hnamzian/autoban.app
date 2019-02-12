@@ -12,6 +12,7 @@ import { UserStorage } from "../../storage/user/user";
 import { CarStorage } from "../../storage/car/car";
 import { UserAPI, User } from "../../models/user";
 import { CarAPI, Car } from "../../models/car";
+import { environment as env } from "../../config/environment.prod";
 
 @Component({
   selector: "vehicle-menu",
@@ -22,6 +23,7 @@ export class VehicleMenuPage implements OnInit {
   user$: Observable<UserAPI>;
   car$: Observable<CarAPI>;
   user = {} as User;
+  userPhoto;
   selectedCar = {} as Car;
   cars: Car[];
 
@@ -35,18 +37,15 @@ export class VehicleMenuPage implements OnInit {
 
   async ngOnInit() {
     await this.getUser();
-
     await this.getCars();
-
-    await this.getSelectedCar();
   }
 
   async getUser() {
     this.user$ = await this.userProvider.getUser();
     this.user$.subscribe(async result => {
       this.user = result.user;
+      this.userPhoto = this.getUserImageUrl();
       await this.storeUser();
-      console.log(this.user);
     });
   }
 
@@ -79,10 +78,11 @@ export class VehicleMenuPage implements OnInit {
     this.navCtrl.push(UserProfilePage, { user: this.user });
   }
 
-  navToVehicleProfilePage() {
+  async navToVehicleProfilePage() {
+    await this.getSelectedCar();
     if (this.selectedCar.id) {
       console.log(this.selectedCar);
-      this.navCtrl.push(CarProfilePage, { car: this.selectedCar });
+      this.navCtrl.push(CarProfilePage);
       return;
     }
     console.log("No Car is selected");
@@ -105,4 +105,8 @@ export class VehicleMenuPage implements OnInit {
   navToSettingsPage() {}
 
   navToReoprtsPage() {}
+
+  getUserImageUrl() {
+    return `${env.BASE_URL}/${this.user.profileImage}`;
+  }
 }

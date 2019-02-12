@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, Output, OnInit } from "@angular/core";
-import { NavController, PopoverController, NavParams, ViewController } from "ionic-angular";
+import { NavController, PopoverController, ViewController, NavParams } from "ionic-angular";
+import { Observable } from "rxjs";
 import { UserStorage } from "../../../../storage/user/user";
 import { CarStorage } from "../../../../storage/car/car";
-import { Car } from "../../../../models/car";
+import { Car, CarAPI } from "../../../../models/car";
+import { UserProfilePage } from "../../../user/pages/user-profile/user-profile";
+import { UserAPI, User } from "../../../../models/user";
+import { environment as env } from "../../../../config/environment.prod";
 
 @Component({
   selector: "menu-header",
@@ -10,19 +14,15 @@ import { Car } from "../../../../models/car";
 })
 export class MenuHeaderComponent implements OnInit {
   @Input() title;
+  @Input() showLogo = false;
+  @Output() onPrevPage = new EventEmitter();
 
-  @Input() profileImage;
-  @Input() userName: string;
-  @Output() userProfileClicked = new EventEmitter<boolean>();
+  profileImage;
+  vehicleImage;
 
-  @Input() vehicleImage;
-  @Input() selectedCar = {} as Car;
-  @Input() cars: Car[];
-  @Output() onCarSelected = new EventEmitter<Car>();
-
-  storedUser;
-  storedCars;
-  storedSelectedCar;
+  storedUser: User;
+  storedCars: Car[];
+  selectedCar = {} as Car;
   userAltImage = "../../../../assets/imgs/user.png";
   carAltImage = "../../../../assets/imgs/car.svg";
 
@@ -30,19 +30,34 @@ export class MenuHeaderComponent implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public popoverCtrl: PopoverController,
     public userStorage: UserStorage,
     public carStorage: CarStorage
-  ) {
-    this.cars = navParams.get("cars");
-    console.log(this.cars);
-  }
+  ) {}
 
   async ngOnInit() {
-    this.storedUser = await this.userStorage.getUser();
-    this.storedCars = await this.carStorage.getCars();
-    this.storedSelectedCar = await this.carStorage.getSelectedCar();
+    await this.loadUserProfile();
+    await this.loadCars();
+    this.selectedCar = await this.carStorage.getSelectedCar();
+  }
+
+  async loadUserProfile() {
+    while (!this.storedUser) {
+      this.storedUser = await this.userStorage.getUser();
+      this.profileImage = this.getUserImage();
+      console.log("User profile loaded: ", this.storedUser);
+    }
+  }
+
+  async loadCars() {
+    while (!this.storedCars) {
+      this.storedCars = await this.carStorage.getCars();
+      console.log("Cars profile loaded: ", this.storedCars);
+    }
+  }
+
+  prevPage() {
+    this.onPrevPage.emit();
   }
 
   openUserMenu() {
@@ -50,7 +65,8 @@ export class MenuHeaderComponent implements OnInit {
     popover.present();
     popover.onDidDismiss(d => {
       if (d && d.profileClicked) {
-        this.userProfileClicked.emit();
+        this.navCtrl.push(UserProfilePage);
+        // this.userProfileClicked.emit();
       }
     });
   }
@@ -58,16 +74,28 @@ export class MenuHeaderComponent implements OnInit {
   openCarsMenu() {
     let popover = this.popoverCtrl.create(
       CarsMenuPopover,
-      { cars: this.cars, selectedCar: this.selectedCar },
+      { cars: this.storedCars, selectedCar: this.selectedCar },
       { cssClass: "carsMenuPopover" }
     );
     popover.present();
     popover.onDidDismiss(d => {
       if (d && d.selectedCar) {
         this.selectedCar = d.selectedCar;
-        this.onCarSelected.emit(this.selectedCar);
+        this.carStorage.setSelectedCar(this.selectedCar);
+        // this.onCarSelected.emit(this.selectedCar);
       }
     });
+  }
+
+  getUserImage() {
+    if (this.storedUser && this.storedUser.profileImage) {
+      return this.getImageUrl(this.storedUser.profileImage);
+    }
+    return this.userAltImage;
+  }
+
+  getImageUrl(url) {
+    return `${env.BASE_URL}/${url}`;
   }
 }
 
@@ -117,7 +145,6 @@ export class CarsMenuPopover {
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
     this.cars = navParams.get("cars");
     this.selectedCar = navParams.get("selectedCar");
-    console.log("kjnijnjojinhubv", this.selectedCar);
   }
 
   selectCar(car) {

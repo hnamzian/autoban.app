@@ -2,9 +2,12 @@
   <ion-grid>
     <ion-row class="profile-header">
       <ion-col class="header-user-wrapper" (click)="openUserMenu()" col-4>
-        <img [src]="profileImage || userAltImage" alt="" />
+        <img
+          [src]="profileImage"
+          alt=""
+        />
         <div class="profile-name-container">
-          <span>{{ userName || storedUser?.firstName }}</span>
+          <span>{{ storedUser?.firstName }}</span>
         </div>
       </ion-col>
       <ion-col class="header-title-wrapper" col-4>
@@ -13,7 +16,8 @@
         </div>
       </ion-col>
       <ion-col class="header-logo-wrapper" col-4>
-        <img src="../../../../assets/icon/autoban.jpg" alt="" />
+        <img src="../../../../assets/icon/autoban.jpg" alt="" *ngIf="showLogo" />
+        <ion-icon name="arrow-back" *ngIf="!showLogo" (click)="prevPage()"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -13,6 +13,7 @@ export interface User {
   lastName: string;
   mobileNumber: string;
   password: string;
+  image: string;
   profileImage: string;
   type: string;
 }

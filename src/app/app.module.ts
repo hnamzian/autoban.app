@@ -26,6 +26,7 @@ import { RepairsProvider } from "../providers/repairs/repairs";
 import { TokenStorage } from "../storage/token/token";
 import { CarStorage } from "../storage/car/car";
 import { UserStorage } from "../storage/user/user";
+import { ServicesProvider } from "../providers/services/services";
 
 @NgModule({
   declarations: [MyApp, VehicleMenuPage],
@@ -56,7 +57,8 @@ import { UserStorage } from "../storage/user/user";
     RepairsProvider,
     TokenStorage,
     CarStorage,
-    UserStorage
+    UserStorage,
+    ServicesProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

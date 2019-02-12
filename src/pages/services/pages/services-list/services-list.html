@@ -1,35 +1,36 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title> Checkups </ion-title>
-    <ion-buttons right>
-      <button class="ab-btn" class="btn-add" ion-button end (click)="addNewService()">
-        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+  <menu-header [title]="title" (onPrevPage)="navToHome()"></menu-header>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let service of services" (click)="openServiceData()">
-      <ion-avatar item-start>
-        <ion-icon class="navbar-btn-icon" name="checked-car"></ion-icon>
-      </ion-avatar>
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ service.title }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ service.date }}</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ service.repairMan }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2 class="right-end">{{ service.cost }}</h2>
-        </div>
-      </div>
-    </ion-item>
-  </ion-list>
+  <div class="item-container" *ngFor="let service of services">
+    <ion-grid style="direction: rtl">
+      <ion-row>
+        <ion-col col-5 class="station-text">
+          <p>{{ service.garage }}</p>
+        </ion-col>
+        <ion-col col-3>
+          <p>{{ service.date }}</p>
+        </ion-col>
+        <ion-col col-4>
+          <p class="cost-text">
+            هزینه <span class="text-left"> {{ service.totalCost }} </span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <p>{{ service.title }}</p>
+        </ion-col>
+        <ion-col col-3 class="text-center"></ion-col>
+        <ion-col class="detail-btn" col-4 (click)="showServiceSheet(service)">
+          <p>مشاهده جزئیات</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-fab right bottom class="floating-action">
+    <button class="ab-btn" ion-fab color="light" (click)="addService()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

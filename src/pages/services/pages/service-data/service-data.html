@@ -1,46 +1,10 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title> Checkup Data </ion-title>
-    <ion-buttons right>
-      <button class="ab-btn" class="btn-add" ion-button end (click)="addNewService()">
-        <ion-icon class="navbar-btn-icon" name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+  <menu-header [title]="title" (onPrevPage)="navToPrevPage()"></menu-header>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of serviceItems">
-      <div class="row">
-        <div class="col col-50">
-          <h2>{{ item.name }}</h2>
-        </div>
-        <div class="col col-50">
-          <h2
-            class="right-end"
-            style="font-size: 22px"
-            [style.color]="
-              item.service == 'Changed'
-                ? 'blue'
-                : item.service == 'OK'
-                ? 'green'
-                : 'red'
-            "
-          >
-            <div [ngSwitch]="item.service">
-              <div *ngSwitchCase="'Changed'">
-                <ion-icon class="navbar-btn-icon" name="swap"></ion-icon>
-              </div>
-              <div *ngSwitchCase="'OK'">
-                <ion-icon class="navbar-btn-icon" name="thumbs-up"></ion-icon>
-              </div>
-              <div *ngSwitchCase="'Failed'">
-                <ion-icon class="navbar-btn-icon" name="thumbs-down"></ion-icon>
-              </div>
-            </div>
-          </h2>
-        </div>
-      </div>
+  <ion-list class="service-list">
+    <ion-item class="service-item-container" *ngFor="let item of serviceItems" no-lines>
+      <service-item [serviceItem]="item"></service-item>
     </ion-item>
   </ion-list>
 </ion-content>

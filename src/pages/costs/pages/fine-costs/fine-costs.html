@@ -3,22 +3,21 @@
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="location-text">
-          <!-- <p>{{ fine.location }}</p> -->
+          <p>{{ fine.cost.comment }}</p>
         </ion-col>
         <ion-col col-4>
-          <p>{{ fine.date }}</p>
+          <p>{{ fine.cost.date }}</p>
         </ion-col>
         <ion-col col-3>
           <p class="cost-text">
-            هزینه <span class="text-left"> {{ fine.value }} </span>
+            هزینه <span class="text-left"> {{ fine.cost.value }} </span>
           </p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
-          <p>{{ fine.fineCategoryCode }}</p>
+          <p>{{ fine.cost.comment }}</p>
         </ion-col>
-        <!-- <ion-col col-4 class="text-center"></ion-col> -->
       </ion-row>
     </ion-grid>
   </div>

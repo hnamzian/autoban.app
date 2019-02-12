@@ -1,77 +1,49 @@
-import { Component } from "@angular/core";
-import { NavController, AlertController } from "ionic-angular";
-import { RepairCardPage } from "../repair-card/repair-card";
+import { Component, OnInit } from "@angular/core";
+import { NavController, AlertController, PopoverController } from "ionic-angular";
+import { NewRepairFormPage } from "../new-repair-form/new-repair-form";
+import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { CarStorage } from "../../../../storage/car/car";
+import { RepairsProvider } from "../../../../providers/repairs/repairs";
+import { Car } from "../../../../models/car";
+import { Repair } from "../../../../models/repair";
+import * as moment from "moment";
+import { filter } from "rxjs/operator/filter";
+import { map } from "rxjs/operator/map";
 
 @Component({
   selector: "repairs-list",
   templateUrl: "repairs-list.html"
 })
-export class RepairsListPage {
-  repairs = [
-    {
-      date: "1/1/2019",
-      garage: "تعمیرگاه راغبی",
-      title: "تعمیر موتور",
-      cost: 2700000
-    },
-    {
-      date: "1/5/2019",
-      garage: "تعمیرگاه راغبی",
-      title: "تعمیر گیربکس",
-      cost: 1550000
-    },
-    {
-      date: "1/10/2019",
-      garage: "تعمیرگاه راغبی",
-      title: "تعویض رادیاتور",
-      cost: 600000
-    },
-    {
-      date: "1/11/2019",
-      garage: "تعمیرگاه راغبی",
-      title: "تعویض اگزوز",
-      cost: 500000
-    }
-  ];
-
+export class RepairsListPage implements OnInit {
+  title = "تعمیرات";
+  selectedCar: Car;
+  repairs = [] as Repair[];
   constructor(
     public navCtrl: NavController,
-    public alertCtrl: AlertController
+    public popoverCtrl: PopoverController,
+    public carStorage: CarStorage,
+    public repairsProvider: RepairsProvider
   ) {}
 
-  openRepairData() {
-    this.navCtrl.push(RepairCardPage);
+  async ngOnInit() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+    let repairs$ = await this.repairsProvider.getRepairs(this.selectedCar.id);
+    repairs$.subscribe(result => {
+      this.repairs = result.repairs;
+      this.repairs = this.repairs.map(repair => {
+        repair.date = moment(repair.date).format("YYYY-MM-DD");
+        return repair;
+      });
+      console.log(result);
+    });
   }
 
   addNewRepair() {
-    const prompt = this.alertCtrl.create({
-      title: "New Repair",
-      message: "Please enter general information.",
-      inputs: [
-        {
-          name: "title",
-          placeholder: "Title"
-        },
-        {
-          name: "garage",
-          placeholder: "Garage Name"
-        }
-      ],
-      buttons: [
-        {
-          text: "Cancel",
-          handler: data => {
-            console.log("Cancel clicked");
-          }
-        },
-        {
-          text: "Save",
-          handler: data => {
-            console.log("Saved clicked");
-          }
-        }
-      ]
-    });
-    prompt.present();
+    const popover = this.popoverCtrl.create(NewRepairFormPage, {}, { cssClass: "repairPopover" });
+    popover.present();
+  }
+
+  navToHome() {
+    this.navCtrl.push(VehicleMenuPage);
   }
 }

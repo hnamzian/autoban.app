@@ -1,30 +1,30 @@
 
 <ion-content padding>
-  <div class="item-container" *ngFor="let payment of fuelPayments">
+  <div class="item-container" *ngFor="let fuel of fuels">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="station-text">
-          <p>{{ payment.fuelStationName }}</p>
+          <p>{{ fuel.stationName }}</p>
         </ion-col>
         <ion-col col-4>
-          <p>{{ payment.date }}</p>
+          <p>{{ fuel.cost.date }}</p>
         </ion-col>
         <ion-col col-3>
           <p class="cost-text">
-            هزینه <span class="text-left"> {{ payment.cost }} </span>
+            هزینه <span class="text-left"> {{ fuel.cost.value }} </span>
           </p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-5>
           <p>
-            کیلومتر <span> {{ payment.km }} </span>
+            کیلومتر <span> {{ fuel.odometer }} </span>
           </p>
         </ion-col>
         <ion-col col-4 class="text-center"></ion-col>
         <ion-col col-3>
           <p class="liter-text">
-            لیتر <span class="text-left"> {{ payment.litres }} </span>
+            لیتر <span class="text-left"> {{ fuel.volume }} </span>
           </p>
         </ion-col>
       </ion-row>

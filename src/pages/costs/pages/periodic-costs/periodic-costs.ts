@@ -1,6 +1,11 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, ModalController } from "ionic-angular";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { Car } from "../../../../models/car";
+import { PeriodicCost } from "../../../../models/costs";
+import { CarStorage } from "../../../../storage/car/car";
+import { CostsProvider } from "../../../../providers/costs/costs";
+import moment from "moment";
 
 @Component({
   selector: "periodic-costs",
@@ -10,43 +15,32 @@ import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 // period, type, cost, date, comment
 // معاینه فنی - بیمه شخص ثالث - بیمه بدنه - وام - سایر
 export class PeriodicCostsPage {
-  othersPayments = [
-    {
-      date: "1/1/1397",
-      cost: 30000,
-      type: "معاینه فنی",
-      period: "6 ماه"
-    },
-    {
-      date: "1/2/1397",
-      cost: 30000,
-      type: "بیمه بدنه",
-      period: "1 سال"
-    },
-    {
-      date: "1/3/1397",
-      cost: 30000,
-      type: "بیمه شخص ثالث",
-      period: "6 ماه"
-    },
-    {
-      date: "1/4/1397",
-      cost: 30000,
-      type: "وام",
-      period: "1 ماه"
-    },
-    {
-      date: "1/5/1397",
-      cost: 30000,
-      type: "سایر",
-      period: "3 ماه"
-    }
-  ];
+  selectedCar: Car;
+  periodicCosts: PeriodicCost[];
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public carStorage: CarStorage,
+    public costsProvider: CostsProvider
+  ) {}
+
+  async ngOnInit() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let periodicCost$ = await this.costsProvider.getPeriodicCosts(this.selectedCar.id);
+    periodicCost$.subscribe(result => {
+      console.log(result);
+
+      this.periodicCosts = result.periodicCosts;
+      this.periodicCosts = this.periodicCosts.map(costItem => {
+        costItem.cost.date = moment(costItem.cost.date).format("YYYY-MM-DD");
+        return costItem;
+      });
+    });
   }
 
   navToMenu() {
-      this.navCtrl.push(VehicleMenuPage)
+    this.navCtrl.push(VehicleMenuPage);
   }
 }

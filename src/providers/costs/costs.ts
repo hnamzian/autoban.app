@@ -4,16 +4,16 @@ import { Observable } from "rxjs/Rx";
 import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
 import { TokenStorage } from "../../storage/token/token";
-
 import {
-  FuelCost,
-  FuelCostAPI,
-  FineCost,
-  FineCostAPI,
-  OthersCost,
+  FuelAPI,
+  AllFuelsAPI,
+  AllFinesAPI,
+  FineAPI,
   OthersCostAPI,
-  PeriodicCost,
-  PeriodicCostAPI
+  AllOthersCostAPI,
+  PeriodicCostAPI,
+  AllPeriodicCostAPI,
+  Cost
 } from "../../models/costs";
 
 @Injectable()
@@ -22,11 +22,11 @@ export class CostsProvider {
 
   constructor(public http: HttpClient, public tokenStorage: TokenStorage) {}
 
-  async addFuelCost(fuelCost: FuelCost) {
-    let url = `${env.BASE_URL}/add-fuel`;
+  async addFuelCost(fuelCost: Cost, stationName, odometer) {
+    let url = `${this.baseUrl}/fuel`;
 
     let token = await this.tokenStorage.getAuthToken();
-    if (!token) return Observable.of({} as FuelCostAPI);
+    if (!token) return Observable.of({} as FuelAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,14 +34,16 @@ export class CostsProvider {
       })
     };
 
-    return this.http.post(url, fuelCost, httpOptions).pipe(map((result: FuelCostAPI) => result));
+    return this.http
+      .post(url, { ...fuelCost, stationName, odometer }, httpOptions)
+      .pipe(map((result: FuelAPI) => result));
   }
 
   async deleteFuelCost(fuelId) {
-    let url = `${env.BASE_URL}/delete-fuel`;
+    let url = `${this.baseUrl}/delete-fuel`;
 
     let token = await this.tokenStorage.getAuthToken();
-    if (!token) return Observable.of({} as FuelCostAPI);
+    if (!token) return Observable.of({} as FuelAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -53,11 +55,11 @@ export class CostsProvider {
     //.pipe(map((result: User) => result));
   }
 
-  async addFineCost(fineCost: FineCost) {
-    let url = `${env.BASE_URL}/add-fine`;
+  async getFuels(carId) {
+    let url = `${this.baseUrl}/list-fuels`;
 
     let token = await this.tokenStorage.getAuthToken();
-    if (!token) return Observable.of({} as FineCostAPI);
+    if (!token) return Observable.of({} as AllFuelsAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -65,14 +67,31 @@ export class CostsProvider {
       })
     };
 
-    return this.http.post(url, fineCost, httpOptions).pipe(map((result: FineCostAPI) => result));
+    return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllFuelsAPI) => result));
+  }
+
+  async addFineCost(fineCost: Cost, fineCategoryCode) {
+    let url = `${this.baseUrl}/fine`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as FineAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http
+      .post(url, { ...fineCost, fineCategoryCode }, httpOptions)
+      .pipe(map((result: FineAPI) => result));
   }
 
   async deleteFineCost(fineId) {
-    let url = `${env.BASE_URL}/delete-fine`;
+    let url = `${this.baseUrl}/delete-fine`;
 
     let token = await this.tokenStorage.getAuthToken();
-    if (!token) return Observable.of({} as FineCostAPI);
+    if (!token) return Observable.of({} as FineAPI);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -84,8 +103,23 @@ export class CostsProvider {
     //   .pipe(map((result: User) => result));
   }
 
-  async addPeriodicCost(periodicCost: PeriodicCost) {
-    let url = `${env.BASE_URL}/add-periodic`;
+  async getFines(carId) {
+    let url = `${this.baseUrl}/list-fines`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as AllFinesAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllFinesAPI) => result));
+  }
+
+  async addPeriodicCost(periodicCost: Cost, period) {
+    let url = `${this.baseUrl}/periodic`;
 
     let token = await this.tokenStorage.getAuthToken();
     if (!token) return Observable.of({} as PeriodicCostAPI);
@@ -97,12 +131,12 @@ export class CostsProvider {
     };
 
     return this.http
-      .post(url, periodicCost, httpOptions)
+      .post(url, { ...periodicCost, period }, httpOptions)
       .pipe(map((result: PeriodicCostAPI) => result));
   }
 
   async deletePeriodicCost(periodicCostId) {
-    let url = `${env.BASE_URL}/delete-periodic`;
+    let url = `${this.baseUrl}/delete-periodic`;
 
     let token = await this.tokenStorage.getAuthToken();
     if (!token) return Observable.of({} as PeriodicCostAPI);
@@ -117,8 +151,25 @@ export class CostsProvider {
     //   .pipe(map((result: User) => result));
   }
 
-  async addOthersCost(othersCost: OthersCost) {
-    let url = `${env.BASE_URL}/add-other`;
+  async getPeriodicCosts(carId) {
+    let url = `${this.baseUrl}/list-periodics`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as AllPeriodicCostAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http
+      .post(url, { carId }, httpOptions)
+      .pipe(map((result: AllPeriodicCostAPI) => result));
+  }
+
+  async addOthersCost(othersCost: Cost) {
+    let url = `${this.baseUrl}/other`;
 
     let token = await this.tokenStorage.getAuthToken();
     if (!token) return Observable.of({} as OthersCostAPI);
@@ -135,7 +186,7 @@ export class CostsProvider {
   }
 
   async deleteOthersCost(costId) {
-    let url = `${env.BASE_URL}/delete-other`;
+    let url = `${this.baseUrl}/delete-other`;
 
     let token = await this.tokenStorage.getAuthToken();
     if (!token) return Observable.of({} as PeriodicCostAPI);
@@ -150,8 +201,25 @@ export class CostsProvider {
     //   .pipe(map((result: User) => result));
   }
 
+  async getOthersCosts(carId) {
+    let url = `${this.baseUrl}/list-others`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as AllOthersCostAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http
+      .post(url, { carId }, httpOptions)
+      .pipe(map((result: AllOthersCostAPI) => result));
+  }
+
   async listCosts(carId, from, to) {
-    let url = `${env.BASE_URL}/list`;
+    let url = `${this.baseUrl}/list`;
 
     let token = await this.tokenStorage.getAuthToken();
     // if (!token) return Observable.of({} as PeriodicCostAPI);
@@ -167,7 +235,7 @@ export class CostsProvider {
   }
 
   async listCategorizedCost(carId) {
-    let url = `${env.BASE_URL}/list-categorized`;
+    let url = `${this.baseUrl}/list-categorized`;
 
     let token = await this.tokenStorage.getAuthToken();
 

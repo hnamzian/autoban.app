@@ -1,0 +1,22 @@
+new-service-sheet {
+  .form-container {
+    width: 100%;
+    padding-top: 0px;
+  }
+  ion-scroll {
+    height: calc(100vh - 68px);
+  }
+  ion-fab.fab-popover {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .service-list {
+    margin-top: 20px;
+  }
+  .service-item-container {
+    ion-label {
+      margin: 0px;
+    }
+  }
+}

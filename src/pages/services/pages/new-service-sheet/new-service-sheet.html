@@ -1,0 +1,15 @@
+<ion-content>
+  <div class="form-container">
+    <ion-list class="service-list">
+      <ion-item class="service-item-container" *ngFor="let item of serviceTypes" no-lines>
+        <service-item
+          [serviceItem]="item"
+          (onChanged)="onChangedItem(item)"
+          (onOK)="onOKItem(item)"
+          (onFailed)="onFailedItem(item)"
+        ></service-item>
+      </ion-item>
+    </ion-list>
+    <button class="ab-btn" ion-fab color="light" (click)="addServiceSheet()">ذخیره</button>
+  </div>
+</ion-content>

@@ -25,10 +25,6 @@ export class UserProvider {
       })
     };
 
-    let dummy = { ...user, password }
-    console.log(dummy);
-    
-
     return this.http
       .post(url, { ...user, password }, httpOptions)
       .pipe(map((result: UserAPI) => result));
@@ -40,19 +36,13 @@ export class UserProvider {
     const token = (await this.tokenStorage.getAuthToken()) || false;
     if (!token) return Observable.of({} as API);
 
-    let formData = new FormData();
-    formData.append("firstName", user.firstName);
-    formData.append("lastName", user.lastName);
-    formData.append("email", user.email);
-    formData.append("profileImage", user.profileImage)
-
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: token
       })
     };
 
-    return this.http.put(url, formData, httpOptions).pipe(map((result: API) => result));
+    return this.http.put(url, user, httpOptions).pipe(map((result: API) => result));
   }
 
   async changeMobileNumber(mobileNumber): Promise<Observable<UserAPI>> {

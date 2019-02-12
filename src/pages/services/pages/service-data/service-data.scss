@@ -1,11 +1,10 @@
 service-data {
-  .btn-add {
-    margin-right: 10px;
-    font-size: 30px;
+  .service-list {
+    margin-top: 20px;
   }
-
-  .right-end {
-    float: right;
+  .service-item-container {
+    ion-label {
+      margin: 0px;
+    }
   }
-
 }

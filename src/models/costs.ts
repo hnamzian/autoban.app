@@ -1,52 +1,63 @@
 import { API } from "../models/api";
 
-export interface FuelCostAPI extends API {
-  fuel: FuelCost;
-}
-export interface FuelCost {
+export interface Cost {
+  carId: number;
+  comment: string;
   date: string;
-  station: string;
-  cost: string;
-  odometer: string;
-  litre: string;
+  id: string;
+  type: string;
+  value: string;
 }
 
-export interface FineCostAPI extends API {
+export interface Fuel {
+  cost: Cost;
   id: string;
   costId: string;
+  isFull: boolean;
+  odometer: string;
+  stationName: string;
+  type: string;
+  volume: string;
+}
+export interface FuelAPI extends API {
+  fuel: Fuel;
+}
+export interface AllFuelsAPI {
+  fuels: Fuel[];
+}
+
+export interface Fine {
+  cost: Cost;
+  id: string;
   fineCategoryCode: string;
-  cost: {
-    id: string;
-    carId: string;
-    type: string;
-    date: string;
-    value: string;
-    comment: string;
-  };
+  fine_category: string;
+  costId: string;
 }
-export interface FineCost {
-  date: string;
-  value: string;
-  fineCategoryCode: number;
-  comment: string
+export interface FineAPI extends API {
+  fine: Fine;
+}
+export interface AllFinesAPI {
+  fines: Fine[];
 }
 
-export interface PeriodicCostAPI extends API {
-  cost: PeriodicCost;
-}
 export interface PeriodicCost {
-  date: string;
-  title: string;
-  cost: string;
-  period: string;
-  location: string;
+  cost: Cost;
+  id: string;
+  costId: string;
+}
+export interface PeriodicCostAPI extends API {
+  periodicCost: PeriodicCost;
+}
+export interface AllPeriodicCostAPI {
+  periodicCosts: PeriodicCost[];
 }
 
-export interface OthersCostAPI extends API {
-  cost: OthersCost;
-}
 export interface OthersCost {
-  title: string;
-  date: string;
-  cost: string;
+  cost: Cost;
+}
+export interface OthersCostAPI extends API {
+  othersCost: OthersCost;
+}
+export interface AllOthersCostAPI {
+  costs: Cost[];
 }

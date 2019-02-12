@@ -8,6 +8,8 @@ import { NewFuelCostPage } from "../new-fuel-cost/new-fuel-cost";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
 import { NewOthersCostPage } from "../new-others-cost/new-others-cost";
 import { NewPeriodicCostPage } from "../new-periodic-cost/new-periodic-cost";
+import { CarStorage } from "../../../../storage/car/car";
+import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 
 @Component({
   selector: "vehicle-costs",
@@ -16,6 +18,8 @@ import { NewPeriodicCostPage } from "../new-periodic-cost/new-periodic-cost";
 export class VehicleCostsPage implements OnInit {
   title = "هزینه ها";
 
+  selectedCar;
+
   activatedTab = "Fuel";
 
   fuelCostsPage = FuelCostsPage;
@@ -23,9 +27,15 @@ export class VehicleCostsPage implements OnInit {
   othersCostsPage = OthersCostsPage;
   periodicCostsPage = PeriodicCostsPage;
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {}
+  constructor(
+    public navCtrl: NavController,
+    public popoverCtrl: PopoverController,
+    public carStorage: CarStorage
+  ) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+  }
 
   activateFuelTab() {
     this.activatedTab = "Fuel";
@@ -33,17 +43,14 @@ export class VehicleCostsPage implements OnInit {
 
   activateFineTab() {
     this.activatedTab = "Fine";
-    console.log("fine");
   }
 
   activateOthersTab() {
     this.activatedTab = "Others";
-    console.log("others");
   }
 
   activatePeriodicTab() {
     this.activatedTab = "Periodic";
-    console.log("periodic");
   }
 
   addNewCost() {
@@ -60,5 +67,9 @@ export class VehicleCostsPage implements OnInit {
       const popover = this.popoverCtrl.create(NewPeriodicCostPage, {}, { cssClass: "costPopover" });
       popover.present();
     }
+  }
+
+  navToHome() {
+    this.navCtrl.push(VehicleMenuPage);
   }
 }

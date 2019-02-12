@@ -1,22 +1,22 @@
 <ion-content padding>
-  <div class="item-container" *ngFor="let payment of othersPayments">
+  <div class="item-container" *ngFor="let periodicCost of periodicCosts">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="location-text">
-          <p>{{ payment.type }}</p>
+          <!-- <p>{{ periodicCost.type }}</p> -->
         </ion-col>
         <ion-col col-4>
-          <p>{{ payment.date }}</p>
+          <p>{{ periodicCost.cost.date }}</p>
         </ion-col>
         <ion-col col-3>
           <p class="cost-text">
-            هزینه <span class="text-left"> {{ payment.cost }} </span>
+            هزینه <span class="text-left"> {{ periodicCost.cost.value }} </span>
           </p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-5>
-          <p>{{ payment.period }}</p>
+          <p>{{ periodicCost.period }}</p>
         </ion-col>
         <ion-col col-4 class="text-center"></ion-col>
       </ion-row>

@@ -6,17 +6,21 @@ import { UserProvider } from "../../../../providers/user/user";
 import { User } from "../../../../models/user";
 import { TokenStorage } from "../../../../storage/token/token";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { environment as env } from "../../../../config/environment.prod";
+import { UserStorage } from "../../../../storage/user/user";
 
 @Component({
   selector: "user-profile",
   templateUrl: "user-profile.html"
 })
 export class UserProfilePage {
+  IMAGE_HEADER = "data:image/jpeg;base64,";
   userAltImage = "../../../../assets/imgs/user.png";
   firstName;
   lastName;
   email;
-  user: User; // = {} as User;
+  imageUrl;
+  user: User = {} as User;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -25,25 +29,41 @@ export class UserProfilePage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   };
-  userPhoto;
+  cameraPhoto: string = "";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public popoverCtrl: PopoverController,
     public userProvider: UserProvider,
+    public userStorage: UserStorage,
     public tokenStorage: TokenStorage,
     public camera: Camera
-  ) {
-    this.user = this.navParams.get("user");
-    console.log(this.user);
+  ) {}
+
+  async ngOnInit() {
+    this.user = await this.userStorage.getUser();
+    this.firstName = this.user.firstName;
+    this.lastName = this.user.lastName;
+    this.email = this.user.email;
+    this.imageUrl = this.getImageUrl(this.user.profileImage);
+    // this.userPhoto = this.getUserImage();
   }
 
   async updateProfile() {
-    this.user.profileImage = this.userPhoto;
-    console.log(this.user);
+    // console.log("image: ", this.userPhoto);
+    // this.user.image = this.userPhoto.replace(this.IMAGE_HEADER, '');
+    // console.log(this.user);
 
-    let user$ = await this.userProvider.updateUser(this.user);
+    let user = {} as User;
+    user.firstName = this.firstName;
+    user.lastName = this.lastName;
+    user.email = this.email;
+    if (this.cameraPhoto.length > 0) {
+      user.image = this.cameraPhoto.replace(this.IMAGE_HEADER, "");
+    }
+
+    let user$ = await this.userProvider.updateUser(user);
     user$.subscribe(result => {
       console.log(result);
       if (!result.success) {
@@ -73,12 +93,23 @@ export class UserProfilePage {
 
       this.camera.getPicture(this.cameraOptions).then(
         imageData => {
-          this.userPhoto = "data:image/jpeg;base64," + imageData;
+          this.cameraPhoto = this.IMAGE_HEADER + imageData;
         },
         err => {
           console.log(err);
         }
       );
     });
+  }
+
+  getUserImage() {
+    if (this.user && this.user.profileImage) {
+      return this.getImageUrl(this.user.profileImage);
+    }
+    return this.userAltImage;
+  }
+
+  getImageUrl(url) {
+    return `${env.BASE_URL}/${url}`;
   }
 }
