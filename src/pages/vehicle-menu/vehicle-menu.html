@@ -2,6 +2,14 @@
   <menu-header [title]="title" [showLogo]="true"></menu-header>
 </ion-header>
 <ion-content padding>
+  <ion-refresher slot="fixed">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col col-6>

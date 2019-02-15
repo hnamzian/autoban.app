@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, ToastController, Toast } from "ionic-angular";
 import { Observable } from "rxjs";
 import { VehicleCostsPage } from "../costs/pages/vehicle-costs/vehicle-costs";
 import { RepairsListPage } from "../repairs/pages/repairs-list/repairs-list";
@@ -27,13 +27,18 @@ export class VehicleMenuPage implements OnInit {
   selectedCar = {} as Car;
   cars: Car[];
 
+  toast: Toast;
+
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     public userProvider: UserProvider,
     public carProvider: CarProvider,
     public userStorage: UserStorage,
     public carStorage: CarStorage
-  ) {}
+  ) {
+    this.showToast("hello");
+  }
 
   async ngOnInit() {
     await this.getUser();
@@ -108,5 +113,19 @@ export class VehicleMenuPage implements OnInit {
 
   getUserImageUrl() {
     return `${env.BASE_URL}/${this.user.profileImage}`;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+    //   duration: 20000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
