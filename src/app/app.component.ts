@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Platform } from "ionic-angular";
+import { AppVersion } from "@ionic-native/app-version";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { RegisterPage } from "../pages/auth/pages/register/register";
@@ -15,10 +16,11 @@ import { UserProvider } from "../providers/user/user";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any ;
+  rootPage: any;
 
   constructor(
     platform: Platform,
+    private appVersion: AppVersion,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     authProvider: AuthProvider,
@@ -27,11 +29,21 @@ export class MyApp {
     platform.ready().then(async () => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.appVersion
+        .getAppName()
+        .then(value => {
+          console.log(value);
+        })
+        .catch(err => {
+          alert(err);
+        });
+      //   const version = await appVersion.getVersionNumber();
+      //   console.log("VERSION", version);
 
       let user$ = await userProvider.getUser();
       user$.subscribe(user => {
         if (user.success) {
-        //   console.log(user);
+          //   console.log(user);
 
           this.rootPage = VehicleMenuPage;
         } else {

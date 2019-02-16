@@ -9,6 +9,7 @@ import { Repair } from "../../../../models/repair";
 import * as moment from "moment";
 import { filter } from "rxjs/operator/filter";
 import { map } from "rxjs/operator/map";
+import { RepairReceiptsPage } from "../repair-receipts/repair-receipts";
 
 @Component({
   selector: "repairs-list",
@@ -36,6 +37,10 @@ export class RepairsListPage implements OnInit {
       });
       console.log(result);
     });
+  }
+
+  showDetail(repair) {
+    this.navCtrl.push(RepairReceiptsPage);
   }
 
   addNewRepair() {
