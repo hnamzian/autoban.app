@@ -5,18 +5,18 @@
     [leftTitle]="true"
   ></auth-header>
 
-  <div class="form-container">
+  <form class="form-container" [formGroup]="registerForm" (ngSubmit)="getSMSToken()">  
     <div class="text-container">شماره تلفن همراه خود را وارد نمایید</div>
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item phone-prefix-wrapper">
         <span class="prep-input-span phone-prefix-label" item-left>+98</span>
-        <input class="prep-input phone-input" type="tel" #mobileNumber />
+        <input class="prep-input phone-input" type="tel" formControlName="mobileNumber" />
         <ion-icon class="prep-input-icon" item-right name="phone-portrait"></ion-icon>
       </ion-item>
     </ion-list>
-    <button class="ab-btn" (click)="getSMSToken(mobileNumber.value)">ارسال کد</button>
+    <button type="submit" class="ab-btn">ارسال کد</button>
     <div class="text-container">
       در حال حاضر حساب کاربری دارم <span class="span-left" (click)="navToLoginPage()"> ورود </span>
     </div>
-  </div>
+  </form>
 </ion-content>

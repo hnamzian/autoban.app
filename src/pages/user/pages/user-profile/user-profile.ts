@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, PopoverController } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ImageResSelection } from "../../../core/components/image-res-selection/image-res-selection";
 import { UserProvider } from "../../../../providers/user/user";
@@ -16,6 +17,8 @@ import { UserStorage } from "../../../../storage/user/user";
 export class UserProfilePage {
   IMAGE_HEADER = "data:image/jpeg;base64,";
   userAltImage = "../../../../assets/imgs/user.png";
+
+  userProfileForm: FormGroup;
   firstName;
   lastName;
   email;
@@ -33,6 +36,7 @@ export class UserProfilePage {
 
   constructor(
     public navCtrl: NavController,
+    public formBuilder: FormBuilder,
     public navParams: NavParams,
     public popoverCtrl: PopoverController,
     public userProvider: UserProvider,
@@ -42,10 +46,23 @@ export class UserProfilePage {
   ) {}
 
   async ngOnInit() {
+    this.userProfileForm = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.minLength(5)]]
+    });
+    
     this.user = await this.userStorage.getUser();
     this.firstName = this.user.firstName;
     this.lastName = this.user.lastName;
     this.email = this.user.email;
+
+    this.userProfileForm.setValue({
+      firstName: [this.firstName],
+      lastName: [this.lastName],
+      email: [this.email]
+    });
+
     this.imageUrl = this.getImageUrl(this.user.profileImage);
     // this.userPhoto = this.getUserImage();
   }
@@ -55,10 +72,17 @@ export class UserProfilePage {
     // this.user.image = this.userPhoto.replace(this.IMAGE_HEADER, '');
     // console.log(this.user);
 
-    let user = {} as User;
-    user.firstName = this.firstName;
-    user.lastName = this.lastName;
-    user.email = this.email;
+    // ToDo: handle this error
+    if(this.userProfileForm.invalid) {
+      console.log("error")
+      return false;
+    }
+
+    const user = {
+      firstName: this.userProfileForm.get("firstName").value,
+      lastName: this.userProfileForm.get("lastName").value,
+      email: this.userProfileForm.get("email").value
+    } as User;
     if (this.cameraPhoto.length > 0) {
       user.image = this.cameraPhoto.replace(this.IMAGE_HEADER, "");
     }

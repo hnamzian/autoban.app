@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterPage } from "../register/register";
 import { ForgetPasswordPage } from "../forget-password/forget-password";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
@@ -11,18 +12,25 @@ import { UserAPI } from "../../../../models/user";
   selector: "login-page",
   templateUrl: "login.html"
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   headerImageUrl = "../../assets/imgs/car.png";
   headerTitle = "حساب کاربری";
 
-  mobileNumber: string;
-  password: string;
+  loginForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
+    public formBuilder: FormBuilder,
     public authProvider: AuthProvider,
     public tokenStorage: TokenStorage
   ) {}
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
+    });
+  }
 
   navToRegisterPage() {
     this.navCtrl.push(RegisterPage);
@@ -33,8 +41,20 @@ export class LoginPage {
   }
 
   loginUser() {
+
+    // ToDo: handle this error
+    if(this.loginForm.invalid) {
+      console.log("error")
+      return false;
+    }
+
+    const mobileNumber = this.loginForm.get("mobileNumber").value;
+    const password = this.loginForm.get("password").value;
+
+    console.log(this.loginForm)
+    console.log(password)
     this.authProvider
-      .authenticateByPassword(this.mobileNumber, this.password)
+      .authenticateByPassword(mobileNumber, password)
       .subscribe(async (result: UserAPI) => {
         if (result.success) {
           // ToDo: store token
