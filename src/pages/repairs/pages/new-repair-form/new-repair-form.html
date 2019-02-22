@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="form-container">
+  <form class="form-container" [formGroup]="repairForm" (ngSubmit)="addRepairForm()">
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>تاریخ</span>
@@ -11,26 +11,26 @@
           monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
           doneText="انتخاب"
           cancelText="بازگشت"
-          [(ngModel)]="date"
+          formControlName="date"
         ></ion-datetime>
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>عنوان</span>
-        <input class="prep-input" type="text" [(ngModel)]="title" />
+        <input class="prep-input" type="text" formControlName="title" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>تعمیرگاه</span>
-        <input class="prep-input" type="text" [(ngModel)]="garageName" />
+        <input class="prep-input" type="text" formControlName="garageName" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>هزینه</span>
-        <input class="prep-input" type="text" [(ngModel)]="totalCost" />
+        <input class="prep-input" type="text" formControlName="totalCost" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>توضیح</span>
-        <input class="prep-input" type="text" [(ngModel)]="comment" />
+        <input class="prep-input" type="text" formControlName="comment" />
       </ion-item>
     </ion-list>
-    <button class="ab-btn" (click)="addRepairForm()">ذخیره</button>
-  </div>
+    <button class="ab-btn">ذخیره</button>
+  </form>
 </ion-content>
