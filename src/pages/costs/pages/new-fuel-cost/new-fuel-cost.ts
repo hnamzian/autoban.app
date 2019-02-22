@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ViewController } from "ionic-angular";
-import { Cost } from "../../../../models/costs";
+import { ViewController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Cost, Fuel } from "../../../../models/costs";
 import moment from "moment";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import { CarStorage } from "../../../../storage/car/car";
@@ -12,9 +13,10 @@ import { Car } from "../../../../models/car";
 })
 export class NewFuelCostPage implements OnInit {
   selectedCar: Car;
-  fuelCost = {} as Cost;
-  stationName;
-  odometer;
+
+  fuelForm: FormGroup;
+
+  toast: Toast;
 
   start: any;
   end: any;
@@ -25,6 +27,8 @@ export class NewFuelCostPage implements OnInit {
 
   constructor(
     public viewCtrl: ViewController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
     public carStorage: CarStorage,
     public costsProvider: CostsProvider
   ) {
@@ -32,6 +36,14 @@ export class NewFuelCostPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.fuelForm = this.formBuilder.group({
+      fuelDate: ["", Validators.required],
+      fuelVolume: [""],
+      fuelValue: ["", Validators.required],
+      fuelComment: [""],
+      odometer: [""],
+      stationName: [""]
+    });
     this.selectedCar = await this.carStorage.getSelectedCar();
   }
 
@@ -43,14 +55,52 @@ export class NewFuelCostPage implements OnInit {
     this.endMax = this.startMax;
   }
 
+  async addFuelCost() {
+    // ToDo: handle this error
+    if (this.fuelForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
+    }
+
+    let fuelCost = {
+      date: this.fuelForm.get("fuelDate").value,
+      carId: this.selectedCar.id,
+      value: this.fuelForm.get("fuelValue").value,
+      comment: this.fuelForm.get("fuelComment").value,
+      volume: this.fuelForm.get("fuelVolume").value,
+      stationName: this.fuelForm.get("stationName").value,
+      odometer: this.fuelForm.get("odometer").value || null
+    };
+
+    console.log(fuelCost);
+    let fuel$ = await this.costsProvider.addFuelCost(fuelCost);
+    fuel$.subscribe(console.log);
+  }
+
+  formErrorCheck() {
+    const message = this.fuelForm.get("fuelDate").hasError("required")
+      ? "فیلد تاریخ الزامی است"
+      : this.fuelForm.get("fuelValue").hasError("required")
+      ? "فیلد هزینه الزامی است"
+      : "";
+    return message;
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  async addFuelCost() {
-    this.fuelCost.carId = this.selectedCar.id;
-    console.log(this.fuelCost);
-    let fuel$ = await this.costsProvider.addFuelCost(this.fuelCost, this.stationName, this.odometer)
-    fuel$.subscribe(console.log)
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }

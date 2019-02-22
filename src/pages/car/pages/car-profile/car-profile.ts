@@ -1,5 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, PopoverController, LoadingController } from "ionic-angular";
+import {
+  NavController,
+  PopoverController,
+  LoadingController,
+  ToastController,
+  Toast
+} from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { map, catchError } from "rxjs/operators";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
@@ -25,6 +32,8 @@ export class CarProfilePage implements OnInit {
   };
   carPhoto;
 
+  carProfileForm: FormGroup;
+
   carProfile = {} as Car;
   brand = {} as CarBrand;
   model = {} as CarModel;
@@ -34,11 +43,14 @@ export class CarProfilePage implements OnInit {
   trims: CarColor[];
   models: CarModel[];
 
+  toast: Toast;
   loading;
 
   constructor(
     public navCtrl: NavController,
+    public formBuilder: FormBuilder,
     public popoverCtrl: PopoverController,
+    public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public carProvider: CarProvider,
     public carStorage: CarStorage,
@@ -46,9 +58,29 @@ export class CarProfilePage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.carProfileForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      brand: ["", Validators.required],
+      model: ["", Validators.required],
+      color: ["", Validators.required],
+      builtyear: [""],
+      odometer: [""],
+      plate: [""]
+    });
+
     this.carProfile = await this.carStorage.getSelectedCar();
     console.log(this.carProfile);
-    
+
+    this.carProfileForm.setValue({
+      name: [this.carProfile.name],
+      brand: [this.carProfile.car_brand.persianName],
+      model: [this.carProfile.car_model.persianName],
+      color: [this.carProfile.color.persianName],
+      builtyear: [this.carProfile.builtyear],
+      odometer: [this.carProfile.odometer],
+      plate: [this.carProfile.plate]
+    });
+
     this.brand = this.carProfile.car_brand;
     this.model = this.carProfile.car_model;
     this.color = this.carProfile.color;
@@ -91,6 +123,7 @@ export class CarProfilePage implements OnInit {
       if (brand && brand.id) {
         if (brand.id != this.brand.id) {
           this.brand = brand;
+          this.carProfileForm.get("brand").setValue(this.brand.persianName);
           this.model = {} as CarModel;
           await this.loadCarModels(this.brand.id);
         }
@@ -108,6 +141,7 @@ export class CarProfilePage implements OnInit {
     popover.onDidDismiss(model => {
       if (model && model.id) {
         this.model = model;
+        this.carProfileForm.get("model").setValue(this.model.persianName);
       }
     });
   }
@@ -122,6 +156,7 @@ export class CarProfilePage implements OnInit {
     popover.onDidDismiss(color => {
       if (color && color.id) {
         this.color = color;
+        this.carProfileForm.get("color").setValue(this.color.persianName);
       }
     });
   }
@@ -156,19 +191,24 @@ export class CarProfilePage implements OnInit {
   }
 
   async updateCarProfile() {
-    let carProfile = {} as Car;
-    carProfile.id = this.carProfile.id;
-    carProfile.brandId = this.brand.id;
-    carProfile.car_brand = this.brand;
-    carProfile.modelId = this.model.id;
-    carProfile.car_model = this.model;
-    carProfile.colorId = this.color.id;
-    carProfile.color = this.color;
-    carProfile.odometer = this.carProfile.odometer;
-    carProfile.plate = this.carProfile.plate;
-    carProfile.builtyear = this.carProfile.builtyear;
-    carProfile.name = this.carProfile.name;
-    console.log(carProfile);
+    if (this.carProfileForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
+    }
+
+    let carProfile = {
+      id: this.carProfile.id,
+      brandId: this.brand.id,
+      car_brand: this.brand,
+      modelId: this.model.id,
+      car_model: this.model,
+      colorId: this.color.id,
+      color: this.color,
+      odometer: this.carProfileForm.get("odometer").value,
+      plate: this.carProfileForm.get("plate").value,
+      builtyear: this.carProfileForm.get("builtyear").value,
+      name: this.carProfileForm.get("name").value
+    } as Car;
 
     (await this.carProvider.updateCar(this.carProfile)).subscribe(async result => {
       console.log(result);
@@ -179,6 +219,33 @@ export class CarProfilePage implements OnInit {
       await this.carStorage.setSelectedCar(carProfile);
       this.navCtrl.push(VehicleMenuPage);
     });
+  }
+
+  formErrorCheck() {
+    const message = this.carProfileForm.get("name").hasError("required")
+      ? "نام خودرو الزامی است"
+      : this.carProfileForm.get("brand").hasError("required")
+      ? "برند خودرو نامعتبر است"
+      : this.carProfileForm.get("model").hasError("required")
+      ? "مدل خودرو نامعتبر است"
+      : this.carProfileForm.get("color").hasError("required")
+      ? "رنگ خودرو الزامی است"
+      : "خطا";
+    return message;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 
   showLoader() {

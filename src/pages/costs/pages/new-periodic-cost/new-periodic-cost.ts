@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { NavController, ViewController } from "ionic-angular";
-import { Cost } from "../../../../models/costs";
+import { ViewController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import moment from "moment";
 import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
@@ -11,8 +11,10 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 })
 export class NewPeriodicCostPage {
   selectedCar;
-  periodicCost = {} as Cost;
-  period;
+
+  costForm: FormGroup;
+
+  toast: Toast;
 
   start: any;
   end: any;
@@ -23,6 +25,8 @@ export class NewPeriodicCostPage {
 
   constructor(
     public viewCtrl: ViewController,
+    public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
     public carStorage: CarStorage,
     public costsProvider: CostsProvider
   ) {
@@ -30,6 +34,12 @@ export class NewPeriodicCostPage {
   }
 
   async ngOnInit() {
+    this.costForm = this.formBuilder.group({
+      costDate: ["", Validators.required],
+      costValue: ["", Validators.required],
+      costComment: [""],
+      period: [""]
+    });
     this.selectedCar = await this.carStorage.getSelectedCar();
   }
 
@@ -41,15 +51,50 @@ export class NewPeriodicCostPage {
     this.endMax = this.startMax;
   }
 
+  async addCost() {
+    //ToDo: handle this error
+    if (this.costForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
+    }
+
+    let periodicCost = {
+      date: this.costForm.get("costDate").value,
+      carId: this.selectedCar.id,
+      value: this.costForm.get("costValue"),
+      comment: this.costForm.get("costComment").value,
+      //   type: 1,
+      period: this.costForm.get("period").value
+    };
+    console.log(periodicCost);
+    let fuel$ = await this.costsProvider.addPeriodicCost(periodicCost);
+    fuel$.subscribe(console.log);
+  }
+
+  formErrorCheck() {
+    const message = this.costForm.get("costDate").hasError("required")
+      ? "فیلد تاریخ الزامی است"
+      : this.costForm.get("costValue").hasError("required")
+      ? "فیلد هزینه الزامی است"
+      : "خطا";
+    return message;
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  async addCost() {
-    this.periodicCost.carId = this.selectedCar.id;
-    // this.periodicCost.type = 1;
-    console.log(this.periodicCost);
-    let fuel$ = await this.costsProvider.addPeriodicCost(this.periodicCost, this.period)
-    fuel$.subscribe(console.log)
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }

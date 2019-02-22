@@ -37,7 +37,7 @@ export class VehicleMenuPage implements OnInit {
     public userStorage: UserStorage,
     public carStorage: CarStorage
   ) {
-    this.showToast("hello");
+    
   }
 
   async ngOnInit() {

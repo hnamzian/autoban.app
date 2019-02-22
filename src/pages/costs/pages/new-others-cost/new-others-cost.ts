@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { NavController, ViewController } from "ionic-angular";
-import { Cost } from "../../../../models/costs";
+import { ViewController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import moment from "moment";
 import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
@@ -11,7 +11,10 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 })
 export class NewOthersCostPage {
   selectedCar;
-  othersCost = {} as Cost;
+
+  costForm: FormGroup;
+
+  toast: Toast;
 
   start: any;
   end: any;
@@ -22,6 +25,8 @@ export class NewOthersCostPage {
 
   constructor(
     public viewCtrl: ViewController,
+    public formBuilder: FormBuilder,
+    public toastCtrl: ToastController,
     public carStorage: CarStorage,
     public costsProvider: CostsProvider
   ) {
@@ -29,6 +34,11 @@ export class NewOthersCostPage {
   }
 
   async ngOnInit() {
+    this.costForm = this.formBuilder.group({
+      costDate: ["", Validators.required],
+      costValue: ["", Validators.required],
+      costComment: [""]
+    });
     this.selectedCar = await this.carStorage.getSelectedCar();
   }
 
@@ -45,9 +55,43 @@ export class NewOthersCostPage {
   }
 
   async addCost() {
-    this.othersCost.carId = this.selectedCar.id;
-    console.log(this.othersCost);
-    let fuel$ = await this.costsProvider.addOthersCost(this.othersCost)
-    fuel$.subscribe(console.log)
+    // ToDo: handle this error
+    if (this.costForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
+    }
+
+    let othersCost = {
+      date: this.costForm.get("costDate").value,
+      value: this.costForm.get("costValue").value,
+      comment: this.costForm.get("costComment"),
+      carId: this.selectedCar.id
+    };
+    console.log(othersCost);
+    let fuel$ = await this.costsProvider.addOthersCost(othersCost);
+    fuel$.subscribe(console.log);
+  }
+
+  formErrorCheck() {
+    const message = this.costForm.get("costDate").hasError("required")
+      ? "فیلد تاریخ الزامی است"
+      : this.costForm.get("costValue").hasError("required")
+      ? "فیلد هزینه الزامی است"
+      : "خطا";
+    return message;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }

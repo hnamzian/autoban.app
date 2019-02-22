@@ -5,37 +5,37 @@
     <img class="path-img" src="../../assets//imgs/Path 33.png" alt="" />
   </div>
 
-  <div class="form-container">
+  <form class="form-container" [formGroup]="carProfileForm" (ngSubmit)="updateCarProfile()">   
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right> نام خودرو </span>
-        <input class="prep-input" type="text" [(ngModel)]="carProfile.name" />
+        <input class="prep-input" type="text" formControlName="name" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines (click)="openBrandsList()">
         <span class="prep-input-span" item-right>برند</span>
-        <input class="prep-input" disabled type="text" [(ngModel)]="brand.persianName" />
+        <input class="prep-input" disabled type="text" formControlName="brand" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines *ngIf="brand.id" (click)="openModelsList()">
         <span class="prep-input-span" item-right>مدل</span>
-        <input class="prep-input" disabled type="text" [(ngModel)]="model.persianName" />
+        <input class="prep-input" disabled type="text" formControlName="model" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines (click)="openColorsList()">
         <span class="prep-input-span" item-right>رنگ</span>
-        <input class="prep-input" disabled type="text" [(ngModel)]="color.persianName" />
+        <input class="prep-input" disabled type="text" formControlName="color" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>سال ساخت</span>
-        <input class="prep-input" type="text" [(ngModel)]="carProfile.builtyear" />
+        <input class="prep-input" type="text" formControlName="builtyear" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>کیلومتر</span>
-        <input class="prep-input" type="text" [(ngModel)]="carProfile.odometer" />
+        <input class="prep-input" type="text" formControlName="odometer" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>پلاک</span>
-        <input class="prep-input" type="text" [(ngModel)]="carProfile.plate" />
+        <input class="prep-input" type="text" formControlName="plate" />
       </ion-item>
     </ion-list>
-    <button class="ab-btn" (click)="updateCarProfile()">ذخیره</button>
-  </div>
+    <button class="ab-btn">ذخیره</button>
+</form>
 </ion-content>

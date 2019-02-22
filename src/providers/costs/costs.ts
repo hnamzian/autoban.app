@@ -13,7 +13,8 @@ import {
   AllOthersCostAPI,
   PeriodicCostAPI,
   AllPeriodicCostAPI,
-  Cost
+  Cost,
+  Fuel
 } from "../../models/costs";
 
 @Injectable()
@@ -22,7 +23,8 @@ export class CostsProvider {
 
   constructor(public http: HttpClient, public tokenStorage: TokenStorage) {}
 
-  async addFuelCost(fuelCost: Cost, stationName, odometer) {
+  // ToDo: HJ better to get fuelCost of type Fuel
+  async addFuelCost(fuelCost) {
     let url = `${this.baseUrl}/fuel`;
 
     let token = await this.tokenStorage.getAuthToken();
@@ -34,9 +36,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, { ...fuelCost, stationName, odometer }, httpOptions)
-      .pipe(map((result: FuelAPI) => result));
+    return this.http.post(url, fuelCost, httpOptions).pipe(map((result: FuelAPI) => result));
   }
 
   async deleteFuelCost(fuelId) {
@@ -70,7 +70,7 @@ export class CostsProvider {
     return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllFuelsAPI) => result));
   }
 
-  async addFineCost(fineCost: Cost, fineCategoryCode) {
+  async addFineCost(fineCost) {
     let url = `${this.baseUrl}/fine`;
 
     let token = await this.tokenStorage.getAuthToken();
@@ -82,9 +82,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, { ...fineCost, fineCategoryCode }, httpOptions)
-      .pipe(map((result: FineAPI) => result));
+    return this.http.post(url, fineCost, httpOptions).pipe(map((result: FineAPI) => result));
   }
 
   async deleteFineCost(fineId) {
@@ -118,7 +116,7 @@ export class CostsProvider {
     return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllFinesAPI) => result));
   }
 
-  async addPeriodicCost(periodicCost: Cost, period) {
+  async addPeriodicCost(periodicCost) {
     let url = `${this.baseUrl}/periodic`;
 
     let token = await this.tokenStorage.getAuthToken();
@@ -131,7 +129,7 @@ export class CostsProvider {
     };
 
     return this.http
-      .post(url, { ...periodicCost, period }, httpOptions)
+      .post(url, periodicCost, httpOptions)
       .pipe(map((result: PeriodicCostAPI) => result));
   }
 
@@ -168,7 +166,7 @@ export class CostsProvider {
       .pipe(map((result: AllPeriodicCostAPI) => result));
   }
 
-  async addOthersCost(othersCost: Cost) {
+  async addOthersCost(othersCost) {
     let url = `${this.baseUrl}/other`;
 
     let token = await this.tokenStorage.getAuthToken();

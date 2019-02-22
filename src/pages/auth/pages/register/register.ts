@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "ionic-angular";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { LoginPage } from "../login/login";
 import { CheckVerificationCodePage } from "../check-verification-code/check-verification-code";
 import { AuthProvider } from "../../../../providers/auth/auth";
@@ -18,8 +18,11 @@ export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
 
+  toast: Toast;
+
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
     public authProvider: AuthProvider,
     public tokenStorage: TokenStorage
@@ -27,7 +30,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+      mobileNumber: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
   }
 
@@ -36,11 +39,11 @@ export class RegisterPage implements OnInit {
   }
 
   getSMSToken() {
-    console.log(this.registerForm.get("mobileNumber").value)
+    console.log(this.registerForm.get("mobileNumber").value);
     // ToDo: handle this error
     if (this.registerForm.invalid) {
-      console.log("invalid Mobile Number");
-      return false;
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
     }
 
     const mobileNumber = this.registerForm.get("mobileNumber").value;
@@ -50,6 +53,32 @@ export class RegisterPage implements OnInit {
       token = result.token.token;
       this.navCtrl.push(CheckVerificationCodePage, { mobileNumber, token });
     });
+  }
 
+  formErrorCheck() {
+    console.log(this.registerForm.get("mobileNumber"));
+
+    const message = this.registerForm.get("mobileNumber").hasError("required")
+      ? "شماره همراه الزامی است"
+      : this.registerForm.get("mobileNumber").hasError("minlength")
+      ? "شماره همراه نامعتبر است"
+      : this.registerForm.get("mobileNumber").hasError("maxlength")
+      ? "شماره همراه نامعتبر است"
+      : "خطا";
+    return message;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }

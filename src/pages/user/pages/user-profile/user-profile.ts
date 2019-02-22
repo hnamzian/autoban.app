@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, PopoverController } from "ionic-angular";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController, NavParams, PopoverController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ImageResSelection } from "../../../core/components/image-res-selection/image-res-selection";
 import { UserProvider } from "../../../../providers/user/user";
@@ -9,6 +9,7 @@ import { TokenStorage } from "../../../../storage/token/token";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { environment as env } from "../../../../config/environment.prod";
 import { UserStorage } from "../../../../storage/user/user";
+import { formattedError } from "@angular/compiler";
 
 @Component({
   selector: "user-profile",
@@ -19,11 +20,10 @@ export class UserProfilePage {
   userAltImage = "../../../../assets/imgs/user.png";
 
   userProfileForm: FormGroup;
-  firstName;
-  lastName;
-  email;
   imageUrl;
   user: User = {} as User;
+
+  toast: Toast;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -36,6 +36,7 @@ export class UserProfilePage {
 
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
     public popoverCtrl: PopoverController,
@@ -47,24 +48,20 @@ export class UserProfilePage {
 
   async ngOnInit() {
     this.userProfileForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.minLength(5)]]
+      firstName: ["", [Validators.required]],
+      lastName: ["", [Validators.required]],
+      email: ["", [Validators.required, Validators.email]]
     });
-    
+
     this.user = await this.userStorage.getUser();
-    this.firstName = this.user.firstName;
-    this.lastName = this.user.lastName;
-    this.email = this.user.email;
 
     this.userProfileForm.setValue({
-      firstName: [this.firstName],
-      lastName: [this.lastName],
-      email: [this.email]
+      firstName: [this.user.firstName],
+      lastName: [this.user.lastName],
+      email: [this.user.email]
     });
 
     this.imageUrl = this.getImageUrl(this.user.profileImage);
-    // this.userPhoto = this.getUserImage();
   }
 
   async updateProfile() {
@@ -73,9 +70,9 @@ export class UserProfilePage {
     // console.log(this.user);
 
     // ToDo: handle this error
-    if(this.userProfileForm.invalid) {
-      console.log("error")
-      return false;
+    if (this.userProfileForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
     }
 
     const user = {
@@ -95,6 +92,21 @@ export class UserProfilePage {
       }
       this.navCtrl.push(VehicleMenuPage);
     });
+  }
+
+  formErrorCheck() {
+    console.log(this.userProfileForm.get("password"));
+
+    const message = this.userProfileForm.get("firstName").hasError("required")
+      ? " نام الزامی است"
+      : this.userProfileForm.get("lastName").hasError("required")
+      ? "نام خانوادگی  نامعتبر است"
+      : this.userProfileForm.get("email").hasError("required")
+      ? "پست الکترونیک  نامعتبر است"
+      : this.userProfileForm.get("email").hasError("email")
+      ? "پست الکترونیک نامعتبر است"
+      : "خطا";
+    return message;
   }
 
   addUserPhoto() {
@@ -135,5 +147,19 @@ export class UserProfilePage {
 
   getImageUrl(url) {
     return `${env.BASE_URL}/${url}`;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }

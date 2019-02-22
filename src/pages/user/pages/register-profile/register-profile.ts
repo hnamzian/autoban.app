@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "ionic-angular";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map, catchError } from "rxjs/operators";
+import { NavController, ToastController, Toast } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RegisterCarProfilePage } from "../../../car/pages/register-car-profile/register-car-profile";
 import { RegisterPage } from "../../../auth/pages/register/register";
 import { LoginPage } from "../../../auth/pages/login/login";
@@ -19,8 +18,11 @@ export class RegisterProfilePage implements OnInit {
 
   userProfileForm: FormGroup;
 
+  toast: Toast;
+
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     public formBuilder: FormBuilder,
     public userProvider: UserProvider,
     public authProvider: AuthProvider
@@ -28,10 +30,10 @@ export class RegisterProfilePage implements OnInit {
 
   async ngOnInit() {
     this.userProfileForm = this.formBuilder.group({
-      mobileNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(5)]]
+      firstName: ["", [Validators.required]],
+      lastName: ["", [Validators.required]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(5)]]
     });
     // this.userProvider.getUser().subscribe(console.log);
     // this.authProvider.authenticateByToken().subscribe(user => {
@@ -41,10 +43,10 @@ export class RegisterProfilePage implements OnInit {
   }
 
   async registerUser() {
-
     // ToDo: handle this error
-    if(this.userProfileForm.invalid) {
-      console.log("error");
+    if (this.userProfileForm.invalid) {
+      const errorMessage = this.formErrorCheck();
+      return this.showToast(errorMessage);
     }
 
     const user = {
@@ -67,5 +69,38 @@ export class RegisterProfilePage implements OnInit {
         this.navCtrl.push(RegisterCarProfilePage);
       }
     });
+  }
+
+  formErrorCheck() {
+    console.log(this.userProfileForm.get("password"));
+
+    const message = this.userProfileForm.get("firstName").hasError("required")
+      ? " نام الزامی است"
+      : this.userProfileForm.get("lastName").hasError("required")
+      ? "نام خانوادگی  نامعتبر است"
+      : this.userProfileForm.get("email").hasError("required")
+      ? "پست الکترونیک  نامعتبر است"
+      : this.userProfileForm.get("email").hasError("email")
+      ? "پست الکترونیک نامعتبر است"
+      : this.userProfileForm.get("password").hasError("required")
+      ? "رمز ورود الزامی است"
+      : this.userProfileForm.get("password").hasError("minlength")
+      ? `رمز عبور باید حداقل شامل ${this.userProfileForm.get("password").errors.minlength.requiredLength} حرف باشد`
+      : "خطا";
+    return message;
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
