@@ -5,6 +5,7 @@ export interface RepairsAPI extends API {
 }
 
 export interface Repair {
+  id: string;
   title: string;
   date: string;
   totalCost: string;

@@ -1,14 +1,14 @@
 <ion-content>
   <ion-grid class="edit-bar-container">
     <ion-row class="edit-bar-wrapper">
-      <ion-col class="item-wrapper" col-6>
-        <ion-icon name="trash">
-          <span>حذف</span>
+      <ion-col class="item-wrapper" col-6 (click)="edit()">
+        <ion-icon class="edit-icon" name="create">
+          <span>تغییرات</span>
         </ion-icon>
       </ion-col>
-      <ion-col col-6>
-        <ion-icon class="item-wrapper" name="create">
-          <span>اصلاح</span>
+      <ion-col class="item-wrapper" col-6 (click)="remove()">
+        <ion-icon class="remove-icon" name="trash">
+          <span>حذف سرویس</span>
         </ion-icon>
       </ion-col>
     </ion-row>

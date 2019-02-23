@@ -39,14 +39,18 @@ export class FuelCostsPage implements OnInit {
     });
   }
 
-//   addNewFuelCost() {
-//     const modal = this.modalCtrl.create(NewFuelCostPage);
-//     modal.present();
-//   }
-
-  editOrRemoveItem(fuel) {
+  editOrRemoveItem(fuel: Fuel) {
     const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
+    modal.onDidDismiss(async action => {
+      if(action && action.remove) {
+        let cost$ = await this.costsProvider.deleteFuelCost(fuel.id)
+        cost$.subscribe(d => console.log(d))
+      } 
+      else if(action && action.edit) {
+        console.log("edit")
+      }
+    })
   }
 
   navToMenu() {

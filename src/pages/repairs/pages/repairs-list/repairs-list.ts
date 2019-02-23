@@ -10,6 +10,7 @@ import * as moment from "moment";
 import { filter } from "rxjs/operator/filter";
 import { map } from "rxjs/operator/map";
 import { RepairReceiptsPage } from "../repair-receipts/repair-receipts";
+import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
 
 @Component({
   selector: "repairs-list",
@@ -41,6 +42,20 @@ export class RepairsListPage implements OnInit {
 
   showDetail(repair) {
     this.navCtrl.push(RepairReceiptsPage);
+  }
+
+  editOrRemoveItem(repair: Repair) {
+    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
+    modal.present();
+    modal.onDidDismiss(async action => {
+      if(action && action.remove) {
+        let cost$ = await this.repairsProvider.removeRepair(repair.id)
+        cost$.subscribe(d => console.log(d))
+      } 
+      else if(action && action.edit) {
+        console.log("edit")
+      }
+    })
   }
 
   addNewRepair() {

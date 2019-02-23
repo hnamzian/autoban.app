@@ -3,14 +3,23 @@ edit-bar {
     padding: 5px;
     display: flex;
     direction: rtl;
-    text-align: right;
+    text-align: center;
     ion-icon {
-      font-size: 20px !important;
+      font-size: 24px !important;
       margin-top: auto;
       margin-bottom: auto;
     }
+    ion-icon.remove-icon {
+      color: rgb(250, 34, 34);
+    }
+
+    ion-icon.edit-icon {
+      color: rgb(82, 136, 209);
+    }
     span {
-      font-size: 16px;
+      padding-right: 10px;
+      font-size: 14px;
+      color: rgb(112, 112, 112);
     }
   }
 }

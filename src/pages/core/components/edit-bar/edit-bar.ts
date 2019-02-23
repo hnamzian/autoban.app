@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component } from "@angular/core";
+import { ViewController } from "ionic-angular/navigation/view-controller";
 
 @Component({
   selector: "edit-bar",
@@ -6,6 +7,14 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 })
 export class EditBarCompponent {
 
-  constructor() {
+  constructor(public viewCtrl: ViewController) {
+  }
+
+  remove() {
+    this.viewCtrl.dismiss({remove: true})
+  }
+
+  edit() {
+    this.viewCtrl.dismiss({edit: true})
   }
 }

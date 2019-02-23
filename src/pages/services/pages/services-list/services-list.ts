@@ -8,6 +8,7 @@ import { Car } from "../../../../models/car";
 import { ServiceItem, Service } from "../../../../models/service";
 import * as moment from "moment";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
+import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
 
 @Component({
   selector: "services-list",
@@ -48,9 +49,24 @@ export class ServicesListPage implements OnInit {
     });
   }
 
+  // editOrRemoveItem(service: Service) {
+  //   const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
+  //   modal.present();
+  //   modal.onDidDismiss(async action => {
+  //     if(action && action.remove) {
+  //       let cost$ = await this.servicesProvider.(service.id)
+  //       cost$.subscribe(d => console.log(d))
+  //     } 
+  //     else if(action && action.edit) {
+  //       console.log("edit")
+  //     }
+  //   })
+  // }
+
   showServiceSheet(service) {
     this.navCtrl.push(ServiceDataPage, { service });
   }
+
 
   navToHome() {
     this.navCtrl.push(VehicleMenuPage);

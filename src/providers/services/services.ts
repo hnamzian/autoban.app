@@ -57,4 +57,20 @@ export class ServicesProvider {
 
     return this.http.get(url, httpOptions).pipe(map((result: ServicesListAPI) => result));
   }
+
+  async removeService(serviceId) {
+    let url = `${this.baseUrl}/service`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as ServicesListAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      }),
+      params: new HttpParams().set("serviceId", serviceId)
+    };
+
+    return this.http.get(url, httpOptions).pipe(map((result: ServicesListAPI) => result));
+  }
 }

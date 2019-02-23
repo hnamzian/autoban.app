@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController, ModalController, PopoverController } from "ionic-angular";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Fine } from "../../../../models/costs";
@@ -7,6 +7,7 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 import { CarStorage } from "../../../../storage/car/car";
 import { Car } from "../../../../models/car";
 import moment from "moment";
+import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
 
 @Component({
   selector: "fine-costs",
@@ -18,7 +19,7 @@ export class FineCostsPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
+    public popoverCtrl: PopoverController,
     public costsProvider: CostsProvider,
     public carStorage: CarStorage
   ) {}
@@ -38,9 +39,18 @@ export class FineCostsPage implements OnInit {
     });
   }
 
-  addNewFineCost() {
-    const modal = this.modalCtrl.create(NewFineCostPage);
+  editOrRemoveItem(fine: Fine) {
+    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
+    modal.onDidDismiss(async action => {
+      if(action && action.remove) {
+        let cost$ = await this.costsProvider.deleteFineCost(fine.id)
+        cost$.subscribe(d => console.log(d))
+      } 
+      else if(action && action.edit) {
+        console.log("edit")
+      }
+    })
   }
 
   navToMenu() {

@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController, ModalController, PopoverController } from "ionic-angular";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Car } from "../../../../models/car";
 import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import { OthersCost, Cost } from "../../../../models/costs";
 import moment from "moment";
+import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
 
 @Component({
   selector: "others-costs",
@@ -20,7 +21,7 @@ export class OthersCostsPage {
 
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
+    public popoverCtrl: PopoverController,
     public carStorage: CarStorage,
     public costsProvider: CostsProvider
   ) {}
@@ -38,6 +39,20 @@ export class OthersCostsPage {
         return costItem;
       });
     });
+  }
+
+  editOrRemoveItem(othersCost: OthersCost) {
+    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
+    modal.present();
+    modal.onDidDismiss(async action => {
+      if(action && action.remove) {
+        let cost$ = await this.costsProvider.deleteOthersCost(othersCost.id)
+        cost$.subscribe(d => console.log(d))
+      } 
+      else if(action && action.edit) {
+        console.log("edit")
+      }
+    })
   }
 
   navToMenu() {

@@ -54,6 +54,8 @@ export interface AllPeriodicCostAPI {
 
 export interface OthersCost {
   cost: Cost;
+  id: string;
+  costId: string;
 }
 export interface OthersCostAPI extends API {
   othersCost: OthersCost;
