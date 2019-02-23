@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController, ModalController, PopoverController } from "ionic-angular";
 import { NewFuelCostPage } from "../new-fuel-cost/new-fuel-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Car } from "../../../../models/car";
@@ -7,6 +7,7 @@ import { Fuel } from "../../../../models/costs";
 import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import moment from "moment";
+import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
 
 @Component({
   selector: "fuel-costs",
@@ -18,7 +19,7 @@ export class FuelCostsPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
+    public popoverCtrl: PopoverController,
     public carStorage: CarStorage,
     public costsProvider: CostsProvider
   ) {}
@@ -38,8 +39,13 @@ export class FuelCostsPage implements OnInit {
     });
   }
 
-  addNewFuelCost() {
-    const modal = this.modalCtrl.create(NewFuelCostPage);
+//   addNewFuelCost() {
+//     const modal = this.modalCtrl.create(NewFuelCostPage);
+//     modal.present();
+//   }
+
+  editOrRemoveItem(fuel) {
+    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
   }
 

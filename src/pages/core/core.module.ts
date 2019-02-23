@@ -10,7 +10,8 @@ import { PrepInputComponent } from "./components/prep-input/prep-input";
 import { AuthHeaderComponent } from "./components/auth-header/auth-header";
 import { DatePickerCompponent } from "./components/date-picker/date-picker";
 import { SelectListComponent } from "./components/select-list/select-list";
-import { ImageResSelection } from "./components/image-res-selection/image-res-selection"
+import { ImageResSelection } from "./components/image-res-selection/image-res-selection";
+import { EditBarCompponent } from "./components/edit-bar/edit-bar";
 
 @NgModule({
   imports: [CommonModule, IonicModule],
@@ -22,14 +23,16 @@ import { ImageResSelection } from "./components/image-res-selection/image-res-se
     AuthHeaderComponent,
     DatePickerCompponent,
     SelectListComponent,
-    ImageResSelection
+    ImageResSelection,
+    EditBarCompponent
   ],
-  entryComponents: [UserMenu, CarsMenuPopover, SelectListComponent, ImageResSelection],
-  exports: [
-    MenuHeaderComponent,
-    PrepInputComponent,
-    AuthHeaderComponent,
-    DatePickerCompponent,
-  ]
+  entryComponents: [
+    UserMenu,
+    CarsMenuPopover,
+    SelectListComponent,
+    ImageResSelection,
+    EditBarCompponent
+  ],
+  exports: [MenuHeaderComponent, PrepInputComponent, AuthHeaderComponent, DatePickerCompponent]
 })
 export class CoreModule {}

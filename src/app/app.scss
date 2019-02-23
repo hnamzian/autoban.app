@@ -175,6 +175,13 @@
     top: auto !important;
   }
 
+  .editBarPopover .popover-content {
+    width: 100% !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    top: auto !important;
+  }
+
   // repair popover
   .repairPopover .popover-content {
     width: 100% !important;

@@ -1,7 +1,7 @@
 
 <ion-content padding>
   <div class="item-container" *ngFor="let fuel of fuels">
-    <ion-grid style="direction: rtl">
+    <ion-grid style="direction: rtl" (click)="editOrRemoveItem(fuel)">
       <ion-row>
         <ion-col col-5 class="station-text">
           <p>{{ fuel.stationName }}</p>
