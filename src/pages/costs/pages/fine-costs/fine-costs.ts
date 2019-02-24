@@ -8,6 +8,7 @@ import { CarStorage } from "../../../../storage/car/car";
 import { Car } from "../../../../models/car";
 import moment from "moment";
 import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
+import { EditFineCostPage } from "../edit-fine/edit-fine";
 
 @Component({
   selector: "fine-costs",
@@ -43,14 +44,18 @@ export class FineCostsPage implements OnInit {
     const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
     modal.onDidDismiss(async action => {
-      if(action && action.remove) {
-        let cost$ = await this.costsProvider.deleteFineCost(fine.id)
-        cost$.subscribe(d => console.log(d))
-      } 
-      else if(action && action.edit) {
-        console.log("edit")
+      if (action && action.remove) {
+        let cost$ = await this.costsProvider.deleteFineCost(fine.id);
+        cost$.subscribe(d => console.log(d));
+      } else if (action && action.edit) {
+        const popover = this.popoverCtrl.create(
+          EditFineCostPage,
+          { fine },
+          { cssClass: "costPopover" }
+        );
+        popover.present();
       }
-    })
+    });
   }
 
   navToMenu() {

@@ -7,6 +7,7 @@ import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import moment from "moment";
 import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
+import { EditPeriodicCostPage } from "../edit-periodic/edit-periodic-cost";
 
 @Component({
   selector: "periodic-costs",
@@ -50,7 +51,12 @@ export class PeriodicCostsPage {
         cost$.subscribe(d => console.log(d))
       } 
       else if(action && action.edit) {
-        console.log("edit")
+        const popover = this.popoverCtrl.create(
+            EditPeriodicCostPage,
+            { periodicCost },
+            { cssClass: "costPopover" }
+          );
+          popover.present();
       }
     })
   }

@@ -8,6 +8,7 @@ import { CarStorage } from "../../../../storage/car/car";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import moment from "moment";
 import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
+import { EditFuelCostPage } from "../edit-fuel/edit-fuel-cost";
 
 @Component({
   selector: "fuel-costs",
@@ -48,7 +49,12 @@ export class FuelCostsPage implements OnInit {
         cost$.subscribe(d => console.log(d))
       } 
       else if(action && action.edit) {
-        console.log("edit")
+        const popover = this.popoverCtrl.create(
+            EditFuelCostPage,
+            { fuel },
+            { cssClass: "costPopover" }
+          );
+          popover.present();
       }
     })
   }

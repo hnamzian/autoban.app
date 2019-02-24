@@ -7,6 +7,7 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 import { OthersCost, Cost } from "../../../../models/costs";
 import moment from "moment";
 import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
+import { EditOthersCostPage } from "../edit-others/edit-others-cost";
 
 @Component({
   selector: "others-costs",
@@ -45,14 +46,18 @@ export class OthersCostsPage {
     const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
     modal.onDidDismiss(async action => {
-      if(action && action.remove) {
-        let cost$ = await this.costsProvider.deleteOthersCost(othersCost.id)
-        cost$.subscribe(d => console.log(d))
-      } 
-      else if(action && action.edit) {
-        console.log("edit")
+      if (action && action.remove) {
+        let cost$ = await this.costsProvider.deleteOthersCost(othersCost.id);
+        cost$.subscribe(d => console.log(d));
+      } else if (action && action.edit) {
+        const popover = this.popoverCtrl.create(
+          EditOthersCostPage,
+          { othersCost },
+          { cssClass: "costPopover" }
+        );
+        popover.present();
       }
-    })
+    });
   }
 
   navToMenu() {

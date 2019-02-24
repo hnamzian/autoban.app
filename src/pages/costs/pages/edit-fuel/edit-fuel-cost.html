@@ -1,5 +1,5 @@
 <ion-content>
-  <form class="form-container" [formGroup]="fineForm" (ngSubmit)="addFineCost()">
+  <form class="form-container" [formGroup]="fuelForm" (ngSubmit)="updateFuelCost()">
     <ion-list class="prep-input-list">
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>تاریخ</span>
@@ -11,22 +11,32 @@
           monthNames="فروردین, اردیبهشت, خرداد, تیر, مرداد, شهریور, مهر, آبان, آذر, دی, بهمن, اسفند"
           doneText="انتخاب"
           cancelText="بازگشت"
-          formControlName="fineDate"
+          formControlName="fuelDate"
         ></ion-datetime>
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
-        <span class="prep-input-span" item-right>جریمه</span>
-        <input class="prep-input" type="text" formControlName="fineCategoryCode" />
+        <span class="prep-input-span" item-right>لیتر</span>
+        <input class="prep-input" type="number" formControlName="fuelVolume" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>هزینه</span>
-        <input class="prep-input" type="text" formControlName="fineValue" />
+        <input class="prep-input" type="number" formControlName="fuelValue" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>جایگاه</span>
+        <input class="prep-input" type="text" formControlName="stationName" />
+      </ion-item>
+      <ion-item class="prep-input-item" no-lines>
+        <span class="prep-input-span" item-right>کیلومتر</span>
+        <input class="prep-input" type="number" formControlName="odometer" />
       </ion-item>
       <ion-item class="prep-input-item" no-lines>
         <span class="prep-input-span" item-right>توضیح</span>
-        <input class="prep-input" type="text" formControlName="fineComment" />
+        <input class="prep-input" type="text" formControlName="fuelComment" />
       </ion-item>
     </ion-list>
     <button class="ab-btn">ذخیره</button>
   </form>
 </ion-content>
+
+<!--  -->
