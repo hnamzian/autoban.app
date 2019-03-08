@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, AlertController, PopoverController, ToastController, Toast } from "ionic-angular";
+import { NavController, AlertController, PopoverController, ToastController, Toast, LoadingController, Loading } from "ionic-angular";
 import { NewRepairFormPage } from "../new-repair-form/new-repair-form";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { CarStorage } from "../../../../storage/car/car";
@@ -21,8 +21,16 @@ export class RepairsListPage implements OnInit {
   repairs = [] as Repair[];
 
   toast: Toast;
-  
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public repairsProvider: RepairsProvider) {}
+  loading: Loading;
+
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    public carStorage: CarStorage,
+    public repairsProvider: RepairsProvider
+  ) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -85,5 +93,17 @@ export class RepairsListPage implements OnInit {
 
   dismissToast() {
     this.toast.dismiss();
+  }
+
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      showBackdrop: false
+    });
+
+    this.loading.present();
+  }
+
+  dismissLoader() {
+    this.loading.dismiss();
   }
 }
