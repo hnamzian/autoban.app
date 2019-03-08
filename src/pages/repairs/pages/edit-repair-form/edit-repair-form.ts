@@ -62,13 +62,16 @@ export class EditRepairFormPage implements OnInit {
     } as Repair;
 
     let repair$ = await this.repairsProvider.updateRepair(repair);
-    repair$.subscribe(result => {
-      console.log(result);
-      if (result.success) {
-        this.viewCtrl.dismiss();
-      }
-      this.showToast(result.message);
-    });
+    repair$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+        } else if (result && !result.success) {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
