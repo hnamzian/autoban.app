@@ -56,6 +56,9 @@ export class ServicesListPage implements OnInit {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditServiceFormPage, { service }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshServicesList();
+        });
       }
     });
   }
