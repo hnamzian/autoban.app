@@ -23,18 +23,7 @@ export class FineCostsPage implements OnInit {
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public costsProvider: CostsProvider, public carStorage: CarStorage) {}
 
   async ngOnInit() {
-    this.selectedCar = await this.carStorage.getSelectedCar();
-
-    let fine$ = await this.costsProvider.getFines(this.selectedCar.id);
-    fine$.subscribe(result => {
-      console.log(result);
-
-      this.fines = result.fines;
-      this.fines = this.fines.map(fine => {
-        fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
-        return fine;
-      });
-    });
+    await this.getFines();
   }
 
   editOrRemoveItem(fine: Fine) {
@@ -62,6 +51,19 @@ export class FineCostsPage implements OnInit {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async getFines() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let fine$ = await this.costsProvider.getFines(this.selectedCar.id);
+    fine$.subscribe(result => {
+      this.fines = result.fines;
+      this.fines = this.fines.map(fine => {
+        fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
+        return fine;
+      });
+    });
   }
 
   showToast(message) {
