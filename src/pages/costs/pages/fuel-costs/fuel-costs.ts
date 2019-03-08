@@ -31,18 +31,7 @@ export class FuelCostsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.selectedCar = await this.carStorage.getSelectedCar();
-
-    let fine$ = await this.costsProvider.getFuels(this.selectedCar.id);
-    fine$.subscribe(result => {
-      console.log(result);
-
-      this.fuels = result.fuels;
-      this.fuels = this.fuels.map(fine => {
-        fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
-        return fine;
-      });
-    });
+    await this.refreshFuelsList();
   }
 
   editOrRemoveItem(fuel: Fuel) {
@@ -70,6 +59,26 @@ export class FuelCostsPage implements OnInit {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async refreshFuelsList() {
+    this.showLoader();
+    await this.getFuels();
+    this.dismissLoader();
+  }
+  async getFuels() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let fine$ = await this.costsProvider.getFuels(this.selectedCar.id);
+    fine$.subscribe(result => {
+      console.log(result);
+
+      this.fuels = result.fuels;
+      this.fuels = this.fuels.map(fine => {
+        fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
+        return fine;
+      });
+    });
   }
 
   showToast(message) {
