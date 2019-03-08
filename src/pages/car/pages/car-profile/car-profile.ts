@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  NavController,
-  PopoverController,
-  LoadingController,
-  ToastController,
-  Toast
-} from "ionic-angular";
+import { NavController, PopoverController, LoadingController, ToastController, Toast } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { map, catchError } from "rxjs/operators";
@@ -102,9 +96,7 @@ export class CarProfilePage implements OnInit {
   }
 
   async loadCarModels(brandId) {
-    let models$ = (await this.carProvider.getCarModels(brandId)).pipe(
-      map(result => result.carModels)
-    );
+    let models$ = (await this.carProvider.getCarModels(brandId)).pipe(map(result => result.carModels));
     models$.subscribe(result => {
       this.showLoader();
       this.models = result;
@@ -113,11 +105,7 @@ export class CarProfilePage implements OnInit {
   }
 
   openBrandsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.brands },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.brands }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(async brand => {
       if (brand && brand.id) {
@@ -132,11 +120,7 @@ export class CarProfilePage implements OnInit {
   }
 
   async openModelsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.models },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.models }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(model => {
       if (model && model.id) {
@@ -147,11 +131,7 @@ export class CarProfilePage implements OnInit {
   }
 
   openColorsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.trims },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.trims }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(color => {
       if (color && color.id) {
@@ -162,11 +142,7 @@ export class CarProfilePage implements OnInit {
   }
 
   addCarPhoto() {
-    let popover = this.popoverCtrl.create(
-      ImageResSelection,
-      {},
-      { cssClass: "image-resource-popover" }
-    );
+    let popover = this.popoverCtrl.create(ImageResSelection, {}, { cssClass: "image-resource-popover" });
     popover.present();
     popover.onDidDismiss(data => {
       console.log(data);
@@ -210,15 +186,19 @@ export class CarProfilePage implements OnInit {
       name: this.carProfileForm.get("name").value
     } as Car;
 
-    (await this.carProvider.updateCar(this.carProfile)).subscribe(async result => {
-      console.log(result);
+    (await this.carProvider.updateCar(this.carProfile)).subscribe(
+      async result => {
+        if (result && result.success) {
+          return this.showToast(result.message);
+        } else if (result && !result.success) {
+          return this.showToast(result.message);
+        }
 
-      if (!result.success) {
-      }
-
-      await this.carStorage.setSelectedCar(carProfile);
-      this.navCtrl.push(VehicleMenuPage);
-    });
+        await this.carStorage.setSelectedCar(carProfile);
+        this.navCtrl.push(VehicleMenuPage);
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
