@@ -1,13 +1,6 @@
 import { Component } from "@angular/core";
 import { RegisterPage } from "../register/register";
-import {
-  NavController,
-  NavParams,
-  LoadingController,
-  Loading,
-  ToastController,
-  Toast
-} from "ionic-angular";
+import { NavController, NavParams, LoadingController, Loading, ToastController, Toast } from "ionic-angular";
 import { RegisterProfilePage } from "../../../user/pages/register-profile/register-profile";
 import { AuthProvider } from "../../../../providers/auth/auth";
 import { TokenStorage } from "../../../../storage/token/token";
@@ -36,6 +29,8 @@ export class CheckVerificationCodePage {
   timer = 59;
   interval;
 
+  // ToDo: Handle validations and Erros
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,8 +44,7 @@ export class CheckVerificationCodePage {
 
     // just for dev mode
     const token = this.navParams.get("token");
-    this.showToast(`Token: ${token}`)
-
+    this.showToast(`Token: ${token}`);
   }
 
   startCountdown() {
@@ -109,13 +103,7 @@ export class CheckVerificationCodePage {
   }
 
   getCode() {
-    let code =
-      this.codeInput0.toString() +
-      this.codeInput1.toString() +
-      this.codeInput2.toString() +
-      this.codeInput3.toString() +
-      this.codeInput4.toString() +
-      this.codeInput5.toString();
+    let code = this.codeInput0.toString() + this.codeInput1.toString() + this.codeInput2.toString() + this.codeInput3.toString() + this.codeInput4.toString() + this.codeInput5.toString();
     return code;
   }
 
