@@ -5,7 +5,7 @@ import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
 import { TokenStorage } from "../../storage/token/token";
 import { UserAPI, User } from "../../models/user";
-import {API} from "../../models/api"
+import { API } from "../../models/api";
 
 @Injectable()
 export class UserProvider {
@@ -27,6 +27,11 @@ export class UserProvider {
 
     return this.http
       .post(url, { ...user, password }, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
       .pipe(map((result: UserAPI) => result));
   }
 
@@ -42,7 +47,14 @@ export class UserProvider {
       })
     };
 
-    return this.http.put(url, user, httpOptions).pipe(map((result: API) => result));
+    return this.http
+      .put(url, user, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: API) => result));
   }
 
   async changeMobileNumber(mobileNumber): Promise<Observable<UserAPI>> {
@@ -57,7 +69,14 @@ export class UserProvider {
       })
     };
 
-    return this.http.put(url, { mobileNumber }, httpOptions).pipe(map((result: UserAPI) => result));
+    return this.http
+      .put(url, { mobileNumber }, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: UserAPI) => result));
   }
 
   async getUser(): Promise<Observable<UserAPI>> {
@@ -72,6 +91,13 @@ export class UserProvider {
       })
     };
 
-    return this.http.get(url, httpOptions).pipe(map((result: UserAPI) => result));
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: UserAPI) => result));
   }
 }
