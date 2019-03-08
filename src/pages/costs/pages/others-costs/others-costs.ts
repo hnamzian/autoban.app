@@ -33,18 +33,7 @@ export class OthersCostsPage {
   ) {}
 
   async ngOnInit() {
-    this.selectedCar = await this.carStorage.getSelectedCar();
-
-    let fine$ = await this.costsProvider.getOthersCosts(this.selectedCar.id);
-    fine$.subscribe(result => {
-      console.log(result);
-
-      this.othersCosts = result.costs;
-      this.othersCosts = this.othersCosts.map(costItem => {
-        costItem.date = moment(costItem.date).format("YYYY-MM-DD");
-        return costItem;
-      });
-    });
+    await this.refreshOthersCostList();
   }
 
   editOrRemoveItem(othersCost: OthersCost) {
@@ -72,6 +61,27 @@ export class OthersCostsPage {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async refreshOthersCostList() {
+    this.showLoader();
+    await this.getOthersCosts();
+    this.dismissLoader();
+  }
+
+  async getOthersCosts() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let fine$ = await this.costsProvider.getOthersCosts(this.selectedCar.id);
+    fine$.subscribe(result => {
+      console.log(result);
+
+      this.othersCosts = result.costs;
+      this.othersCosts = this.othersCosts.map(costItem => {
+        costItem.date = moment(costItem.date).format("YYYY-MM-DD");
+        return costItem;
+      });
+    });
   }
 
   showToast(message) {
