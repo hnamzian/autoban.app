@@ -73,7 +73,8 @@ export class NewFineCostPage implements OnInit {
       } else {
         this.showToast(result.message);
       }
-    });
+    },
+    error => this.showToast("خطا در برقراری ارتباط با سرور"));
   }
 
   formErrorCheck() {
