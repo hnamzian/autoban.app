@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ViewController, NavParams } from "ionic-angular";
+import { NavController, ViewController, NavParams, ToastController, Toast } from "ionic-angular";
 import { ServicesProvider } from "../../../../providers/services/services";
 import { ServiceItem, ServiceItemStatus, Service } from "../../../../models/service";
 import { CarStorage } from "../../../../storage/car/car";
@@ -14,11 +14,9 @@ export class NewServiceSheetPage implements OnInit {
   serviceItems = [] as ServiceItem[];
   serviceList = {} as Service;
 
-  constructor(
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public servicesProvider: ServicesProvider
-  ) {
+  toast: Toast;
+  
+  constructor(public navParams: NavParams, public toastCtrl: ToastController, public viewCtrl: ViewController, public servicesProvider: ServicesProvider) {
     this.serviceList = this.navParams.get("serviceList");
   }
 
@@ -76,8 +74,31 @@ export class NewServiceSheetPage implements OnInit {
     console.log(this.serviceList);
 
     let service$ = await this.servicesProvider.addService(this.serviceList);
-    service$.subscribe(console.log);
+    service$.subscribe(
+      result => {
+        if (result && result.success) {
+          return this.showToast(result.message);
+        } else if (result && !result.success) {
+          return this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
 
     this.viewCtrl.dismiss(this.serviceItems, "", { animate: false });
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
