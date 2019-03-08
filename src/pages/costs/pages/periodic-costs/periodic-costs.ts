@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController, PopoverController, ToastController, Toast } from "ionic-angular";
+import { NavController, ModalController, PopoverController, ToastController, Toast, LoadingController, Loading } from "ionic-angular";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Car } from "../../../../models/car";
 import { PeriodicCost } from "../../../../models/costs";
@@ -21,7 +21,16 @@ export class PeriodicCostsPage {
   periodicCosts: PeriodicCost[];
 
   toast: Toast;
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public costsProvider: CostsProvider) {}
+  loading: Loading;
+  
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    public carStorage: CarStorage,
+    public costsProvider: CostsProvider
+  ) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -77,5 +86,17 @@ export class PeriodicCostsPage {
 
   dismissToast() {
     this.toast.dismiss();
+  }
+
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      showBackdrop: false
+    });
+
+    this.loading.present();
+  }
+
+  dismissLoader() {
+    this.loading.dismiss();
   }
 }
