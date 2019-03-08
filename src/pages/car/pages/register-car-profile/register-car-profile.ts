@@ -125,21 +125,18 @@ export class RegisterCarProfilePage implements OnInit {
       name: this.carProfileForm.get("name").value
     } as Car;
 
-    console.log(carProfile);
-
     let carapi$ = await this.carProvider.registerCar(carProfile);
-    carapi$.subscribe(carapi => {
-      console.log(carapi);
-
-      if (!carapi) {
-        this.navCtrl.push(RegisterPage);
-      } else if (!carapi.success) {
-        // ToDo: toast error and stay this page
-        console.log(carapi.message);
-      } else {
-        this.navCtrl.push(VehicleMenuPage);
-      }
-    });
+    carapi$.subscribe(
+      result => {
+        if (result && result.success) {
+          this.navCtrl.push(VehicleMenuPage);
+          return this.showToast(result.message);
+        } else if (result && !result.success) {
+          return this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا دز برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
