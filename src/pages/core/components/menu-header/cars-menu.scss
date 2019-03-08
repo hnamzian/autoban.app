@@ -3,6 +3,8 @@ cars-menu-popover {
   color: rgb(112, 112, 112);
 
   p {
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     direction: rtl;
     padding-right: 10px;
@@ -14,8 +16,16 @@ cars-menu-popover {
     color: #5288d1;
   }
 
-  ion-icon {
-    text-align: center;
-    font-size: 18px;
+  .add-car-container {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ddd;
+    ion-icon {
+      margin: auto;
+      font-size: 18px;
+    }
   }
 }

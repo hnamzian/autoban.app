@@ -7,6 +7,7 @@ import { Car, CarAPI } from "../../../../models/car";
 import { UserProfilePage } from "../../../user/pages/user-profile/user-profile";
 import { UserAPI, User } from "../../../../models/user";
 import { environment as env } from "../../../../config/environment.prod";
+import { RegisterCarProfilePage } from "../../../car/pages/register-car-profile/register-car-profile";
 
 @Component({
   selector: "menu-header",
@@ -28,12 +29,7 @@ export class MenuHeaderComponent implements OnInit {
 
   carsMenuTitle = "انتخاب خودرو";
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public userStorage: UserStorage,
-    public carStorage: CarStorage
-  ) {}
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public userStorage: UserStorage, public carStorage: CarStorage) {}
 
   async ngOnInit() {
     await this.loadUserProfile();
@@ -72,11 +68,7 @@ export class MenuHeaderComponent implements OnInit {
   }
 
   openCarsMenu() {
-    let popover = this.popoverCtrl.create(
-      CarsMenuPopover,
-      { cars: this.storedCars, selectedCar: this.selectedCar },
-      { cssClass: "carsMenuPopover" }
-    );
+    let popover = this.popoverCtrl.create(CarsMenuPopover, { cars: this.storedCars, selectedCar: this.selectedCar }, { cssClass: "carsMenuPopover" });
     popover.present();
     popover.onDidDismiss(d => {
       if (d && d.selectedCar) {
@@ -136,13 +128,16 @@ export class UserMenu {
       {{ car.name }}
       <span *ngIf="selectedCar?.id === car.id"><ion-icon name="checkmark"></ion-icon> </span>
     </p>
+    <p class="add-car-container" (click)="addNewCar()">
+      <ion-icon name="add"></ion-icon>
+    </p>
   `
 })
 export class CarsMenuPopover {
   cars;
   selectedCar;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
     this.cars = navParams.get("cars");
     this.selectedCar = navParams.get("selectedCar");
   }
@@ -150,5 +145,9 @@ export class CarsMenuPopover {
   selectCar(car) {
     this.selectedCar = car;
     this.viewCtrl.dismiss({ selectedCar: this.selectedCar });
+  }
+
+  addNewCar() {
+    this.navCtrl.push(RegisterCarProfilePage);
   }
 }

@@ -20,13 +20,7 @@ export class RegisterPage implements OnInit {
 
   toast: Toast;
 
-  constructor(
-    public navCtrl: NavController,
-    public toastCtrl: ToastController,
-    public formBuilder: FormBuilder,
-    public authProvider: AuthProvider,
-    public tokenStorage: TokenStorage
-  ) {}
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public authProvider: AuthProvider, public tokenStorage: TokenStorage) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -39,8 +33,6 @@ export class RegisterPage implements OnInit {
   }
 
   getSMSToken() {
-    console.log(this.registerForm.get("mobileNumber").value);
-    // ToDo: handle this error
     if (this.registerForm.invalid) {
       const errorMessage = this.formErrorCheck();
       return this.showToast(errorMessage);
@@ -49,10 +41,16 @@ export class RegisterPage implements OnInit {
     const mobileNumber = this.registerForm.get("mobileNumber").value;
     let token;
     this.authProvider.getSMSToken(mobileNumber).subscribe(result => {
-      console.log("SMS Token(register)", result.token.token);
-      token = result.token.token;
-      this.navCtrl.push(CheckVerificationCodePage, { mobileNumber, token });
-    });
+      if (result && result.success) {
+        console.log("SMS Token(register)", result.token.token);
+        token = result.token.token;
+        this.navCtrl.push(CheckVerificationCodePage, { mobileNumber, token });
+      } else if (result && !result.success) {
+        return this.showToast(result.message);
+      }
+    },
+    error => this.showToast("خطا در  برقراری ارتباط")
+    );
   }
 
   formErrorCheck() {

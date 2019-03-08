@@ -20,13 +20,7 @@ export class LoginPage implements OnInit {
 
   toast: Toast;
 
-  constructor(
-    public navCtrl: NavController,
-    public toastCtrl: ToastController,
-    public formBuilder: FormBuilder,
-    public authProvider: AuthProvider,
-    public tokenStorage: TokenStorage
-  ) {}
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public authProvider: AuthProvider, public tokenStorage: TokenStorage) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -55,24 +49,18 @@ export class LoginPage implements OnInit {
 
     console.log(this.loginForm);
     console.log(password);
-    this.authProvider
-      .authenticateByPassword(mobileNumber, password)
-      .subscribe(async (result: UserAPI) => {
-        if (result.success) {
-          // ToDo: store token
-          console.log("Token(login): ", result.token);
+    this.authProvider.authenticateByPassword(mobileNumber, password).subscribe(
+      async (result: UserAPI) => {
+        if (result && result.success) {
           await this.tokenStorage.setAuthToken(result.token);
-
-          // ToDo: get user account
-          console.log("Account(login): ", result.user);
-
           this.navCtrl.push(VehicleMenuPage);
+          return this.showToast(result.message);
         } else {
-          // ToDo: show an error message and clear inputs
-          // ToDo: modify model for msg part
-          console.log("Error while login(login): ", result.message);
+          return this.showToast(result.message);
         }
-      });
+      },
+      error => this.showToast("خطا در  برقراری ارتباط")
+    );
   }
 
   formErrorCheck() {

@@ -7,6 +7,7 @@ import { environment as env } from "../../config/environment.prod";
 import { TokenStorage } from "../../storage/token/token";
 import { UserAPI, User } from "../../models/user";
 import { SMSJWTAPI } from "../../models/sms-token";
+import { error } from "util";
 
 @Injectable()
 export class AuthProvider {
@@ -16,28 +17,49 @@ export class AuthProvider {
 
   getSMSToken(mobileNumber): Observable<SMSJWTAPI> {
     let url = `${this.baseUrl}/get-sms-token`;
-    return this.http.post(url, { mobileNumber }).pipe(map((result: SMSJWTAPI) => result));
+    return this.http
+      .post(url, { mobileNumber })
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: SMSJWTAPI) => result));
   }
 
   verifySMSToken(mobileNumber, token): Observable<AuthJWTAPI> {
     let url = `${this.baseUrl}/check-sms-token`;
 
-    return this.http.post(url, { mobileNumber, token }).pipe(
-      map((result: AuthJWTAPI) => {
-        return {
-          success: result.success,
-          token: result.token || "",
-          message: result.message || ""
-        };
-      })
-    );
+    return this.http
+      .post(url, { mobileNumber, token })
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(
+        map((result: AuthJWTAPI) => {
+          return {
+            success: result.success,
+            token: result.token || "",
+            message: result.message || ""
+          };
+        })
+      );
   }
 
   authenticateByPassword(username, password): Observable<UserAPI> {
     let url = `${this.baseUrl}/authenticate-password`;
 
     console.log({ username, password });
-    return this.http.post(url, { username, password }).pipe(map((result: UserAPI) => result));
+    return this.http
+      .post(url, { username, password })
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: UserAPI) => result));
   }
 
   async authenticateByToken() {
@@ -54,6 +76,13 @@ export class AuthProvider {
       })
     };
 
-    return this.http.get(url, httpOptions).pipe(map((result: UserAPI) => result));
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: UserAPI) => result));
   }
 }
