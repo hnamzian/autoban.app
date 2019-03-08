@@ -25,13 +25,7 @@ export class NewFineCostPage implements OnInit {
   endMin: any;
   endMax: any;
 
-  constructor(
-    public viewCtrl: ViewController,
-    public toastCtrl: ToastController,
-    public formBuilder: FormBuilder,
-    public costsProvider: CostsProvider,
-    public carStorgae: CarStorage
-  ) {
+  constructor(public viewCtrl: ViewController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public costsProvider: CostsProvider, public carStorgae: CarStorage) {
     this.startMax = moment()
       .subtract(622, "year")
       .format();
@@ -66,23 +60,21 @@ export class NewFineCostPage implements OnInit {
     };
 
     let fine$ = await this.costsProvider.addFineCost(fineCost);
-    fine$.subscribe(result => {
-      if (result.success) {
-        this.viewCtrl.dismiss();
-        this.showToast(result.message);
-      } else {
-        this.showToast(result.message);
-      }
-    },
-    error => this.showToast("خطا در برقراری ارتباط با سرور"));
+    fine$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+          this.showToast(result.message);
+        } else {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.fineForm.get("fineDate").hasError("required")
-      ? "فیلد تاریخ الزامی است"
-      : this.fineForm.get("fineValue").hasError("required")
-      ? "فیلد هزینه الزامی است"
-      : "خطا";
+    const message = this.fineForm.get("fineDate").hasError("required") ? "فیلد تاریخ الزامی است" : this.fineForm.get("fineValue").hasError("required") ? "فیلد هزینه الزامی است" : "خطا";
     return message;
   }
 
