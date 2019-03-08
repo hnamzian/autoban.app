@@ -56,6 +56,9 @@ export class OthersCostsPage {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditOthersCostPage, { othersCost }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshOthersCostList();
+        });
       }
     });
   }
