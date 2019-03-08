@@ -47,8 +47,9 @@ export class RepairsListPage implements OnInit {
       if (action && action.remove) {
         let cost$ = await this.repairsProvider.removeRepair(repair.id);
         cost$.subscribe(
-          result => {
+          async result => {
             if (result && result.success) {
+              await this.refreshRepairsList()
               return this.showToast(result.message);
             } else if (result && !result.success) {
               return this.showToast(result.message);
