@@ -37,7 +37,6 @@ export class RegisterProfilePage implements OnInit {
   }
 
   async registerUser() {
-    // ToDo: handle this error
     if (this.userProfileForm.invalid) {
       const errorMessage = this.formErrorCheck();
       return this.showToast(errorMessage);
@@ -51,18 +50,22 @@ export class RegisterProfilePage implements OnInit {
     const password = this.userProfileForm.get("password").value;
 
     let userapi$ = await this.userProvider.registerUser(user, password);
-    userapi$.subscribe(userapi => {
-      console.log(userapi);
-
-      if (!userapi) {
+    userapi$.subscribe(
+      userapi => {
+        if (userapi && userapi.success) {
+          this.authProvider.tokenStorage.setAuthToken(userapi.token);
+          this.navCtrl.push(RegisterCarProfilePage);
+          return this.showToast(userapi.message);
+        } else if (userapi && !userapi.success) {
+          this.navCtrl.push(LoginPage);
+          return this.showToast(userapi.message);
+        }
+      },
+      error => {
         this.navCtrl.push(RegisterPage);
-      } else if (!userapi.success) {
-        this.navCtrl.push(LoginPage);
-      } else {
-        this.authProvider.tokenStorage.setAuthToken(userapi.token);
-        this.navCtrl.push(RegisterCarProfilePage);
+        this.showToast("خطا در برقراری ارتباط با سرور");
       }
-    });
+    );
   }
 
   formErrorCheck() {
