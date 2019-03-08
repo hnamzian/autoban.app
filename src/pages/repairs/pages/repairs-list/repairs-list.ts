@@ -70,6 +70,9 @@ export class RepairsListPage implements OnInit {
   addNewRepair() {
     const popover = this.popoverCtrl.create(NewRepairFormPage, {}, { cssClass: "repairPopover" });
     popover.present();
+    popover.onDidDismiss(async () => {
+      await this.refreshRepairsList();
+    });
   }
 
   navToHome() {
