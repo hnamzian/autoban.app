@@ -54,6 +54,9 @@ export class FineCostsPage implements OnInit {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditFineCostPage, { fine }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshFinesList();
+        });
       }
     });
   }
@@ -74,6 +77,7 @@ export class FineCostsPage implements OnInit {
     let fine$ = await this.costsProvider.getFines(this.selectedCar.id);
     fine$.subscribe(result => {
       this.fines = result.fines;
+      console.log(this.fines);
       this.fines = this.fines.map(fine => {
         fine.cost.date = moment(fine.cost.date).format("YYYY-MM-DD");
         return fine;
