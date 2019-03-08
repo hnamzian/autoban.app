@@ -71,22 +71,21 @@ export class EditFineCostPage implements OnInit {
 
     console.log(fineCost);
     let fine$ = await this.costsProvider.updateFineCost(fineCost);
-    fine$.subscribe(result => {
-      if (result.success) {
-        this.viewCtrl.dismiss();
-        this.showToast(result.message);
-      } else {
-        this.showToast(result.message);
-      }
-    });
+    fine$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+          this.showToast(result.message);
+        } else {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.fineForm.get("fineDate").hasError("required")
-      ? "فیلد تاریخ الزامی است"
-      : this.fineForm.get("fineValue").hasError("required")
-      ? "فیلد هزینه الزامی است"
-      : "خطا";
+    const message = this.fineForm.get("fineDate").hasError("required") ? "فیلد تاریخ الزامی است" : this.fineForm.get("fineValue").hasError("required") ? "فیلد هزینه الزامی است" : "خطا";
     return message;
   }
 
