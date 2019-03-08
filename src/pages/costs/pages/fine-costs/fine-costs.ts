@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController, PopoverController, ToastController, Toast, LoadingController, Loading } from "ionic-angular";
+import { NavController, PopoverController, ToastController, Toast, LoadingController, Loading } from "ionic-angular";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Fine } from "../../../../models/costs";

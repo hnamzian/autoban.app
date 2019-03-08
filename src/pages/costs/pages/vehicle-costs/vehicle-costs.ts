@@ -27,11 +27,7 @@ export class VehicleCostsPage implements OnInit {
   othersCostsPage = OthersCostsPage;
   periodicCostsPage = PeriodicCostsPage;
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public carStorage: CarStorage
-  ) {}
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public carStorage: CarStorage) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -57,15 +53,27 @@ export class VehicleCostsPage implements OnInit {
     if (this.activatedTab == "Fuel") {
       const popover = this.popoverCtrl.create(NewFuelCostPage, {}, { cssClass: "costPopover" });
       popover.present();
+      popover.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      });
     } else if (this.activatedTab == "Fine") {
       const popover = this.popoverCtrl.create(NewFineCostPage, {}, { cssClass: "costPopover" });
       popover.present();
+      popover.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      });
     } else if (this.activatedTab == "Others") {
       const popover = this.popoverCtrl.create(NewOthersCostPage, {}, { cssClass: "costPopover" });
       popover.present();
+      popover.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      });
     } else if (this.activatedTab == "Periodic") {
       const popover = this.popoverCtrl.create(NewPeriodicCostPage, {}, { cssClass: "costPopover" });
       popover.present();
+      popover.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      });
     }
   }
 
