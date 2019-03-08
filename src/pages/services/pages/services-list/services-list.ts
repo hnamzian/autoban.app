@@ -40,9 +40,8 @@ export class ServicesListPage implements OnInit {
   addService() {
     const popover = this.popoverCtrl.create(NewServiceFormPage, {}, { cssClass: "servicePopover" });
     popover.present();
-    popover.onDidDismiss(data => {
-      this.newServiceItems = data;
-      console.log(this.newServiceItems);
+    popover.onDidDismiss(async () => {
+      await this.refreshServicesList();
     });
   }
 
