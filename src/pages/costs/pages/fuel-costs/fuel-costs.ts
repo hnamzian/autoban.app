@@ -19,7 +19,7 @@ export class FuelCostsPage implements OnInit {
   fuels: Fuel[];
 
   toast: Toast;
-  
+
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public costsProvider: CostsProvider) {}
 
   async ngOnInit() {
