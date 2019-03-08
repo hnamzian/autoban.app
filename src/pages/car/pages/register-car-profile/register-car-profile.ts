@@ -7,6 +7,7 @@ import { RegisterPage } from "../../../auth/pages/register/register";
 import { SelectListComponent } from "../../../core/components/select-list/select-list";
 import { CarProvider } from "../../../../providers/car/car";
 import { Car, CarBrand, CarColor, CarModel } from "../../../../models/car";
+import { CarStorage } from "../../../../storage/car/car";
 
 @Component({
   selector: "register-car-profile",
@@ -32,6 +33,7 @@ export class RegisterCarProfilePage implements OnInit {
     public toastCtrl: ToastController,
     public popoverCtrl: PopoverController,
     public carProvider: CarProvider,
+    public carStorage: CarStorage,
     public loadingCtrl: LoadingController
   ) {}
 
@@ -125,13 +127,14 @@ export class RegisterCarProfilePage implements OnInit {
       name: this.carProfileForm.get("name").value
     } as Car;
 
-    console.log(carProfile)
+    console.log(carProfile);
 
     let carapi$ = await this.carProvider.registerCar(carProfile);
     carapi$.subscribe(
       result => {
         if (result && result.success) {
           this.navCtrl.push(VehicleMenuPage);
+          this.carStorage.setCars(result.cars);
           return this.showToast(result.message);
         } else if (result && !result.success) {
           return this.showToast(result.message);
