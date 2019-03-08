@@ -41,7 +41,6 @@ export class CostsProvider {
       })
     };
 
-    console.log(fuelCost);
     return this.http.put(url, fuelCost, httpOptions).pipe(map((result: FuelAPI) => result));
   }
 
@@ -57,8 +56,6 @@ export class CostsProvider {
       }),
       params: new HttpParams().set("fuelId", fuelId)
     };
-
-    console.log("del");
 
     return this.http.delete(url, httpOptions).pipe(map((result: API) => result));
   }
