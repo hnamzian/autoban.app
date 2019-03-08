@@ -182,8 +182,7 @@ export class CostsProvider {
       params: new HttpParams().set("periodicCostId", periodicCostId)
     };
 
-    return this.http.delete(url, httpOptions);
-    //   .pipe(map((result: User) => result));
+    return this.http.delete(url, httpOptions).pipe(map((result: API) => result));
   }
 
   async getPeriodicCosts(carId) {
@@ -244,8 +243,7 @@ export class CostsProvider {
       params: new HttpParams().set("costId", costId)
     };
 
-    return this.http.delete(url, httpOptions);
-    //   .pipe(map((result: User) => result));
+    return this.http.delete(url, httpOptions).pipe(map((result: API) => result));
   }
 
   async getOthersCosts(carId) {
