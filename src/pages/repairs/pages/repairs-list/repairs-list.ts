@@ -33,16 +33,7 @@ export class RepairsListPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.selectedCar = await this.carStorage.getSelectedCar();
-    let repairs$ = await this.repairsProvider.getRepairs(this.selectedCar.id);
-    repairs$.subscribe(result => {
-      this.repairs = result.repairs;
-      this.repairs = this.repairs.map(repair => {
-        repair.date = moment(repair.date).format("YYYY-MM-DD");
-        return repair;
-      });
-      console.log(result);
-    });
+    await this.refreshRepairsList();
   }
 
   showDetail(repair) {
@@ -79,6 +70,25 @@ export class RepairsListPage implements OnInit {
 
   navToHome() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async refreshRepairsList() {
+    this.showLoader();
+    await this.getRepairs();
+    this.dismissLoader();
+  }
+
+  async getRepairs() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+    let repairs$ = await this.repairsProvider.getRepairs(this.selectedCar.id);
+    repairs$.subscribe(result => {
+      this.repairs = result.repairs;
+      this.repairs = this.repairs.map(repair => {
+        repair.date = moment(repair.date).format("YYYY-MM-DD");
+        return repair;
+      });
+      console.log(result);
+    });
   }
 
   showToast(message) {
