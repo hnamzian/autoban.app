@@ -54,6 +54,9 @@ export class FuelCostsPage implements OnInit {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditFuelCostPage, { fuel }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshFuelsList();
+        });
       }
     });
   }
