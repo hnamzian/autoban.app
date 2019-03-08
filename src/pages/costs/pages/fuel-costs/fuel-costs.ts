@@ -41,8 +41,9 @@ export class FuelCostsPage implements OnInit {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deleteFuelCost(fuel.id);
         cost$.subscribe(
-          result => {
+          async result => {
             if (result && result.success) {
+              await this.refreshFuelsList();
               return this.showToast(result.message);
             } else if (result && !result.success) {
               return this.showToast(result.message);

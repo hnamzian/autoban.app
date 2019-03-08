@@ -22,7 +22,7 @@ export class PeriodicCostsPage {
 
   toast: Toast;
   loading: Loading;
-  
+
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
@@ -33,18 +33,7 @@ export class PeriodicCostsPage {
   ) {}
 
   async ngOnInit() {
-    this.selectedCar = await this.carStorage.getSelectedCar();
-
-    let periodicCost$ = await this.costsProvider.getPeriodicCosts(this.selectedCar.id);
-    periodicCost$.subscribe(result => {
-      console.log(result);
-
-      this.periodicCosts = result.periodicCosts;
-      this.periodicCosts = this.periodicCosts.map(costItem => {
-        costItem.cost.date = moment(costItem.cost.date).format("YYYY-MM-DD");
-        return costItem;
-      });
-    });
+    await this.refreshPeriodicCostList();
   }
 
   editOrRemoveItem(periodicCost: PeriodicCost) {
@@ -72,6 +61,27 @@ export class PeriodicCostsPage {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async refreshPeriodicCostList() {
+    this.showLoader();
+    await this.getPeriodicCosts();
+    this.dismissLoader();
+  }
+
+  async getPeriodicCosts() {
+    this.selectedCar = await this.carStorage.getSelectedCar();
+
+    let periodicCost$ = await this.costsProvider.getPeriodicCosts(this.selectedCar.id);
+    periodicCost$.subscribe(result => {
+      console.log(result);
+
+      this.periodicCosts = result.periodicCosts;
+      this.periodicCosts = this.periodicCosts.map(costItem => {
+        costItem.cost.date = moment(costItem.cost.date).format("YYYY-MM-DD");
+        return costItem;
+      });
+    });
   }
 
   showToast(message) {
