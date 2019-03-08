@@ -81,22 +81,21 @@ export class EditFuelCostPage implements OnInit {
 
     console.log(fuelCost);
     let fuel$ = await this.costsProvider.updateFuelCost(fuelCost);
-    fuel$.subscribe(result => {
-      if (result.success) {
-        this.viewCtrl.dismiss();
-        this.showToast(result.message);
-      } else {
-        this.showToast(result.message);
-      }
-    });
+    fuel$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+          this.showToast(result.message);
+        } else {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.fuelForm.get("fuelDate").hasError("required")
-      ? "فیلد تاریخ الزامی است"
-      : this.fuelForm.get("fuelValue").hasError("required")
-      ? "فیلد هزینه الزامی است"
-      : "";
+    const message = this.fuelForm.get("fuelDate").hasError("required") ? "فیلد تاریخ الزامی است" : this.fuelForm.get("fuelValue").hasError("required") ? "فیلد هزینه الزامی است" : "";
     return message;
   }
 
