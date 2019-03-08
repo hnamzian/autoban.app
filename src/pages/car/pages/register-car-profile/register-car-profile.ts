@@ -125,6 +125,8 @@ export class RegisterCarProfilePage implements OnInit {
       name: this.carProfileForm.get("name").value
     } as Car;
 
+    console.log(carProfile)
+
     let carapi$ = await this.carProvider.registerCar(carProfile);
     carapi$.subscribe(
       result => {
