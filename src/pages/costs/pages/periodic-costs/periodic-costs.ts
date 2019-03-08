@@ -56,6 +56,9 @@ export class PeriodicCostsPage {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditPeriodicCostPage, { periodicCost }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshPeriodicCostList();
+        });
       }
     });
   }
