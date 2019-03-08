@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, PopoverController } from "ionic-angular";
+import { NavController, PopoverController, LoadingController, Loading } from "ionic-angular";
 import { ServiceDataPage } from "../service-data/service-data";
 import { NewServiceFormPage } from "../new-service-form/new-service-form";
 import { ServicesProvider } from "../../../../providers/services/services";
@@ -21,12 +21,9 @@ export class ServicesListPage implements OnInit {
   services = [] as Service[];
   newServiceItems;
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public carStorage: CarStorage,
-    public servicesProvider: ServicesProvider
-  ) {}
+  loading: Loading;
+
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public servicesProvider: ServicesProvider) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -58,11 +55,7 @@ export class ServicesListPage implements OnInit {
         // let cost$ = await this.servicesProvider.(service.id)
         // cost$.subscribe(d => console.log(d))
       } else if (action && action.edit) {
-        const popover = this.popoverCtrl.create(
-          EditServiceFormPage,
-          { service },
-          { cssClass: "costPopover" }
-        );
+        const popover = this.popoverCtrl.create(EditServiceFormPage, { service }, { cssClass: "costPopover" });
         popover.present();
       }
     });
@@ -74,5 +67,17 @@ export class ServicesListPage implements OnInit {
 
   navToHome() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      showBackdrop: false
+    });
+
+    this.loading.present();
+  }
+
+  dismissLoader() {
+    this.loading.dismiss();
   }
 }
