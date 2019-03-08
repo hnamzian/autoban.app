@@ -60,8 +60,7 @@ export class CostsProvider {
 
     console.log("del");
 
-    return this.http.delete(url, httpOptions);
-    //.pipe(map((result: User) => result));
+    return this.http.delete(url, httpOptions).pipe(map((result: API) => result));
   }
 
   async getFuels(carId) {
