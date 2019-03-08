@@ -65,11 +65,6 @@ export class UserProfilePage {
   }
 
   async updateProfile() {
-    // console.log("image: ", this.userPhoto);
-    // this.user.image = this.userPhoto.replace(this.IMAGE_HEADER, '');
-    // console.log(this.user);
-
-    // ToDo: handle this error
     if (this.userProfileForm.invalid) {
       const errorMessage = this.formErrorCheck();
       return this.showToast(errorMessage);
@@ -85,13 +80,18 @@ export class UserProfilePage {
     }
 
     let user$ = await this.userProvider.updateUser(user);
-    user$.subscribe(result => {
-      console.log(result);
-      if (!result.success) {
-        // ToDo: alert error
-      }
-      this.navCtrl.push(VehicleMenuPage);
-    });
+    user$.subscribe(
+      result => {
+        if (result && result.success) {
+          this.navCtrl.push(VehicleMenuPage);
+          return this.showToast(result.message);
+        }
+        if (!result.success) {
+          return this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
@@ -110,11 +110,7 @@ export class UserProfilePage {
   }
 
   addUserPhoto() {
-    let popover = this.popoverCtrl.create(
-      ImageResSelection,
-      {},
-      { cssClass: "image-resource-popover" }
-    );
+    let popover = this.popoverCtrl.create(ImageResSelection, {}, { cssClass: "image-resource-popover" });
     popover.present();
     popover.onDidDismiss(data => {
       console.log(data);
