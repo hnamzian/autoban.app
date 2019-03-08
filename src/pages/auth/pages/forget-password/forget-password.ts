@@ -33,11 +33,18 @@ export class ForgetPasswordPage implements OnInit {
 
     const mobileNumber = this.fgPassForm.get("mobileNumber").value;
     let token;
-    this.authProvider.getSMSToken(mobileNumber).subscribe(result => {
-      console.log("SMS Token(register)", result.token.token);
-      token = result.token.token;
-      this.navCtrl.push(CheckVerificationCodePage, { mobileNumber, token });
-    });
+    this.authProvider.getSMSToken(mobileNumber).subscribe(
+      result => {
+        if (result && result.success) {
+          token = result.token.token;
+          this.navCtrl.push(CheckVerificationCodePage, { mobileNumber, token });
+          return this.showToast(result.message);
+        } else if (result && !result.success) {
+          return this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در  برقراری ارتباط")
+    );
   }
 
   formErrorCheck() {
