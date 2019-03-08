@@ -1,5 +1,9 @@
 <ion-content padding>
-  <div class="item-container" *ngFor="let othersCost of othersCosts" (click)="editOrRemoveItem(othersCost)">
+  <div
+    class="item-container"
+    *ngFor="let othersCost of othersCosts"
+    (press)="editOrRemoveItem(othersCost)"
+  >
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="location-text"> <!-- <p>{{ othersCosts.title }}</p> --> </ion-col>

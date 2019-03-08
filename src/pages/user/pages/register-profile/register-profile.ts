@@ -20,13 +20,7 @@ export class RegisterProfilePage implements OnInit {
 
   toast: Toast;
 
-  constructor(
-    public navCtrl: NavController,
-    public toastCtrl: ToastController,
-    public formBuilder: FormBuilder,
-    public userProvider: UserProvider,
-    public authProvider: AuthProvider
-  ) {}
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public userProvider: UserProvider, public authProvider: AuthProvider) {}
 
   async ngOnInit() {
     this.userProfileForm = this.formBuilder.group({
@@ -52,7 +46,7 @@ export class RegisterProfilePage implements OnInit {
     const user = {
       firstName: this.userProfileForm.get("firstName").value,
       lastName: this.userProfileForm.get("lastName").value,
-      mobileNumber: this.userProfileForm.get("mobileNumber").value
+      email: this.userProfileForm.get("email").value
     } as User;
     const password = this.userProfileForm.get("password").value;
 

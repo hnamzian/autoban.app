@@ -64,12 +64,19 @@ export class NewOthersCostPage {
     let othersCost = {
       date: this.costForm.get("costDate").value,
       value: this.costForm.get("costValue").value,
-      comment: this.costForm.get("costComment"),
+      comment: this.costForm.get("costComment").value,
       carId: this.selectedCar.id
     };
     console.log(othersCost);
     let fuel$ = await this.costsProvider.addOthersCost(othersCost);
-    fuel$.subscribe(console.log);
+    fuel$.subscribe(result => {
+      if (result.success) {
+        this.viewCtrl.dismiss();
+        this.showToast(result.message);
+      } else {
+        this.showToast(result.message);
+      }
+    });
   }
 
   formErrorCheck() {

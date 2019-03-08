@@ -2,7 +2,7 @@
   <menu-header [title]="title" (onPrevPage)="navToHome()"></menu-header>
 </ion-header>
 <ion-content padding>
-  <div class="item-container" *ngFor="let service of services" (click)="editOrRemoveItem(service)">
+  <div class="item-container" *ngFor="let service of services" (press)="editOrRemoveItem(service)">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="station-text">

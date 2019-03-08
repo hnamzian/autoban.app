@@ -39,6 +39,22 @@ export class CostsProvider {
     return this.http.post(url, fuelCost, httpOptions).pipe(map((result: FuelAPI) => result));
   }
 
+  async updateFuelCost(fuelCost) {
+    let url = `${this.baseUrl}/fuel`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as FuelAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    console.log(fuelCost);
+    return this.http.put(url, fuelCost, httpOptions).pipe(map((result: FuelAPI) => result));
+  }
+
   async deleteFuelCost(fuelId) {
     let url = `${this.baseUrl}/fuel`;
 
@@ -47,12 +63,12 @@ export class CostsProvider {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: token,
+        Authorization: token
       }),
-      params: new HttpParams().set('fuelId', fuelId)
+      params: new HttpParams().set("fuelId", fuelId)
     };
 
-    console.log("del")
+    console.log("del");
 
     return this.http.delete(url, httpOptions);
     //.pipe(map((result: User) => result));
@@ -88,6 +104,21 @@ export class CostsProvider {
     return this.http.post(url, fineCost, httpOptions).pipe(map((result: FineAPI) => result));
   }
 
+  async updateFineCost(fineCost) {
+    let url = `${this.baseUrl}/fine`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as FineAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http.put(url, fineCost, httpOptions).pipe(map((result: FineAPI) => result));
+  }
+
   async deleteFineCost(fineId) {
     let url = `${this.baseUrl}/fine`;
 
@@ -98,7 +129,7 @@ export class CostsProvider {
       headers: new HttpHeaders({
         Authorization: token
       }),
-      params: new HttpParams().set('fineId', fineId)      
+      params: new HttpParams().set("fineId", fineId)
     };
 
     return this.http.delete(url, httpOptions);
@@ -137,6 +168,23 @@ export class CostsProvider {
       .pipe(map((result: PeriodicCostAPI) => result));
   }
 
+  async updatePeriodicCost(periodicCost) {
+    let url = `${this.baseUrl}/periodic`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as PeriodicCostAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http
+      .put(url, periodicCost, httpOptions)
+      .pipe(map((result: PeriodicCostAPI) => result));
+  }
+
   async deletePeriodicCost(periodicCostId) {
     let url = `${this.baseUrl}/periodic`;
 
@@ -147,7 +195,7 @@ export class CostsProvider {
       headers: new HttpHeaders({
         Authorization: token
       }),
-      params: new HttpParams().set('periodicCostId', periodicCostId)   
+      params: new HttpParams().set("periodicCostId", periodicCostId)
     };
 
     return this.http.delete(url, httpOptions);
@@ -188,6 +236,21 @@ export class CostsProvider {
       .pipe(map((result: OthersCostAPI) => result));
   }
 
+  async updateOthersCost(othersCost) {
+    let url = `${this.baseUrl}/other`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as OthersCostAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http.put(url, othersCost, httpOptions).pipe(map((result: OthersCostAPI) => result));
+  }
+
   async deleteOthersCost(costId) {
     let url = `${this.baseUrl}/other`;
 
@@ -198,8 +261,7 @@ export class CostsProvider {
       headers: new HttpHeaders({
         Authorization: token
       }),
-      params: new HttpParams().set('costId', costId)
-
+      params: new HttpParams().set("costId", costId)
     };
 
     return this.http.delete(url, httpOptions);

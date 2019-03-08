@@ -27,7 +27,7 @@ export class AuthProvider {
         return {
           success: result.success,
           token: result.token || "",
-          msg: result.msg || ""
+          message: result.message || ""
         };
       })
     );

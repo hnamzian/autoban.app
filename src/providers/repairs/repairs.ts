@@ -43,6 +43,21 @@ export class RepairsProvider {
     return this.http.post(url, repair, httpOptions).pipe(map((result: RepairsAPI) => result));
   }
 
+  async updateRepair(repair: Repair) {
+    let url = `${this.baseUrl}/repair`;
+
+    let token = await this.tokenStorage.getAuthToken();
+    if (!token) return Observable.of({} as RepairsAPI);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+
+    return this.http.put(url, repair, httpOptions).pipe(map((result: RepairsAPI) => result));
+  }
+
   async removeRepair(repairId) {
     let url = `${this.baseUrl}/repair`;
 

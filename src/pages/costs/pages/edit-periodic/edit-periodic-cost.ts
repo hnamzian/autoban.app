@@ -12,6 +12,7 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 export class EditPeriodicCostPage {
   selectedCar;
 
+  periodicCost;
   costForm: FormGroup;
 
   toast: Toast;
@@ -35,12 +36,12 @@ export class EditPeriodicCostPage {
   }
 
   async ngOnInit() {
-    let periodicCost = this.navParams.get("periodicCost");
+    this.periodicCost = this.navParams.get("periodicCost");
     this.costForm = this.formBuilder.group({
-      costDate: [periodicCost.cost.date, Validators.required],
-      costValue: [periodicCost.cost.value, Validators.required],
-      costComment: [periodicCost.cost.value],
-      period: [periodicCost.period]
+      costDate: [this.periodicCost.cost.date, Validators.required],
+      costValue: [this.periodicCost.cost.value, Validators.required],
+      costComment: [this.periodicCost.cost.value],
+      period: [this.periodicCost.period]
     });
 
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -54,7 +55,7 @@ export class EditPeriodicCostPage {
     this.endMax = this.startMax;
   }
 
-  async addCost() {
+  async updateCost() {
     //ToDo: handle this error
     if (this.costForm.invalid) {
       const errorMessage = this.formErrorCheck();
@@ -62,16 +63,23 @@ export class EditPeriodicCostPage {
     }
 
     let periodicCost = {
+      id: this.periodicCost.id,
       date: this.costForm.get("costDate").value,
       carId: this.selectedCar.id,
-      value: this.costForm.get("costValue"),
+      value: this.costForm.get("costValue").value,
       comment: this.costForm.get("costComment").value,
-      //   type: 1,
+      type: this.periodicCost.type,
       period: this.costForm.get("period").value
     };
     console.log(periodicCost);
-    let fuel$ = await this.costsProvider.addPeriodicCost(periodicCost);
-    fuel$.subscribe(console.log);
+    let periodic$ = await this.costsProvider.updatePeriodicCost(periodicCost);
+    periodic$.subscribe(result => {
+      console.log(result);
+      if (result.success) {
+        this.viewCtrl.dismiss();
+      }
+      this.showToast(result.message);
+    });
   }
 
   formErrorCheck() {

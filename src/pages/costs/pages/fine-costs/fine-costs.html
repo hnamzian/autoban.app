@@ -1,5 +1,5 @@
 <ion-content padding>
-  <div class="item-container" *ngFor="let fine of fines" (click)="editOrRemoveItem(fine)">
+  <div class="item-container" *ngFor="let fine of fines" (press)="editOrRemoveItem(fine)">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="location-text">

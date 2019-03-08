@@ -5,14 +5,16 @@ import { Repair } from "../../../../models/repair";
 import { Car } from "../../../../models/car";
 import { CarStorage } from "../../../../storage/car/car";
 import { RepairsProvider } from "../../../../providers/repairs/repairs";
+import { NavParams } from "ionic-angular/navigation/nav-params";
 
 @Component({
-  selector: "new-repair-form",
-  templateUrl: "new-repair-form.html"
+  selector: "edit-repair-form",
+  templateUrl: "edit-repair-form.html"
 })
-export class NewRepairFormPage implements OnInit {
+export class EditRepairFormPage implements OnInit {
   selectedCar: Car;
 
+  repair;
   repairForm: FormGroup;
 
   date;
@@ -25,6 +27,7 @@ export class NewRepairFormPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     public viewCtrl: ViewController,
     public formBuilder: FormBuilder,
     public toastCtrl: ToastController,
@@ -33,12 +36,13 @@ export class NewRepairFormPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.repair = this.navParams.get("repair");
     this.repairForm = this.formBuilder.group({
-      date: ["", Validators.required],
-      title: [""],
-      garageName: [""],
-      totalCost: ["", Validators.required],
-      comment: [""]
+      date: [this.repair.date, Validators.required],
+      title: [this.repair.title],
+      garageName: [this.repair.garageName],
+      totalCost: [this.repair.totalCost, Validators.required],
+      comment: [this.repair.comment]
     });
     this.selectedCar = await this.carSorage.getSelectedCar();
   }
@@ -57,17 +61,18 @@ export class NewRepairFormPage implements OnInit {
       carId: this.selectedCar.id
     } as Repair;
 
-    console.log(repair)
-    // let repair$ = await this.repairsProvider.addRepair(repair);
-    // repair$.subscribe(console.log);
+    let repair$ = await this.repairsProvider.updateRepair(repair);
+    repair$.subscribe(result => {
+      console.log(result);
+      if (result.success) {
+        this.viewCtrl.dismiss();
+      }
+      this.showToast(result.message);
+    });
   }
 
   formErrorCheck() {
-    const message = this.repairForm.get("date").hasError("required")
-      ? "تاریخ الزامی است"
-      : this.repairForm.get("totalCost").hasError("required")
-      ? "هزینه نامعتبر است"
-      : "خطا";
+    const message = this.repairForm.get("date").hasError("required") ? "تاریخ الزامی است" : this.repairForm.get("totalCost").hasError("required") ? "هزینه نامعتبر است" : "خطا";
     return message;
   }
 

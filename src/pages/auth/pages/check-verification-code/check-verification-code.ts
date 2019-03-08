@@ -145,7 +145,7 @@ export class CheckVerificationCodePage {
         });
       } else {
         // ToDo: show error message and back to register page
-        console.log("Error(CodeVerification): ", smsjwt.msg);
+        console.log("Error(CodeVerification): ", smsjwt.message);
         this.navCtrl.push(RegisterPage);
         this.dismissLoader();
       }

@@ -7,10 +7,9 @@ import { RepairsProvider } from "../../../../providers/repairs/repairs";
 import { Car } from "../../../../models/car";
 import { Repair } from "../../../../models/repair";
 import * as moment from "moment";
-import { filter } from "rxjs/operator/filter";
-import { map } from "rxjs/operator/map";
 import { RepairReceiptsPage } from "../repair-receipts/repair-receipts";
 import { EditBarCompponent } from "../../../core/components/edit-bar/edit-bar";
+import { EditRepairFormPage } from "../edit-repair-form/edit-repair-form";
 
 @Component({
   selector: "repairs-list",
@@ -45,17 +44,25 @@ export class RepairsListPage implements OnInit {
   }
 
   editOrRemoveItem(repair: Repair) {
-    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
-    modal.present();
-    modal.onDidDismiss(async action => {
-      if(action && action.remove) {
-        let cost$ = await this.repairsProvider.removeRepair(repair.id)
-        cost$.subscribe(d => console.log(d))
-      } 
-      else if(action && action.edit) {
-        console.log("edit")
+    const editRemovePopover = this.popoverCtrl.create(
+      EditBarCompponent,
+      {},
+      { cssClass: "editBarPopover" }
+    );
+    editRemovePopover.present();
+    editRemovePopover.onDidDismiss(async action => {
+      if (action && action.remove) {
+        let cost$ = await this.repairsProvider.removeRepair(repair.id);
+        cost$.subscribe(d => console.log(d));
+      } else if (action && action.edit) {
+        const popover = this.popoverCtrl.create(
+          EditRepairFormPage,
+          { repair },
+          { cssClass: "costPopover" }
+        );
+        popover.present();
       }
-    })
+    });
   }
 
   addNewRepair() {

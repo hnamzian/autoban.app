@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
         } else {
           // ToDo: show an error message and clear inputs
           // ToDo: modify model for msg part
-          console.log("Error while login(login): ", result["msg"]);
+          console.log("Error while login(login): ", result.message);
         }
       });
   }

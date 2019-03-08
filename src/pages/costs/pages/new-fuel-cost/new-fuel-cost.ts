@@ -12,6 +12,8 @@ import { Car } from "../../../../models/car";
   templateUrl: "new-fuel-cost.html"
 })
 export class NewFuelCostPage implements OnInit {
+  // ToDo: add fuel type
+
   selectedCar: Car;
 
   fuelForm: FormGroup;
@@ -74,7 +76,14 @@ export class NewFuelCostPage implements OnInit {
 
     console.log(fuelCost);
     let fuel$ = await this.costsProvider.addFuelCost(fuelCost);
-    fuel$.subscribe(console.log);
+    fuel$.subscribe(result => {
+      if (result.success) {
+        this.viewCtrl.dismiss();
+        this.showToast(result.message)
+      } else {
+        this.showToast(result.message)
+      }
+    });
   }
 
   formErrorCheck() {

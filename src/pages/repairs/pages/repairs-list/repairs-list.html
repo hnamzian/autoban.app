@@ -2,7 +2,7 @@
   <menu-header [title]="title" (onPrevPage)="navToHome()"></menu-header>
 </ion-header>
 <ion-content padding>
-  <div class="item-container" *ngFor="let repair of repairs" (click)="editOrRemoveItem(repair)">
+  <div class="item-container" *ngFor="let repair of repairs" (press)="editOrRemoveItem(repair)">
     <ion-grid style="direction: rtl">
       <ion-row>
         <ion-col col-5 class="station-text">
@@ -22,7 +22,9 @@
           <p>{{ repair.title }}</p>
         </ion-col>
         <ion-col col-3 class="text-center"></ion-col>
-        <ion-col class="detail-btn" col-4 (click)="showDetail(repair)"> <p>مشاهده جزئیات</p> </ion-col>
+        <ion-col class="detail-btn" col-4 (click)="showDetail(repair)">
+          <p>مشاهده جزئیات</p>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </div>

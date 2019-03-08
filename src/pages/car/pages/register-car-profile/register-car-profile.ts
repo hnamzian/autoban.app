@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  NavController,
-  PopoverController,
-  LoadingController,
-  Toast,
-  ToastController
-} from "ionic-angular";
+import { NavController, PopoverController, LoadingController, Toast, ToastController } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { map, catchError } from "rxjs/operators";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
@@ -67,9 +61,7 @@ export class RegisterCarProfilePage implements OnInit {
   }
 
   async loadCarModels(brandId) {
-    let models$ = (await this.carProvider.getCarModels(brandId)).pipe(
-      map(result => result.carModels)
-    );
+    let models$ = (await this.carProvider.getCarModels(brandId)).pipe(map(result => result.carModels));
     models$.subscribe(result => {
       this.showLoader();
       this.models = result;
@@ -78,11 +70,7 @@ export class RegisterCarProfilePage implements OnInit {
   }
 
   openBrandsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.brands },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.brands }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(async brand => {
       if (brand && brand.id) {
@@ -97,11 +85,7 @@ export class RegisterCarProfilePage implements OnInit {
   }
 
   async openModelsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.models },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.models }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(model => {
       if (model && model.id) {
@@ -112,11 +96,7 @@ export class RegisterCarProfilePage implements OnInit {
   }
 
   openColorsList() {
-    let popover = this.popoverCtrl.create(
-      SelectListComponent,
-      { itemsList: this.trims },
-      { cssClass: "listPopover" }
-    );
+    let popover = this.popoverCtrl.create(SelectListComponent, { itemsList: this.trims }, { cssClass: "listPopover" });
     popover.present();
     popover.onDidDismiss(color => {
       if (color && color.id) {
@@ -145,6 +125,8 @@ export class RegisterCarProfilePage implements OnInit {
       name: this.carProfileForm.get("name").value
     } as Car;
 
+    console.log(carProfile);
+
     let carapi$ = await this.carProvider.registerCar(carProfile);
     carapi$.subscribe(carapi => {
       console.log(carapi);
@@ -153,7 +135,7 @@ export class RegisterCarProfilePage implements OnInit {
         this.navCtrl.push(RegisterPage);
       } else if (!carapi.success) {
         // ToDo: toast error and stay this page
-        console.log(carapi.msg);
+        console.log(carapi.message);
       } else {
         this.navCtrl.push(VehicleMenuPage);
       }

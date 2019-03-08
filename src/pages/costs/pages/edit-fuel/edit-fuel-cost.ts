@@ -15,6 +15,7 @@ import { NavParams } from "ionic-angular/navigation/nav-params";
 export class EditFuelCostPage implements OnInit {
   selectedCar: Car;
 
+  fuelCost: Fuel;
   fuelForm: FormGroup;
 
   toast: Toast;
@@ -38,14 +39,14 @@ export class EditFuelCostPage implements OnInit {
   }
 
   async ngOnInit() {
-    let fuel = this.navParams.get("fuel");
+    this.fuelCost = this.navParams.get("fuel");
     this.fuelForm = this.formBuilder.group({
-      fuelDate: [fuel.cost.date, Validators.required],
-      fuelVolume: [fuel.volume],
-      fuelValue: [fuel.cost.value, Validators.required],
-      fuelComment: [fuel.cost.omment],
-      odometer: [fuel.odometer],
-      stationName: [fuel.stationName]
+      fuelDate: [this.fuelCost.cost.date, Validators.required],
+      fuelVolume: [this.fuelCost.volume],
+      fuelValue: [this.fuelCost.cost.value, Validators.required],
+      fuelComment: [this.fuelCost.cost.comment],
+      odometer: [this.fuelCost.odometer],
+      stationName: [this.fuelCost.stationName]
     });
 
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -67,6 +68,8 @@ export class EditFuelCostPage implements OnInit {
     }
 
     let fuelCost = {
+      id: this.fuelCost.id,
+      type: this.fuelCost.type,
       date: this.fuelForm.get("fuelDate").value,
       carId: this.selectedCar.id,
       value: this.fuelForm.get("fuelValue").value,
@@ -77,8 +80,15 @@ export class EditFuelCostPage implements OnInit {
     };
 
     console.log(fuelCost);
-    let fuel$ = await this.costsProvider.addFuelCost(fuelCost);
-    fuel$.subscribe(console.log);
+    let fuel$ = await this.costsProvider.updateFuelCost(fuelCost);
+    fuel$.subscribe(result => {
+      if (result.success) {
+        this.viewCtrl.dismiss();
+        this.showToast(result.message);
+      } else {
+        this.showToast(result.message);
+      }
+    });
   }
 
   formErrorCheck() {

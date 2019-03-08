@@ -12,6 +12,7 @@ import { CostsProvider } from "../../../../providers/costs/costs";
 export class EditOthersCostPage {
   selectedCar;
 
+  othersCost;
   costForm: FormGroup;
 
   toast: Toast;
@@ -35,12 +36,11 @@ export class EditOthersCostPage {
   }
 
   async ngOnInit() {
-    let othersCost = this.navParams.get("othersCost");
-    console.log(othersCost);
+    this.othersCost = this.navParams.get("othersCost");
     this.costForm = this.formBuilder.group({
-      costDate: [othersCost.date, Validators.required],
-      costValue: [othersCost.value, Validators.required],
-      costComment: [othersCost.comment]
+      costDate: [this.othersCost.date, Validators.required],
+      costValue: [this.othersCost.value, Validators.required],
+      costComment: [this.othersCost.comment]
     });
 
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -66,14 +66,20 @@ export class EditOthersCostPage {
     }
 
     let othersCost = {
+      id: this.othersCost.id,
       date: this.costForm.get("costDate").value,
       value: this.costForm.get("costValue").value,
-      comment: this.costForm.get("costComment"),
+      comment: this.costForm.get("costComment").value,
       carId: this.selectedCar.id
     };
     console.log(othersCost);
-    let fuel$ = await this.costsProvider.addOthersCost(othersCost);
-    fuel$.subscribe(console.log);
+    let fuel$ = await this.costsProvider.updateOthersCost(othersCost);
+    fuel$.subscribe(result => {
+      if (result.success) {
+        this.viewCtrl.dismiss();
+      }
+      this.showToast(result.message);
+    });
   }
 
   formErrorCheck() {

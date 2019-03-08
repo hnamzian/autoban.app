@@ -61,14 +61,21 @@ export class NewPeriodicCostPage {
     let periodicCost = {
       date: this.costForm.get("costDate").value,
       carId: this.selectedCar.id,
-      value: this.costForm.get("costValue"),
+      value: this.costForm.get("costValue").value,
       comment: this.costForm.get("costComment").value,
       //   type: 1,
       period: this.costForm.get("period").value
     };
     console.log(periodicCost);
     let fuel$ = await this.costsProvider.addPeriodicCost(periodicCost);
-    fuel$.subscribe(console.log);
+    fuel$.subscribe(result => {
+      if (result.success) {
+        this.viewCtrl.dismiss();
+        this.showToast(result.message);
+      } else {
+        this.showToast(result.message);
+      }
+    });
   }
 
   formErrorCheck() {

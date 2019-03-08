@@ -1,60 +1,24 @@
-import { Component } from "@angular/core";
+import { ServiceItem } from "./../../../../models/service";
+import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { ServicesListPage } from "../services-list/services-list";
+import { ServicesProvider } from "../../../../providers/services/services";
 
 @Component({
   selector: "service-data",
   templateUrl: "service-data.html"
 })
-export class ServiceDataPage {
-  serviceItems = [
-    {
-      name: "روغن موتور",
-      status: "changed"
-    },
-    {
-      name: "فیلتر روغن",
-      status: "ok"
-    },
-    {
-      name: "فیلتر هوا",
-      status: "fail"
-    },
-    {
-      name: "فیلتر کابین",
-      status: "ok"
-    },
-    {
-      name: "فیلتر سوخت",
-      status: "ok"
-    },
-    {
-      name: "روغن گیربکس",
-      status: "ok"
-    },
-    {
-      name: "روغن هیدرولیک",
-      status: "ok"
-    },
-    {
-      name: "ترمز جلو",
-      status: "ok"
-    },
-    {
-      name: "ترمز عقب",
-      status: "ok"
-    },
-    {
-      name: "شمع",
-      status: "fail"
-    },
-    {
-      name: "کابل شمع",
-      status: "changed"
-    }
-  ];
+export class ServiceDataPage implements OnInit {
+  serviceItems: ServiceItem[];
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public servicesProvider: ServicesProvider) {}
+
+  async ngOnInit() {
+    // let serviceItems$ = await this.servicesProvider.getServiceItems();
+    // serviceItems$.subscribe(result => {
+    //   this.serviceItems = result.serviceItems;
+    // });
+  }
 
   navToPrevPage() {
     this.navCtrl.push(ServicesListPage);

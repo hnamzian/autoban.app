@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ViewController, ToastController, Toast } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Cost } from "../../../../models/costs";
 import moment from "moment";
 import { CostsProvider } from "../../../../providers/costs/costs";
 import { CarStorage } from "../../../../storage/car/car";
@@ -15,6 +14,7 @@ import { NavParams } from "ionic-angular/navigation/nav-params";
 export class EditFineCostPage implements OnInit {
   selectedCar: Car;
 
+  fine;
   fineForm: FormGroup;
 
   toast: Toast;
@@ -42,12 +42,12 @@ export class EditFineCostPage implements OnInit {
   }
 
   async ngOnInit() {
-    let fine = this.navParams.get("fine");
+    this.fine = this.navParams.get("fine");
     this.fineForm = this.formBuilder.group({
-      fineDate: [fine.cost.date, Validators.required],
-      fineValue: [fine.cost.value, Validators.required],
-      fineCategoryCode: [fine.fineCategoryCode],
-      fineComment: [fine.cost.comment]
+      fineDate: [this.fine.cost.date, Validators.required],
+      fineValue: [this.fine.cost.value, Validators.required],
+      fineCategoryCode: [this.fine.fineCategoryCode],
+      fineComment: [this.fine.cost.comment]
     });
 
     this.selectedCar = await this.carStorgae.getSelectedCar();
@@ -61,18 +61,22 @@ export class EditFineCostPage implements OnInit {
     }
 
     let fineCost = {
+      id: this.fine.id,
       date: this.fineForm.get("fineDate").value,
       value: this.fineForm.get("fineValue").value,
       carId: this.selectedCar.id,
       comment: this.fineForm.get("fineComment").value,
-      fineCategoryCode: this.fineForm.get("fineCategoryCode")
+      fineCategoryCode: this.fineForm.get("fineCategoryCode").value
     };
 
-    let fine$ = await this.costsProvider.addFineCost(fineCost);
+    console.log(fineCost);
+    let fine$ = await this.costsProvider.updateFineCost(fineCost);
     fine$.subscribe(result => {
       if (result.success) {
-        console.log(result);
-        this.viewCtrl.dismiss({ fine: result.fine });
+        this.viewCtrl.dismiss();
+        this.showToast(result.message);
+      } else {
+        this.showToast(result.message);
       }
     });
   }

@@ -41,9 +41,13 @@ export class FineCostsPage implements OnInit {
   }
 
   editOrRemoveItem(fine: Fine) {
-    const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
-    modal.present();
-    modal.onDidDismiss(async action => {
+    const editRemovePopover = this.popoverCtrl.create(
+      EditBarCompponent,
+      {},
+      { cssClass: "editBarPopover" }
+    );
+    editRemovePopover.present();
+    editRemovePopover.onDidDismiss(async action => {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deleteFineCost(fine.id);
         cost$.subscribe(d => console.log(d));

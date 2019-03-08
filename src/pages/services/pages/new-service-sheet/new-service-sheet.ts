@@ -26,7 +26,6 @@ export class NewServiceSheetPage implements OnInit {
     let services$ = await this.servicesProvider.getServiceItems();
     services$.subscribe(items => {
       this.serviceTypes = items.serviceItems;
-      console.log("items: ", items);
     });
   }
 

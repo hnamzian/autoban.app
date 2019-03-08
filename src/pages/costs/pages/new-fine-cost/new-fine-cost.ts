@@ -62,14 +62,16 @@ export class NewFineCostPage implements OnInit {
       value: this.fineForm.get("fineValue").value,
       carId: this.selectedCar.id,
       comment: this.fineForm.get("fineComment").value,
-      fineCategoryCode: this.fineForm.get("fineCategoryCode")
+      fineCategoryCode: this.fineForm.get("fineCategoryCode").value
     };
 
     let fine$ = await this.costsProvider.addFineCost(fineCost);
     fine$.subscribe(result => {
       if (result.success) {
-        console.log(result);
-        this.viewCtrl.dismiss({ fine: result.fine });
+        this.viewCtrl.dismiss();
+        this.showToast(result.message);
+      } else {
+        this.showToast(result.message);
       }
     });
   }
