@@ -47,13 +47,14 @@ export class EditRepairFormPage implements OnInit {
     this.selectedCar = await this.carSorage.getSelectedCar();
   }
 
-  async addRepairForm() {
+  async updateRepairForm() {
     if (this.repairForm.invalid) {
       const errorMessage = this.formErrorCheck();
       return this.showToast(errorMessage);
     }
 
     let repair = {
+      id: this.repair.id,
       date: this.repairForm.get("date").value,
       title: this.repairForm.get("title").value,
       totalCost: this.repairForm.get("totalCost").value,
