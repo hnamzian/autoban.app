@@ -18,12 +18,7 @@ export class FineCostsPage implements OnInit {
   selectedCar: Car;
   fines: Fine[];
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public costsProvider: CostsProvider,
-    public carStorage: CarStorage
-  ) {}
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public costsProvider: CostsProvider, public carStorage: CarStorage) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -41,22 +36,14 @@ export class FineCostsPage implements OnInit {
   }
 
   editOrRemoveItem(fine: Fine) {
-    const editRemovePopover = this.popoverCtrl.create(
-      EditBarCompponent,
-      {},
-      { cssClass: "editBarPopover" }
-    );
+    const editRemovePopover = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     editRemovePopover.present();
     editRemovePopover.onDidDismiss(async action => {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deleteFineCost(fine.id);
         cost$.subscribe(d => console.log(d));
       } else if (action && action.edit) {
-        const popover = this.popoverCtrl.create(
-          EditFineCostPage,
-          { fine },
-          { cssClass: "costPopover" }
-        );
+        const popover = this.popoverCtrl.create(EditFineCostPage, { fine }, { cssClass: "costPopover" });
         popover.present();
       }
     });

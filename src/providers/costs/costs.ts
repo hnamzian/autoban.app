@@ -4,18 +4,8 @@ import { Observable } from "rxjs/Rx";
 import { map, catchError } from "rxjs/operators";
 import { environment as env } from "../../config/environment.prod";
 import { TokenStorage } from "../../storage/token/token";
-import {
-  FuelAPI,
-  AllFuelsAPI,
-  AllFinesAPI,
-  FineAPI,
-  OthersCostAPI,
-  AllOthersCostAPI,
-  PeriodicCostAPI,
-  AllPeriodicCostAPI,
-  Cost,
-  Fuel
-} from "../../models/costs";
+import { FuelAPI, AllFuelsAPI, AllFinesAPI, FineAPI, OthersCostAPI, AllOthersCostAPI, PeriodicCostAPI, AllPeriodicCostAPI, Cost, Fuel } from "../../models/costs";
+import { API } from "../../models/api";
 
 @Injectable()
 export class CostsProvider {
@@ -132,8 +122,7 @@ export class CostsProvider {
       params: new HttpParams().set("fineId", fineId)
     };
 
-    return this.http.delete(url, httpOptions);
-    //   .pipe(map((result: User) => result));
+    return this.http.delete(url, httpOptions).pipe(map((result: API) => result));
   }
 
   async getFines(carId) {
@@ -163,9 +152,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, periodicCost, httpOptions)
-      .pipe(map((result: PeriodicCostAPI) => result));
+    return this.http.post(url, periodicCost, httpOptions).pipe(map((result: PeriodicCostAPI) => result));
   }
 
   async updatePeriodicCost(periodicCost) {
@@ -180,9 +167,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .put(url, periodicCost, httpOptions)
-      .pipe(map((result: PeriodicCostAPI) => result));
+    return this.http.put(url, periodicCost, httpOptions).pipe(map((result: PeriodicCostAPI) => result));
   }
 
   async deletePeriodicCost(periodicCostId) {
@@ -214,9 +199,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, { carId }, httpOptions)
-      .pipe(map((result: AllPeriodicCostAPI) => result));
+    return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllPeriodicCostAPI) => result));
   }
 
   async addOthersCost(othersCost) {
@@ -231,9 +214,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, othersCost, httpOptions)
-      .pipe(map((result: OthersCostAPI) => result));
+    return this.http.post(url, othersCost, httpOptions).pipe(map((result: OthersCostAPI) => result));
   }
 
   async updateOthersCost(othersCost) {
@@ -280,9 +261,7 @@ export class CostsProvider {
       })
     };
 
-    return this.http
-      .post(url, { carId }, httpOptions)
-      .pipe(map((result: AllOthersCostAPI) => result));
+    return this.http.post(url, { carId }, httpOptions).pipe(map((result: AllOthersCostAPI) => result));
   }
 
   async listCosts(carId, from, to) {
