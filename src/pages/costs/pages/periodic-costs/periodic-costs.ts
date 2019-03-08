@@ -43,8 +43,9 @@ export class PeriodicCostsPage {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deletePeriodicCost(periodicCost.id);
         cost$.subscribe(
-          result => {
+          async result => {
             if (result && result.success) {
+              await this.refreshPeriodicCostList();
               return this.showToast(result.message);
             } else if (result && !result.success) {
               return this.showToast(result.message);
