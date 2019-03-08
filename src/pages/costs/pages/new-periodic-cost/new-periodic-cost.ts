@@ -23,13 +23,7 @@ export class NewPeriodicCostPage {
   endMin: any;
   endMax: any;
 
-  constructor(
-    public viewCtrl: ViewController,
-    public toastCtrl: ToastController,
-    public formBuilder: FormBuilder,
-    public carStorage: CarStorage,
-    public costsProvider: CostsProvider
-  ) {
+  constructor(public viewCtrl: ViewController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public carStorage: CarStorage, public costsProvider: CostsProvider) {
     this.initDatePicker();
   }
 
@@ -68,22 +62,21 @@ export class NewPeriodicCostPage {
     };
     console.log(periodicCost);
     let fuel$ = await this.costsProvider.addPeriodicCost(periodicCost);
-    fuel$.subscribe(result => {
-      if (result.success) {
-        this.viewCtrl.dismiss();
-        this.showToast(result.message);
-      } else {
-        this.showToast(result.message);
-      }
-    });
+    fuel$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+          this.showToast(result.message);
+        } else {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.costForm.get("costDate").hasError("required")
-      ? "فیلد تاریخ الزامی است"
-      : this.costForm.get("costValue").hasError("required")
-      ? "فیلد هزینه الزامی است"
-      : "خطا";
+    const message = this.costForm.get("costDate").hasError("required") ? "فیلد تاریخ الزامی است" : this.costForm.get("costValue").hasError("required") ? "فیلد هزینه الزامی است" : "خطا";
     return message;
   }
 
