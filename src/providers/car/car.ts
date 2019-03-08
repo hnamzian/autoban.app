@@ -35,7 +35,14 @@ export class CarProvider {
       })
     };
 
-    return this.http.post(url, formData, httpOptions).pipe(map((result: CarAPI) => result));
+    return this.http
+      .post(url, formData, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: CarAPI) => result));
   }
 
   async updateCar(car: Car) {
@@ -52,7 +59,14 @@ export class CarProvider {
 
     // ToDo: should be corrected on server
     car.carId = car.id;
-    return this.http.put(url, car, httpOptions).pipe(map((result: CarAPI) => result));
+    return this.http
+      .put(url, car, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: CarAPI) => result));
   }
 
   async deleteCar(carId) {
@@ -67,7 +81,11 @@ export class CarProvider {
       })
     };
 
-    return this.http.post(url, { carId }, httpOptions);
+    return this.http.post(url, { carId }, httpOptions).pipe(
+      catchError((err, caught) => {
+        return err;
+      })
+    );
   }
 
   async updateOdometer(odometer) {
@@ -82,7 +100,11 @@ export class CarProvider {
       })
     };
 
-    return this.http.post(url, { odometer }, httpOptions);
+    return this.http.post(url, { odometer }, httpOptions).pipe(
+      catchError((err, caught) => {
+        return err;
+      })
+    );
   }
 
   async getCrs() {
@@ -97,7 +119,14 @@ export class CarProvider {
       })
     };
 
-    return this.http.get(url, httpOptions).pipe(map((result: CarAPI) => result));
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: CarAPI) => result));
   }
 
   async getCarBrands() {
@@ -112,7 +141,14 @@ export class CarProvider {
       })
     };
 
-    return this.http.get(url, httpOptions).pipe(map((result: CarBrandsAPI) => result));
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: CarBrandsAPI) => result));
   }
 
   async getCarModels(brandId) {
@@ -129,6 +165,11 @@ export class CarProvider {
 
     return this.http
       .post(url, { brandId }, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
       .pipe(map((result: CarModelsAPI) => result));
   }
 
@@ -144,6 +185,13 @@ export class CarProvider {
       })
     };
 
-    return this.http.get(url, httpOptions).pipe(map((result: CarColorsAPI) => result));
+    return this.http
+      .get(url, httpOptions)
+      .pipe(
+        catchError((err, caught) => {
+          return err;
+        })
+      )
+      .pipe(map((result: CarColorsAPI) => result));
   }
 }
