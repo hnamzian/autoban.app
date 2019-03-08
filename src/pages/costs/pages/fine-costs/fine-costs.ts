@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController, PopoverController, ToastController, Toast } from "ionic-angular";
+import { NavController, ModalController, PopoverController, ToastController, Toast, LoadingController, Loading } from "ionic-angular";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Fine } from "../../../../models/costs";
@@ -19,11 +19,19 @@ export class FineCostsPage implements OnInit {
   fines: Fine[];
 
   toast: Toast;
+  loading: Loading;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public costsProvider: CostsProvider, public carStorage: CarStorage) {}
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    public costsProvider: CostsProvider,
+    public carStorage: CarStorage
+  ) {}
 
   async ngOnInit() {
-    await this.getFines();
+    await this.refreshFinesList();
   }
 
   editOrRemoveItem(fine: Fine) {
@@ -33,8 +41,9 @@ export class FineCostsPage implements OnInit {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deleteFineCost(fine.id);
         cost$.subscribe(
-          result => {
+          async result => {
             if (result && result.success) {
+              await this.refreshFinesList();
               return this.showToast(result.message);
             } else if (result && !result.success) {
               return this.showToast(result.message);
@@ -51,6 +60,12 @@ export class FineCostsPage implements OnInit {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  async refreshFinesList() {
+    this.showLoader();
+    await this.getFines();
+    this.dismissLoader();
   }
 
   async getFines() {
@@ -78,5 +93,17 @@ export class FineCostsPage implements OnInit {
 
   dismissToast() {
     this.toast.dismiss();
+  }
+
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      showBackdrop: false
+    });
+
+    this.loading.present();
+  }
+
+  dismissLoader() {
+    this.loading.dismiss();
   }
 }
