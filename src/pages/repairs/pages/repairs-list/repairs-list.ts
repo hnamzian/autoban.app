@@ -49,7 +49,7 @@ export class RepairsListPage implements OnInit {
         cost$.subscribe(
           async result => {
             if (result && result.success) {
-              await this.refreshRepairsList()
+              await this.refreshRepairsList();
               return this.showToast(result.message);
             } else if (result && !result.success) {
               return this.showToast(result.message);
@@ -60,6 +60,9 @@ export class RepairsListPage implements OnInit {
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditRepairFormPage, { repair }, { cssClass: "costPopover" });
         popover.present();
+        popover.onDidDismiss(async () => {
+          await this.refreshRepairsList();
+        });
       }
     });
   }
