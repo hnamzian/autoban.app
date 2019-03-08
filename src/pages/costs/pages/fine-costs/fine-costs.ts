@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController, PopoverController } from "ionic-angular";
+import { NavController, ModalController, PopoverController, ToastController, Toast } from "ionic-angular";
 import { NewFineCostPage } from "../new-fine-cost/new-fine-cost";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Fine } from "../../../../models/costs";
@@ -18,7 +18,9 @@ export class FineCostsPage implements OnInit {
   selectedCar: Car;
   fines: Fine[];
 
-  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public costsProvider: CostsProvider, public carStorage: CarStorage) {}
+  toast: Toast;
+
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public costsProvider: CostsProvider, public carStorage: CarStorage) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -41,7 +43,16 @@ export class FineCostsPage implements OnInit {
     editRemovePopover.onDidDismiss(async action => {
       if (action && action.remove) {
         let cost$ = await this.costsProvider.deleteFineCost(fine.id);
-        cost$.subscribe(d => console.log(d));
+        cost$.subscribe(
+          result => {
+            if (result && result.success) {
+              return this.showToast(result.message);
+            } else if (result && !result.success) {
+              return this.showToast(result.message);
+            }
+          },
+          error => this.showToast("خطا در برقراری ارتباط با سرور")
+        );
       } else if (action && action.edit) {
         const popover = this.popoverCtrl.create(EditFineCostPage, { fine }, { cssClass: "costPopover" });
         popover.present();
@@ -51,5 +62,19 @@ export class FineCostsPage implements OnInit {
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
