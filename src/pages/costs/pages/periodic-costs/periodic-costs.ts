@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController, PopoverController } from "ionic-angular";
+import { NavController, ModalController, PopoverController, ToastController, Toast } from "ionic-angular";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { Car } from "../../../../models/car";
 import { PeriodicCost } from "../../../../models/costs";
@@ -20,12 +20,8 @@ export class PeriodicCostsPage {
   selectedCar: Car;
   periodicCosts: PeriodicCost[];
 
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public carStorage: CarStorage,
-    public costsProvider: CostsProvider
-  ) {}
+  toast: Toast;
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public costsProvider: CostsProvider) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -46,22 +42,40 @@ export class PeriodicCostsPage {
     const modal = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     modal.present();
     modal.onDidDismiss(async action => {
-      if(action && action.remove) {
-        let cost$ = await this.costsProvider.deletePeriodicCost(periodicCost.id)
-        cost$.subscribe(d => console.log(d))
-      } 
-      else if(action && action.edit) {
-        const popover = this.popoverCtrl.create(
-            EditPeriodicCostPage,
-            { periodicCost },
-            { cssClass: "costPopover" }
-          );
-          popover.present();
+      if (action && action.remove) {
+        let cost$ = await this.costsProvider.deletePeriodicCost(periodicCost.id);
+        cost$.subscribe(
+          result => {
+            if (result && result.success) {
+              return this.showToast(result.message);
+            } else if (result && !result.success) {
+              return this.showToast(result.message);
+            }
+          },
+          error => this.showToast("خطا در برقراری ارتباط با سرور")
+        );
+      } else if (action && action.edit) {
+        const popover = this.popoverCtrl.create(EditPeriodicCostPage, { periodicCost }, { cssClass: "costPopover" });
+        popover.present();
       }
-    })
+    });
   }
 
   navToMenu() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
