@@ -57,17 +57,21 @@ export class NewRepairFormPage implements OnInit {
       carId: this.selectedCar.id
     } as Repair;
 
-    console.log(repair)
-    // let repair$ = await this.repairsProvider.addRepair(repair);
-    // repair$.subscribe(console.log);
+    let repair$ = await this.repairsProvider.addRepair(repair);
+    repair$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+        } else if (result && !result.success) {
+          this.showToast(result.message);
+        }
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.repairForm.get("date").hasError("required")
-      ? "تاریخ الزامی است"
-      : this.repairForm.get("totalCost").hasError("required")
-      ? "هزینه نامعتبر است"
-      : "خطا";
+    const message = this.repairForm.get("date").hasError("required") ? "تاریخ الزامی است" : this.repairForm.get("totalCost").hasError("required") ? "هزینه نامعتبر است" : "خطا";
     return message;
   }
 
