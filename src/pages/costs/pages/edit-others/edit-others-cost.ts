@@ -74,20 +74,19 @@ export class EditOthersCostPage {
     };
     console.log(othersCost);
     let fuel$ = await this.costsProvider.updateOthersCost(othersCost);
-    fuel$.subscribe(result => {
-      if (result.success) {
-        this.viewCtrl.dismiss();
-      }
-      this.showToast(result.message);
-    });
+    fuel$.subscribe(
+      result => {
+        if (result.success) {
+          this.viewCtrl.dismiss();
+        }
+        this.showToast(result.message);
+      },
+      error => this.showToast("خطا در برقراری ارتباط با سرور")
+    );
   }
 
   formErrorCheck() {
-    const message = this.costForm.get("costDate").hasError("required")
-      ? "فیلد تاریخ الزامی است"
-      : this.costForm.get("costValue").hasError("required")
-      ? "فیلد هزینه الزامی است"
-      : "خطا";
+    const message = this.costForm.get("costDate").hasError("required") ? "فیلد تاریخ الزامی است" : this.costForm.get("costValue").hasError("required") ? "فیلد هزینه الزامی است" : "خطا";
     return message;
   }
 
