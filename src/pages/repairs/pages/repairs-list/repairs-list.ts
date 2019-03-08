@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, AlertController, PopoverController } from "ionic-angular";
+import { NavController, AlertController, PopoverController, ToastController, Toast } from "ionic-angular";
 import { NewRepairFormPage } from "../new-repair-form/new-repair-form";
 import { VehicleMenuPage } from "../../../vehicle-menu/vehicle-menu";
 import { CarStorage } from "../../../../storage/car/car";
@@ -19,12 +19,10 @@ export class RepairsListPage implements OnInit {
   title = "تعمیرات";
   selectedCar: Car;
   repairs = [] as Repair[];
-  constructor(
-    public navCtrl: NavController,
-    public popoverCtrl: PopoverController,
-    public carStorage: CarStorage,
-    public repairsProvider: RepairsProvider
-  ) {}
+
+  toast: Toast;
+  
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public popoverCtrl: PopoverController, public carStorage: CarStorage, public repairsProvider: RepairsProvider) {}
 
   async ngOnInit() {
     this.selectedCar = await this.carStorage.getSelectedCar();
@@ -44,22 +42,23 @@ export class RepairsListPage implements OnInit {
   }
 
   editOrRemoveItem(repair: Repair) {
-    const editRemovePopover = this.popoverCtrl.create(
-      EditBarCompponent,
-      {},
-      { cssClass: "editBarPopover" }
-    );
+    const editRemovePopover = this.popoverCtrl.create(EditBarCompponent, {}, { cssClass: "editBarPopover" });
     editRemovePopover.present();
     editRemovePopover.onDidDismiss(async action => {
       if (action && action.remove) {
         let cost$ = await this.repairsProvider.removeRepair(repair.id);
-        cost$.subscribe(d => console.log(d));
-      } else if (action && action.edit) {
-        const popover = this.popoverCtrl.create(
-          EditRepairFormPage,
-          { repair },
-          { cssClass: "costPopover" }
+        cost$.subscribe(
+          result => {
+            if (result && result.success) {
+              return this.showToast(result.message);
+            } else if (result && !result.success) {
+              return this.showToast(result.message);
+            }
+          },
+          error => this.showToast("خطا در برقراری ارتباط با سرور")
         );
+      } else if (action && action.edit) {
+        const popover = this.popoverCtrl.create(EditRepairFormPage, { repair }, { cssClass: "costPopover" });
         popover.present();
       }
     });
@@ -72,5 +71,19 @@ export class RepairsListPage implements OnInit {
 
   navToHome() {
     this.navCtrl.push(VehicleMenuPage);
+  }
+
+  showToast(message) {
+    this.toast = this.toastCtrl.create({
+      message: message,
+      position: "bottom",
+      duration: 2000,
+      cssClass: "toast"
+    });
+    this.toast.present();
+  }
+
+  dismissToast() {
+    this.toast.dismiss();
   }
 }
