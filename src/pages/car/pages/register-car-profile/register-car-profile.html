@@ -1,8 +1,11 @@
 <ion-content>
+  <div class="navbar-container">
+    <ion-icon name="arrow-back" (click)="navBackward()"></ion-icon>
+  </div>
   <div class="header-container row">
     <div class="header-text">اطلاعات خودرو</div>
     <img src="../../assets/imgs/car-front.png" alt="" />
-    <ion-badge class="add-photo-badge">+</ion-badge>
+    <!-- <ion-badge class="add-photo-badge">+</ion-badge> -->
   </div>
 
   <form class="form-container" [formGroup]="carProfileForm" (ngSubmit)="registerCar()">
