@@ -5,8 +5,8 @@ register-car-profile {
 
   .header-container {
     width: contents;
-    height: 180px;
-    padding: 20px;
+    height: 120px;
+    padding: 0px;
     position: relative;
     border-bottom: 2px dashed rgb(255, 176, 0);
     background-color: white;
@@ -48,14 +48,13 @@ register-car-profile {
       color: rgb(112, 112, 112);
       font-size: 14px;
     }
-
   }
 }
 
 .listPopover .popover-content {
-    width: 80%;
-    height: 60%;
-    bottom: 10% !important;
-    left: 10% !important;
-    top: auto !important;
+  width: 80%;
+  height: 60%;
+  bottom: 10% !important;
+  left: 10% !important;
+  top: auto !important;
 }
