@@ -206,8 +206,29 @@
     top: 40% !important;
   }
 
+  // image gallary popover
+  .gallery-popover .popover-content {
+    width: 100%;
+    height: fit-content;
+    left: 0px !important;
+  }
+
   ion-backdrop {
-    opacity: 0.4 !important;
+    opacity: 0.2 !important;
+  }
+
+  ion-loading.loadingClass {
+    .loading-wrapper {
+      width: 36px;
+      height: 36px;
+      padding: 0 !important;
+      justify-content: center;
+      border-radius: 50% !important;
+    }
+    .loading-spinner {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   // fab
@@ -232,6 +253,11 @@
   }
 
   // custom sass
+  .navbar-container {
+    padding: 20px;
+    background-color: white;
+    font-size: 20px;
+  }
   .form-container {
     width: 85%;
     margin: auto;
