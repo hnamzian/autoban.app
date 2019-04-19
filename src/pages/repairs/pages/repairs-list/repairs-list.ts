@@ -114,7 +114,8 @@ export class RepairsListPage implements OnInit {
 
   showLoader() {
     this.loading = this.loadingCtrl.create({
-      showBackdrop: false
+      showBackdrop: false,
+      cssClass: "loadingClass"
     });
 
     this.loading.present();
