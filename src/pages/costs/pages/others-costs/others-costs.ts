@@ -104,7 +104,8 @@ export class OthersCostsPage {
 
   showLoader() {
     this.loading = this.loadingCtrl.create({
-      showBackdrop: false
+      showBackdrop: false,
+      cssClass: 'loadingClass'
     });
 
     this.loading.present();
