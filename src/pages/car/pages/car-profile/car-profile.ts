@@ -214,6 +214,10 @@ export class CarProfilePage implements OnInit {
     return message;
   }
 
+  navBackward() {
+    this.navCtrl.push(VehicleMenuPage);
+  }
+
   showToast(message) {
     this.toast = this.toastCtrl.create({
       message: message,
